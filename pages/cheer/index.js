@@ -8,7 +8,7 @@ import CreateBoard from "../../components/create-board";
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import Nav from 'react-bootstrap/Nav';
 
 
 export default function ListBoards() {
@@ -23,24 +23,26 @@ export default function ListBoards() {
             <Header/>
 
             <Container>
-                <div>
-                    <Button variant={filter === 'given' ? "primary" : "link"}
-                            onClick={() => setFilter('given')}>
-                        Given
-                    </Button>
-                    |
-                    <Button variant={filter === 'received' ? "primary" : "link"}
-                            onClick={() => setFilter('received')}>
-                        Received
-                    </Button>
-                    |
-                    <Button
-                        onClick={() => setModal(true)}  data-toggle="modal" data-target="#exampleModal">
-                        New Cheer!
-                    </Button>
-                </div>
+                <Nav variant="pills" activeKey="given" onSelect={setFilter}>
+                    <Nav.Item>
+                        <Nav.Link eventKey="given">
+                            Given
+                        </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link eventKey="received">
+                            Received
+                        </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link onClick={handleShow}>
+                            New Cheer!
+                        </Nav.Link>
+                    </Nav.Item>
 
-                {[...Array( filter === 'given' ? 3 : 1).keys()].map(id =>
+                </Nav>
+
+                {[...Array(filter === 'given' ? 3 : 1).keys()].map(id =>
                     <BoardSummary id={id} key={id}/>
                 )}
             </Container>

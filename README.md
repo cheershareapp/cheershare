@@ -1,3 +1,13 @@
+## Todo
+
+- Sidebar for Editor screen
+- APIs to save and load cheerboards
+- Commere-like theme
+- Configuring next-auth with Tokens, info
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
