@@ -1,10 +1,11 @@
+import {useState} from "react";
+
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import BoardSummary from "../../components/board-summary";
-import {useState} from "react";
-// import "bootstrap/js/src/modal";
 import CreateBoard from "../../components/create-board";
 
+// import "bootstrap/js/src/modal";
 // import dynamic from "next/dist/next-server/lib/dynamic";
 // const modal = dynamic(() => import("bootstrap/js/src/modal"))
 
@@ -59,6 +60,7 @@ export default function ListBoards() {
                     </div>
                 </div>
             </div>
+
             <Footer/>
         </>
     );

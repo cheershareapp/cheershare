@@ -23,7 +23,7 @@ export default class Pin extends React.Component {
                                     className="btn btn-sm btn-outline-secondary">Edit
                             </button>
                         </div>
-                        <small className="text-muted">{this.props.id} mins</small>
+                        <small className="text-muted">{this.props.id + 1} mins</small>
                     </div>
                 </div>
             </div>

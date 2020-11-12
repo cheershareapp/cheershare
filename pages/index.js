@@ -3,13 +3,14 @@ import styles from '../styles/Home.module.css'
 
 import React, {Component} from 'react';
 import { useSession } from 'next-auth/client'
-import CreateBoard from "../components/create-board";
 import Footer from "../components/footer";
-
+import useSWR from "swr";
 
 export default function Home() {
     const [ session, loading ] = useSession();
-
+    const { data, error } = useSWR('/api/hello');
+    if (error) return <div>failed to load</div>;
+    if (!data) return <div>loading...</div>;
   return (
     <div className={styles.container}>
       <Head>
@@ -19,7 +20,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Hello
+          Hello <span>{data.name}!</span>
         </h1>
 
         <p className={styles.description}>
@@ -44,5 +45,5 @@ export default function Home() {
 
         <Footer />
     </div>
-  )
+  );
 }
