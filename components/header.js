@@ -2,20 +2,7 @@ import React, {useState} from "react";
 import {signIn, signOut, useSession} from "next-auth/client";
 import {Container, Navbar, Nav, NavDropdown, Dropdown, DropdownButton, Button} from "react-bootstrap";
 import CreateBoardModal from "./create-board";
-
-function Icon(props) {
-    console.log(props)
-    return (<Button variant="link" {...props}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                 stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                 aria-hidden="true" className="mr-2" viewBox="0 0 24 24">
-        <path
-            d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-        <circle cx="12" cy="13" r="4"/>
-    </svg>
-        {props.children}
-    </Button>);
-}
+import Link from "next/link";
 
 export default function Header(props) {
     // const [ session, loading ] = useSession();
@@ -26,25 +13,26 @@ export default function Header(props) {
         <header>
             <Navbar bg="light" className="shadow-sm">
                 <Container>
-                    <Navbar.Brand href="#home">CheerShare</Navbar.Brand>
-                    {/*    <span className="navbar-toggler-icon"></span>*/}
+                    <Navbar.Brand href="/">CheerShare</Navbar.Brand>
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
-                        <Nav.Link href="#home">Dashboard</Nav.Link>
-                        <Nav.Link onClick={() => setModal(true)}>New Board</Nav.Link>
-                        {!session &&
-                            <Nav.Link>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                     stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                     aria-hidden="true" className="mr-2" viewBox="0 0 24 24">
-                                    <path
-                                        d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                                    <circle cx="12" cy="13" r="4"/>
-                                </svg>
-                            </Nav.Link>
-                        }
+                        {!session && <>
+                            <Nav.Link>Register</Nav.Link>
+                            <Button>Sign In</Button>
+                        </>}
 
                         {session && <>
+                            <Nav.Link href="/cheer" as={Link}>Dashboard</Nav.Link>
+                            <Nav.Link onClick={() => setModal(true)}>New Board</Nav.Link>
+
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-person-circle"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                                <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                <path fill-rule="evenodd"
+                                      d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                            </svg>
                             <DropdownButton
                                 variant="link"
                                 menuAlign="right"
@@ -59,7 +47,6 @@ export default function Header(props) {
                                 <Dropdown.Item eventKey="4">Logout</Dropdown.Item>
                             </DropdownButton>
                         </>}
-
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
