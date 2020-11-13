@@ -5,6 +5,7 @@ import Link from "next/link";
 export default function BoardSummary({id}) {
     return (
         <Media>
+            <Link href={`/cheer/${id}`}>
             <svg className="bd-placeholder-img mr-3" width="200" height="200"
                  xmlns="http://www.w3.org/2000/svg" role="img"
                  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
@@ -12,6 +13,7 @@ export default function BoardSummary({id}) {
                 <rect width="100%" height="100%" fill="#55595c"/>
                 <text x="30%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
             </svg>
+            </Link>
             {/*<img*/}
             {/*    className="mr-3"*/}
             {/*    src="https://placeimg.com/200/200/all"*/}

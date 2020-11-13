@@ -2,12 +2,9 @@ import React from "react";
 import { withRouter } from 'next/router'
 import Pin from "../../../components/pin";
 import Header from "../../../components/header";
-import styles from "../../../styles/Editor.module.css"
-import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import Footer from "../../../components/footer";
-import Spinner from "react-bootstrap/Spinner";
+import styles from "../../../styles/Editor.module.css"
+import { ButtonGroup, Button, Row, Col, Container} from "react-bootstrap";
 
 /*
 References
@@ -104,6 +101,7 @@ class Editor extends React.Component {
 
         // TODO figure out spinner/lazy-loading
         /*
+        https://medium.com/evolve-technology/hide-that-da6264a7e1f
         {!this.checkLoaded() && <Spinner animation="border" />}
         className={!this.state.loaded && 'visible'}
          */
@@ -111,6 +109,25 @@ class Editor extends React.Component {
             <>
                 <Header/>
                 <Container className={styles.board} ref={this.board}>
+                    <Row className="justify-content-md-center my-5">
+                        <h1>Happy Cheer-aversary</h1>
+                    </Row>
+                    <Row className="m-2">
+                        <Col>
+                        <Button variant="primary" size="lg">
+                            Add a cheer!
+                        </Button>
+                        </Col>
+                        <Col className="text-right align-text-bottom">
+                            <ButtonGroup aria-label="Basic example">
+                                <Button variant="secondary">Preview</Button>
+                                <Button variant="secondary">Invite</Button>
+                                <Button variant="secondary">Schedule</Button>
+                                <Button variant="secondary">Background</Button>
+                                <Button variant="secondary">Settings</Button>
+                            </ButtonGroup>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col className={styles.boardColumn}>
                             <div className={styles.boardColumnContent} ref={this.itemContainers[0]}>
