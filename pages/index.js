@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import { useSession } from 'next-auth/client'
 import Footer from "../components/footer";
 import useSWR from "swr";
+import Link from "next/link";
 
 export default function Home() {
     const [ session, loading ] = useSession();
@@ -29,17 +30,16 @@ export default function Home() {
         </p>
 
           <div className={styles.grid}>
-              <a href="/business" className={styles.card}>
+              <a className={styles.card} href="/business">
                   <h3>Business Page &rarr;</h3>
                   <p>Discover and deploy boilerplate example Next.js projects.</p>
               </a>
-              <a
-                  href="/cheer"
-                  className={styles.card}
-              >
+              <Link href="/cheer">
+              <a className={styles.card}>
                   <h3>List Boards &rarr;</h3>
                   <p>Discover and deploy boilerplate example Next.js projects.</p>
               </a>
+              </Link>
           </div>
       </main>
 

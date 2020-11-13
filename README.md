@@ -2,9 +2,9 @@
 
 - [ ] Sidebar for Editor screen
 - [ ] APIs to save and load cheerboards
-- [w] Commerce-like theme
+- [ ] Commerce-like theme
 - [ ] Configuring next-auth with Tokens, info
-
+- [ ] Use `<Link>` instead of `<a>`
 
 
 

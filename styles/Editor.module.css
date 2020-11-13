@@ -8,7 +8,7 @@
 .boardColumnContent {
   position: relative;
   border: 10px solid transparent;
-  min-height: 95px;
+  min-height: 1024px;
 }
 .boardItem {
   position: absolute;

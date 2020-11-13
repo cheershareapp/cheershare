@@ -11,7 +11,7 @@ export default class Pin extends React.Component {
         return (
             <div className={styles.boardItem}>
             <Card className="shadow-sm">
-                <Card.Img src={imageSource} className="bd-placeholder-img card-img-top" width="100%" />
+                <Card.Img src={imageSource} className="bd-placeholder-img card-img-top" width="100%" onLoad={this.props.onImageLoad}/>
 
                 <Card.Body className={styles.boardItemContent}>
                     <Card.Text>This is a wider card with supporting text below as a
@@ -19,7 +19,7 @@ export default class Pin extends React.Component {
                         longer.</Card.Text>
                     <div className="d-flex justify-content-between align-items-center">
                         <ButtonGroup>
-                            <Button variant="outline-secondary">View</Button>
+                            <Button variant="outline-secondary">Like</Button>
                             <Button variant="outline-secondary">Edit</Button>
                         </ButtonGroup>
                         <small className="text-muted">{this.props.id + 1} mins</small>

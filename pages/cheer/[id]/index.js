@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from 'next/router'
+import { withRouter } from 'next/router'
 import Pin from "../../../components/pin";
 import Header from "../../../components/header";
 import styles from "../../../styles/Editor.module.css"
@@ -7,6 +7,7 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Footer from "../../../components/footer";
+import Spinner from "react-bootstrap/Spinner";
 
 /*
 References
@@ -15,7 +16,7 @@ https://github.com/haltu/muuri/blob/gh-pages/js/demo-kanban.js
 https://github.com/haltu/muuri/blob/gh-pages/css/demo-kanban.css
  */
 
-export default class Editor extends React.Component {
+class Editor extends React.Component {
     constructor(props) {
         super(props);
         this.itemContainers = [
@@ -24,6 +25,8 @@ export default class Editor extends React.Component {
             React.createRef(),
         ];
         this.board = React.createRef();
+        this.incrementLoading = this.incrementLoading.bind(this);
+        this.state = { loading: 0, loaded: false }
     }
 
     async componentDidMount() {
@@ -64,18 +67,46 @@ export default class Editor extends React.Component {
                     item.getElement().style.height = '';
                     item.getGrid().refreshItems([item]);
                     // TODO serializeLayout() -> API call
-                    this.columnGrids.forEach(function (grid) {
-                        grid.refreshItems();
-                    });
+                    // this.columnGrids.forEach(function (grid) {
+                    //     grid.refreshItems();
+                    // });
                 });
         });
     }
 
+    incrementLoading() {
+        this.setState({ loading: this.state.loading + 1 });
+
+        if (this.checkLoaded()) {
+            this.columnGrids.forEach((grid) => {
+                grid.refreshItems();
+                grid.layout();
+            });
+            console.log("loading is done")
+            // this.setState({loaded: true});
+        }
+    }
+
+    checkLoaded() {
+        // TODO figure out the router on refresh
+        /* const router = this.props.router;
+           let {id} = router.query;
+           return this.state.loading === 4 && !!id;
+        */
+        return this.state.loading === 4;
+    }
+
     render() {
-        // const router = useRouter();
-        // const {id} = router.query;
-        //<strong> {id} </strong>
-        const children = [...Array(5).keys()].map(id => <Pin id={id} key={id}/>);
+        const id = 0;
+        const [p1, p2, p3, p4, p5] = [...Array(5).keys()].map(i =>
+            <Pin id={id+i} key={id+i} onImageLoad={this.incrementLoading}/>
+        );
+
+        // TODO figure out spinner/lazy-loading
+        /*
+        {!this.checkLoaded() && <Spinner animation="border" />}
+        className={!this.state.loaded && 'visible'}
+         */
         return (
             <>
                 <Header/>
@@ -83,19 +114,20 @@ export default class Editor extends React.Component {
                     <Row>
                         <Col className={styles.boardColumn}>
                             <div className={styles.boardColumnContent} ref={this.itemContainers[0]}>
-                                <Pin id={1}/>
-                                <Pin id={2}/>
+                                {p1}
+                                {p2}
                             </div>
                         </Col>
                         <Col className={styles.boardColumn}>
                             <div className={styles.boardColumnContent} ref={this.itemContainers[1]}>
-                                <Pin id={3}/>
-                                <Pin id={4}/>
+                                {p3}
                             </div>
                         </Col>
                         <Col className={styles.boardColumn}>
                             <div className={styles.boardColumnContent} ref={this.itemContainers[2]}>
-                                <Pin id={5}/>
+                                {p4}
+                                {p5}
+
                                 <div className={styles.boardItem}>
                                     <div className={styles.boardItemContent}><span>Item #</span>11</div>
                                 </div>
@@ -128,3 +160,4 @@ export default class Editor extends React.Component {
         );
     }
 }
+export default withRouter(Editor);

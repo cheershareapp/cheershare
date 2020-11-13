@@ -41,8 +41,8 @@ export default function ListBoards() {
                 </Nav>
 
                 <ListGroup variant="flush">
-                    {[...Array(filter === 'given' ? 3 : 1).keys()].map(id => (<ListGroup.Item>
-                        <BoardSummary id={id} key={id}/>
+                    {[...Array(filter === 'given' ? 3 : 1).keys()].map(id => (<ListGroup.Item key={id}>
+                        <BoardSummary id={id}/>
                     </ListGroup.Item>))}
                 </ListGroup>
             </Container>
