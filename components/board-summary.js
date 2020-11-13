@@ -1,27 +1,69 @@
+import {Row, Col, Media, Button, ButtonGroup, ListGroup, Form, Container} from "react-bootstrap";
+import React from "react";
+import Link from "next/link";
+
 export default function BoardSummary({id}) {
     return (
-        <div className="card shadow-sm">
-            <div className="card-body">
-                <h3>You're Amazing!</h3>
-                <p className="card-text">
-                    FOR  Abby Hall
-                    MINI BOARD
-                    CREATOR Sid Ghodke
-                    CREATED October 30, 2020
-                </p>
-                <a href={`/cheer/${id}/upgrade`}>POSTS Upgrade 4 (Max of 10)</a>
+        <Media>
+            <svg className="bd-placeholder-img mr-3" width="200" height="200"
+                 xmlns="http://www.w3.org/2000/svg" role="img"
+                 aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+                 focusable="false"><title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#55595c"/>
+                <text x="30%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+            </svg>
+            {/*<img*/}
+            {/*    className="mr-3"*/}
+            {/*    src="https://placeimg.com/200/200/all"*/}
+            {/*/>*/}
+            <Media.Body>
+                <h4>You're Amazing!</h4>
+                {/*<Container>*/}
+                {/*    <Row>*/}
+                {/*        <Col xs={7}>*/}
+                {/*            <label>For</label>*/}
+                {/*        </Col>*/}
+                {/*    </Row>*/}
+                {/*</Container>*/}
+                <Form>
+                    <Form.Group as={Row} controlId="formPlaintextEmail">
+                        <Form.Label column sm="2">
+                            FOR
+                        </Form.Label>
+                        <Col sm="2">
+                            <Form.Control plaintext readOnly defaultValue="Abby Hall" />
+                        </Col>
+
+                        <Form.Text column sm="4" className="text-right">
+                            MINI BOARD
+                        </Form.Text>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextPassword">
+                        <Form.Label column sm="2">
+                            CREATOR
+                        </Form.Label>
+                        <Col sm="2">
+                            <Form.Control plaintext readOnly defaultValue="Sid Ghodke" />
+                        </Col>
+
+                        <Form.Label column sm="3    " className="text-right">
+                            CREATED
+                        </Form.Label>
+                        <Col>
+                            <Form.Control plaintext readOnly defaultValue="October 30, 2020"/>
+                        </Col>
+                    </Form.Group>
+                </Form>
+
+                <Link href={`/cheer/${id}/upgrade`}>POSTS Upgrade 4 (Max of 10)</Link>
                 <div className="d-flex justify-content-between align-items-center">
-                    <div className="btn-group">
-                        <a href={`/cheer/${id}/invite`}
-                                className="btn btn-sm btn-outline-secondary">View
-                        </a>
-                        <a href={`/cheer/${id}`}
-                                className="btn btn-sm btn-outline-secondary">Edit
-                        </a>
-                    </div>
+                    <ButtonGroup>
+                        <Button href={`/cheer/${id}/invite`} variant="outline-secondary" size="sm" as={Link}>Invite</Button>
+                        <Button href={`/cheer/${id}`} variant="outline-secondary" size="sm" as={Link}>Edit</Button>
+                    </ButtonGroup>
                     <small className="text-muted">LAST POST ADDED 3 days ago</small>
                 </div>
-            </div>
-        </div>
+            </Media.Body>
+        </Media>
     );
 }

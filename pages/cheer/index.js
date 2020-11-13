@@ -7,6 +7,7 @@ import BoardSummary from "../../components/board-summary";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import CreateBoardModal from "../../components/create-board";
+import ListGroup from "react-bootstrap/ListGroup";
 
 
 export default function ListBoards() {
@@ -21,7 +22,7 @@ export default function ListBoards() {
             <Header/>
             <CreateBoardModal showModal={showModal} setModal={setModal}/>
             <Container>
-                <Nav variant="pills" activeKey="given" onSelect={setFilter}>
+                <Nav variant="pills" activeKey={filter} onSelect={setFilter} className="py-4">
                     <Nav.Item>
                         <Nav.Link eventKey="given">
                             Given
@@ -39,9 +40,11 @@ export default function ListBoards() {
                     </Nav.Item>
                 </Nav>
 
-                {[...Array(filter === 'given' ? 3 : 1).keys()].map(id =>
-                    <BoardSummary id={id} key={id}/>
-                )}
+                <ListGroup variant="flush">
+                    {[...Array(filter === 'given' ? 3 : 1).keys()].map(id => (<ListGroup.Item>
+                        <BoardSummary id={id} key={id}/>
+                    </ListGroup.Item>))}
+                </ListGroup>
             </Container>
 
             <Footer/>
