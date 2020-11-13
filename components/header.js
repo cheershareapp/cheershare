@@ -49,6 +49,7 @@ export default function Header(props) {
                                 variant="link"
                                 menuAlign="right"
                                 size="lg"
+                                title=""
                             >
                                 <Dropdown.Header>{session.user.email || 'Email'}</Dropdown.Header>
                                 <Dropdown.Item eventKey="1">Account</Dropdown.Item>
