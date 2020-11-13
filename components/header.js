@@ -1,66 +1,68 @@
-import React from "react";
+import React, {useState} from "react";
 import {signIn, signOut, useSession} from "next-auth/client";
+import {Container, Navbar, Nav, NavDropdown, Dropdown, DropdownButton, Button} from "react-bootstrap";
+import CreateBoardModal from "./create-board";
 
-export default function Header() {
-    const [ session, loading ] = useSession();
-
-        return (
-            <header>
-                <div className="collapse bg-dark" id="navbarHeader">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-sm-8 col-md-7 py-4">
-                                <h4 className="text-white">About</h4>
-                                <p className="text-muted">Add some information about the album below, the author, or any
-                                    other background context. Make it a few sentences long so folks can pick up some
-                                    informative tidbits. Then, link them off to some social networking sites or contact
-                                    information.</p>
-                            </div>
-                            <div className="col-sm-4 offset-md-1 py-4">
-                                <h4 className="text-white">Contact</h4>
-                                <ul className="list-unstyled">
-                                    <li><a href="#" className="text-white">Follow on Twitter</a></li>
-                                    <li><a href="#" className="text-white">Like on Facebook</a></li>
-                                    <li><a href="#" className="text-white">Email me</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="navbar navbar-dark bg-dark shadow-sm">
-                    <div className="container">
-                        <a href="/" className="navbar-brand d-flex align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                 stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                 aria-hidden="true" className="mr-2" viewBox="0 0 24 24">
-                                <path
-                                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                                <circle cx="12" cy="13" r="4"/>
-                            </svg>
-                            <strong>Album</strong>
-                        </a>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false"
-                                aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-                </div>
-            </header>
-        )
+function Icon(props) {
+    console.log(props)
+    return (<Button variant="link" {...props}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                 stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                 aria-hidden="true" className="mr-2" viewBox="0 0 24 24">
+        <path
+            d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+        <circle cx="12" cy="13" r="4"/>
+    </svg>
+        {props.children}
+    </Button>);
 }
 
-/*
-    <header>
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-        {!session && <>
-            Not signed in <br/>
-            <button onClick={signIn}>Sign in</button>
-        </>}
+export default function Header(props) {
+    // const [ session, loading ] = useSession();
+    let session = { user: {} };
+    const [showModal, setModal] = useState(props.showModal || false);
 
-        {session && <>
-            Signed in as {session.user.email} <br/>
-            <button onClick={signOut}>Sign out</button>
-        </>}
-    </header>
-*/
+    return (
+        <header>
+            <Navbar bg="light" className="shadow-sm">
+                <Container>
+                    <Navbar.Brand href="#home">CheerShare</Navbar.Brand>
+                    {/*    <span className="navbar-toggler-icon"></span>*/}
+                    <Navbar.Toggle />
+                    <Navbar.Collapse className="justify-content-end">
+                        <Nav.Link href="#home">Dashboard</Nav.Link>
+                        <Nav.Link onClick={() => setModal(true)}>New Board</Nav.Link>
+                        {!session &&
+                            <Nav.Link>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                     stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                     aria-hidden="true" className="mr-2" viewBox="0 0 24 24">
+                                    <path
+                                        d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                    <circle cx="12" cy="13" r="4"/>
+                                </svg>
+                            </Nav.Link>
+                        }
+
+                        {session && <>
+                            <DropdownButton
+                                variant="link"
+                                menuAlign="right"
+                                size="lg"
+                            >
+                                <Dropdown.Header>{session.user.email || 'Email'}</Dropdown.Header>
+                                <Dropdown.Item eventKey="1">Account</Dropdown.Item>
+                                <Dropdown.Item eventKey="2">History</Dropdown.Item>
+                                <Dropdown.Item eventKey="3">Invite Friend</Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item eventKey="4">Logout</Dropdown.Item>
+                            </DropdownButton>
+                        </>}
+
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+            <CreateBoardModal showModal={showModal} setModal={setModal}/>
+        </header>
+    )
+}

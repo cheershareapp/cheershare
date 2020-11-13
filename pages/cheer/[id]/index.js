@@ -2,8 +2,13 @@ import React from "react";
 import { useRouter } from 'next/router'
 import Pin from "../../../components/pin";
 import Header from "../../../components/header";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import s from "../../../styles/Scratch.module.css"
 
-export default class Editor extends React.Component {
+console.log(s)
+export default class Scratch extends React.Component {
     constructor(props) {
         super(props);
         this.itemContainers = [
@@ -21,6 +26,10 @@ export default class Editor extends React.Component {
         this.columnGrids = this.itemContainers.map((container) => {
             return new Muuri(container.current, {
                     items: '.board-item',
+                    layoutDuration: 400,
+                    layoutEasing: 'ease',
+                    dragReleaseDuration: 400,
+                    dragReleaseEasing: 'ease',
                     dragEnabled: true,
                     dragSort: () => {
                         return this.columnGrids;
@@ -43,7 +52,10 @@ export default class Editor extends React.Component {
                     item.getElement().style.width = '';
                     item.getElement().style.height = '';
                     item.getGrid().refreshItems([item]);
-                    // this.serializeLayout();
+                    // TODO serializeLayout() -> API call
+                    // this.columnGrids.forEach(function (grid) {
+                    //     grid.refreshItems();
+                    // });
                 })
                 .on('layoutStart', () => {
                     // this.boardGrid.refreshItems().layout();
@@ -60,38 +72,43 @@ export default class Editor extends React.Component {
             <>
                 <Header/>
                 <div className="drag-container" ref={this.dragContainer}></div>
-                {/*row-cols-1 row-cols-sm-2*/}
-                <div className="container">
-                <div className="row row-cols-md-3 mb-3">
-                    <div className="col board-column">
-                        <div className="board-column-container">
+                <Container fluid>
+                <Row className="row-cols-md-3 mb-3">
+                    <Col className="board-column">
+                        <div className={s.boardColumnContainer}>
                             <div className="board-column-content-wrapper">
                                 <div className="board-column-content" ref={this.itemContainers[0]}>
                                     {children.slice(0, 2)}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col board-column">
-                        <div className="board-column-container">
+                    </Col>
+                    <Col className="board-column">
+                        <div className={s.boardColumnContainer}>
                             <div className="board-column-content-wrapper">
                                 <div className="board-column-content" ref={this.itemContainers[1]}>
                                     {children.slice(2, 3)}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col board-column">
-                        <div className="board-column-container">
+                    </Col>
+                    <Col className="board-column">
+                        <div className={s.boardColumnContainer}>
                             <div className="board-column-content-wrapper">
                                 <div className="board-column-content" ref={this.itemContainers[2]}>
                                     {children.slice(3, 5)}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                </div>
+                    </Col>
+                </Row>
+                {/* TODO Add Sidebar https://stackoverflow.com/a/60482229 */}
+                </Container>
+                <style global jsx >{`
+        .board-column {
+          background-color: blue;
+        }
+      `}</style>
             </>
         );
     }

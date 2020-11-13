@@ -1,9 +1,9 @@
 ## Todo
 
-- Sidebar for Editor screen
-- APIs to save and load cheerboards
-- Commere-like theme
-- Configuring next-auth with Tokens, info
+- [ ] Sidebar for Editor screen
+- [ ] APIs to save and load cheerboards
+- [w] Commerce-like theme
+- [ ] Configuring next-auth with Tokens, info
 
 
 
