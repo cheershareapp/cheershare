@@ -3,6 +3,7 @@ import { withRouter } from 'next/router'
 import Pin from "../../../components/pin";
 import Header from "../../../components/header";
 import Footer from "../../../components/footer";
+import Sidebar from "../../../components/sidebar";
 import styles from "../../../styles/Editor.module.css"
 import { ButtonGroup, Button, Row, Col, Container} from "react-bootstrap";
 import Link from "next/link";
@@ -24,7 +25,8 @@ class Editor extends React.Component {
         ];
         this.board = React.createRef();
         this.incrementLoading = this.incrementLoading.bind(this);
-        this.state = { loading: 0, loaded: false }
+        this.setSidebar = this.setSidebar.bind(this);
+        this.state = { loading: 0, loaded: false, sidebar: false }
     }
 
     async componentDidMount() {
@@ -94,6 +96,10 @@ class Editor extends React.Component {
         return this.state.loading === 4;
     }
 
+    setSidebar(val) {
+        this.setState({sidebar: val});
+    }
+
     render() {
         const router = this.props.router;
         const id = 0;
@@ -134,8 +140,8 @@ class Editor extends React.Component {
                                     <Button variant="secondary">Invite</Button>
                                 </Link>
                                 <Button variant="secondary">Schedule</Button>
-                                <Button variant="secondary">Background</Button>
-                                <Button variant="secondary">Settings</Button>
+                                <Button variant="secondary" onClick={() => this.setSidebar(true)}>Background</Button>
+                                <Button variant="secondary" onClick={() => this.setSidebar(true)}>Settings</Button>
                             </ButtonGroup>
                         </Col>
                     </Row> }
@@ -166,6 +172,7 @@ class Editor extends React.Component {
                         </Col>
                     </Row>
                 </Container>
+                <Sidebar show={this.state.sidebar} setSidebar={this.setSidebar}/>
                 <style jsx global>{`
                     .muuri-item-placeholder {
                         z-index: 9;
