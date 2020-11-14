@@ -7,6 +7,8 @@ const Sidebar = ({ show, setSidebar }) => {
     const handleClose = () => setSidebar(false);
     const handleShow = () => setSidebar(true);
 
+    // TODO Use Optimized images for Pins, image search, background selection, etc.
+    // https://nextjs.org/docs/basic-features/image-optimization
     return (<>
         <Modal show={show} onHide={handleClose}  animation={false} scrollable size="sm"
                dialogClassName={styles.sidebarDialog} contentClassName={styles.sidebarContent}>

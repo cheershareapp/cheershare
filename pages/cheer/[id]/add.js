@@ -14,6 +14,8 @@ import Tabs from "react-bootstrap/Tabs";
 import Alert from "react-bootstrap/Alert";
 import {useRouter} from "next/router";
 
+// TODO break up each of these pages as components, shrink this file
+// maybe use React Portal?
 const ImagePage = ({ onSelect }) => <Nav defaultActiveKey="" onSelect={onSelect}>
     <Nav.Item>
         <Nav.Link eventKey="upload-image">Upload Image</Nav.Link>

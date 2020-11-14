@@ -11,6 +11,12 @@ import Form from 'react-bootstrap/Form';
 export default function Profile() {
     const [ session, loading ] = useSession();
 
+    // When rendering client side don't display anything until loading is complete
+    if (typeof window !== 'undefined' && loading) return null
+
+    // If no session exists, display access denied message
+    // TODO implement AccessDenied component
+    if (!session) { return  <><h1>AccessDenied</h1></> }
     return (
         <>
             <Header/>
