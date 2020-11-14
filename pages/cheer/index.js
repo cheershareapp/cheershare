@@ -47,7 +47,7 @@ export default function ListBoards() {
                 </ListGroup>
             </Container>
 
-            <Footer/>
+            <Footer fixed/>
         </>
     );
 }

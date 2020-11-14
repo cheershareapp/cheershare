@@ -5,8 +5,7 @@ import CreateBoardModal from "./create-board";
 import Link from "next/link";
 
 export default function Header(props) {
-    // const [ session, loading ] = useSession();
-    let session = { user: {} };
+    const [ session, loading ] = useSession();
     const [showModal, setModal] = useState(props.showModal || false);
 
     return (
@@ -17,8 +16,8 @@ export default function Header(props) {
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
                         {!session && <>
-                            <Nav.Link>Register</Nav.Link>
-                            <Button>Sign In</Button>
+                            <Nav.Link onClick={signIn}>Register</Nav.Link>
+                            <Button onClick={signIn}>Sign In</Button>
                         </>}
 
                         {session && <>
@@ -40,11 +39,11 @@ export default function Header(props) {
                                 title=""
                             >
                                 <Dropdown.Header>{session.user.email || 'Email'}</Dropdown.Header>
-                                <Dropdown.Item eventKey="1">Account</Dropdown.Item>
+                                <Dropdown.Item><Link href="profile">Account</Link></Dropdown.Item>
                                 <Dropdown.Item eventKey="2">History</Dropdown.Item>
                                 <Dropdown.Item eventKey="3">Invite Friend</Dropdown.Item>
                                 <Dropdown.Divider />
-                                <Dropdown.Item eventKey="4">Logout</Dropdown.Item>
+                                <Dropdown.Item onClick={signOut}>Logout</Dropdown.Item>
                             </DropdownButton>
                         </>}
                     </Navbar.Collapse>
