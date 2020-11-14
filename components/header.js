@@ -25,7 +25,7 @@ export default function Header(props) {
                             <Nav.Link href="/cheer" as={Link}>Dashboard</Nav.Link>
                             <Nav.Link onClick={() => setModal(true)}>New Board</Nav.Link>
 
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-person-circle"
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" className="bi bi-person-circle"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>

@@ -2,10 +2,9 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 
-export default function Footer() {
+export default function Footer({ fixed }) {
     return (<footer style={{fontSize: '0.8em'}}>
-        {/* TODO figure out a min-width on the container or set footer fixed="bottom" */}
-        <Navbar bg="light" variant="light" expand="lg" className="border-top">
+        <Navbar bg="light" variant="light" expand="lg" className="border-top" fixed={fixed && 'bottom'}>
             <Container>
             <Navbar.Text href="#home">B</Navbar.Text>
             <Navbar.Text href="#home">T</Navbar.Text>
