@@ -2,8 +2,12 @@ import Footer from "../../../components/footer";
 import Header from "../../../components/header";
 import styles from "../../../styles/Home.module.css";
 import React from "react";
+import { useRouter } from 'next/router'
+import {Button} from "react-bootstrap";
 
 export default function Invite() {
+    const router = useRouter()
+
     return (
         <>
             <Header />
@@ -21,11 +25,11 @@ export default function Invite() {
                 <h3>Facebook</h3>
                 <p className={styles.description}>
                     Send the invite through a Facebook message.
-                    <button>Go to Facebook</button>
+                    <Button>Go to Facebook</Button>
                 </p>
-                <a href="editor">Back to board</a>
+                <Button variant="link" onClick={() => router.back()}>Back to board</Button>
             </main>
-            <Footer />
+            <Footer fixed/>
         </>
     );
 }

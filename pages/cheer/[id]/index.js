@@ -5,6 +5,7 @@ import Header from "../../../components/header";
 import Footer from "../../../components/footer";
 import styles from "../../../styles/Editor.module.css"
 import { ButtonGroup, Button, Row, Col, Container} from "react-bootstrap";
+import Link from "next/link";
 
 /*
 References
@@ -94,6 +95,7 @@ class Editor extends React.Component {
     }
 
     render() {
+        const router = this.props.router;
         const id = 0;
         const [p1, p2, p3, p4, p5] = [...Array(5).keys()].map(i =>
             <Pin id={id+i} key={id+i} onImageLoad={this.incrementLoading}/>
@@ -108,26 +110,35 @@ class Editor extends React.Component {
         return (
             <>
                 <Header/>
-                <Container className={styles.board} ref={this.board}>
-                    <Row className="justify-content-md-center my-5">
+                <Container className={styles.board} ref={this.board} style={{ backgroundImage: "url(https://www.kudoboard.com/images/fun-background.png)"}}>
+                    <Row className="justify-content-md-center my-5 border-bottom bg-danger"
+                         style={{height: "6rem"}}>
                         <h1>Happy Cheer-aversary</h1>
                     </Row>
-                    <Row className="m-2">
+                    {!('preview' in router.query) && <Row className="m-2">
                         <Col>
-                        <Button variant="primary" size="lg">
-                            Add a cheer!
-                        </Button>
+
+                        <Link href={`${id}/add`}>
+                            <Button variant="primary" size="lg">
+                                Add a cheer!
+                            </Button>
+                        </Link>
                         </Col>
                         <Col className="text-right align-text-bottom">
                             <ButtonGroup aria-label="Basic example">
-                                <Button variant="secondary">Preview</Button>
-                                <Button variant="secondary">Invite</Button>
+
+                                <Link href={`${id}?preview`}>
+                                    <Button variant="secondary">Preview</Button>
+                                </Link>
+                                <Link href={`${id}/invite`}>
+                                    <Button variant="secondary">Invite</Button>
+                                </Link>
                                 <Button variant="secondary">Schedule</Button>
                                 <Button variant="secondary">Background</Button>
                                 <Button variant="secondary">Settings</Button>
                             </ButtonGroup>
                         </Col>
-                    </Row>
+                    </Row> }
                     <Row>
                         <Col className={styles.boardColumn}>
                             <div className={styles.boardColumnContent} ref={this.itemContainers[0]}>
