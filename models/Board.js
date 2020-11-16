@@ -58,7 +58,7 @@ const BoardSchema = new mongoose.Schema({
     type: String,
   },
 }, {
-  toObject: {
+  toJSON: {
     transform: function(doc, ret) {
       ret.id = ret._id.toString()
       delete ret._id;

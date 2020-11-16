@@ -15,8 +15,8 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const pets = await Board.find({}) /* find all the data in our database */
-        res.status(200).json({ success: true, data: pets })
+        const boards = await Board.find({}) /* find all the data in our database */
+        res.status(200).json(boards)
       } catch (error) {
         res.status(400).json({ success: false })
       }

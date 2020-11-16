@@ -70,6 +70,6 @@ export async function getServerSideProps(context) {
     *
     * */
     return {
-        props: { data: boards.map(v => v.toObject()) }, // will be passed to the page component as props
+        props: { data: boards.map(v => v.toJSON()) }, // will be passed to the page component as props
     }
 }
