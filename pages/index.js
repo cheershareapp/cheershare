@@ -9,9 +9,9 @@ import Link from "next/link";
 
 export default function Home() {
     const [ session, loading ] = useSession();
-    const { data, error } = useSWR('/api/hello');
-    if (error) return <div>failed to load</div>;
-    if (!data) return <div>loading...</div>;
+    // const { data, error } = useSWR('/api/hello');
+    // if (error) return <div>failed to load</div>;
+    // if (!data) return <div>loading...</div>;
   return (
     <div className={styles.container}>
       <Head>
@@ -21,7 +21,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Hello <span>{data.name}!</span>
+          Hello <span>{"data.name"}!</span>
         </h1>
 
         <p className={styles.description}>
@@ -30,10 +30,12 @@ export default function Home() {
         </p>
 
           <div className={styles.grid}>
-              <a className={styles.card} href="/business">
+              <Link href="/business">
+              <a className={styles.card}>
                   <h3>Business Page &rarr;</h3>
                   <p>Discover and deploy boilerplate example Next.js projects.</p>
               </a>
+              </Link>
               <Link href="/cheer">
               <a className={styles.card}>
                   <h3>List Boards &rarr;</h3>

@@ -1,28 +1,36 @@
 import {useState} from "react";
+import useSWR from 'swr'
+import {useSession} from "next-auth/client";
 
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import BoardSummary from "../../components/board-summary";
+import CreateBoardModal from "../../components/create-board";
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import CreateBoardModal from "../../components/create-board";
 import ListGroup from "react-bootstrap/ListGroup";
+import Board from "../../models/Board";
+import dbConnect from "../../utils/db";
 
 
-export default function ListBoards() {
+export default function ListBoards({ data: initialData, fetcher }) {
     const [filter, setFilter] = useState('given');
+    const [ session, loading ] = useSession();
+    const { data: boards, error } = useSWR('/api/boards', fetcher, { initialData })
 
     // TODO use a modal provider
     const [showModal, setModal] = useState(false);
     const handleShow = () => setModal(true);
 
+    // TODO develop board filter
+    //.filter(b => b.owner === session.user.id)
     return (
         <>
             <Header/>
             <CreateBoardModal showModal={showModal} setModal={setModal}/>
-            <Container>
-                <Nav variant="pills" activeKey={filter} onSelect={setFilter} className="py-4">
+            {boards ? (<Container>
+                    <Nav variant="pills" activeKey={filter} onSelect={setFilter} className="py-4">
                     <Nav.Item>
                         <Nav.Link eventKey="given">
                             Given
@@ -41,13 +49,27 @@ export default function ListBoards() {
                 </Nav>
 
                 <ListGroup variant="flush">
-                    {[...Array(filter === 'given' ? 3 : 1).keys()].map(id => (<ListGroup.Item key={id}>
-                        <BoardSummary id={id}/>
-                    </ListGroup.Item>))}
+                    {boards.map(board => <ListGroup.Item key={board.id}>
+                        <BoardSummary {...board}/>
+                    </ListGroup.Item>)}
                 </ListGroup>
-            </Container>
-
+            </Container>) : ("loading") }
+            {/* TODO figure out loading */}
             <Footer fixed/>
         </>
     );
+}
+
+export async function getServerSideProps(context) {
+    // const [ session, loading ] = useSession();
+    await dbConnect()
+    const boards = await Board.find({})
+    /* find all the data in our database
+    *
+    *  { ownerId: session.user.id }
+    *
+    * */
+    return {
+        props: { data: boards.map(v => v.toObject()) }, // will be passed to the page component as props
+    }
 }

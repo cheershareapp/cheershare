@@ -1,9 +1,16 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import useSWR from "swr";
 
 export default function CreateBoardModal(props) {
     const handleClose = () => props.setModal(false);
-    const handleShow = () => props.setModal(true);
+    const handleSubmit = () => {
+        // TODO implement POST
+        // https://swr.vercel.app/docs/with-nextjs
+        // https://github.com/vercel/swr/blob/master/examples/optimistic-ui/pages/index.js
+        const { data, error } = useSWR('/api/board');
+    }
 
     return (
         <Modal show={props.showModal} onHide={handleClose}
@@ -15,23 +22,27 @@ export default function CreateBoardModal(props) {
                 <Modal.Title>Create New CheerShare</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form>
-                    <label>
-                        Who is this Kudoboard for?
-                        <input type="text" placeholder="First name"/>
-                        <input type="text" placeholder="Last name" />
-                    </label>
-                    <label>
-                        What title would you like on top of the CheerShare?
-                        <input type="text" />
-                    </label>
-                </form>
+                <Form>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Who is this Kudoboard for?</Form.Label>
+                        <Form.Control type="text" placeholder="First name" />
+                        <Form.Control type="text" placeholder="Last name" />
+                        <Form.Text className="text-muted">
+                            We'll never share your email with anyone else.
+                        </Form.Text>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>What title would you like on top of the CheerShare?</Form.Label>
+                        <Form.Control type="text" />
+                    </Form.Group>
+                </Form>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={handleSubmit}>
                     Save Changes
                 </Button>
             </Modal.Footer>
