@@ -116,7 +116,8 @@ class Editor extends React.Component {
         return (
             <>
                 <Header/>
-                <Container className={styles.board} ref={this.board} style={{ backgroundImage: "url(https://www.kudoboard.com/images/fun-background.png)"}}>
+                {/*style={{ backgroundImage: "url(https://www.kudoboard.com/images/fun-background.png)"}}*/}
+                <Container className={styles.board} ref={this.board}>
                     <Row className="justify-content-md-center my-5 border-bottom bg-danger"
                          style={{height: "6rem"}}>
                         <h1>Happy Cheer-aversary</h1>

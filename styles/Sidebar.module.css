@@ -4,6 +4,8 @@
     /*width: 320px;*/
     height: 100%;
     transform: translate3d(0%, 0, 0);
+    right: 0;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
 }
 
 .sidebarContent {
@@ -15,10 +17,5 @@
 /* disused
 .modal.right.fade .modal-dialog {
     right: -320px;
-    transition: opacity 0.3s linear, right 0.3s ease-out;
 }
 */
-
-.right .modal-dialog {
-    right: 0;
-}

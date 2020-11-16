@@ -30,7 +30,7 @@ Profile should contain personal settings (timezone, credit card, email preferenc
 First, run the development server:
 
 ```bash
-brew service start mongodb
+brew services start mongodb-community
 npm run dev
 ```
 

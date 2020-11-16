@@ -10,28 +10,32 @@ export default async function handler(req, res) {
     // TODO re-enable Not Signed in
     // return res.status(401).end()
   }
-  await dbConnect()
+  await dbConnect();
+  const filter = {};
 
   switch (method) {
     case 'GET':
       try {
-        const boards = await Board.find({}) /* find all the data in our database */
+        const boards = await Board.find(filter); /* find all the data in our database */
         res.status(200).json(boards)
       } catch (error) {
         res.status(400).json({ success: false })
       }
-      break
+      break;
     case 'POST':
       try {
-        const data = await Board.create(
+        await Board.create(
             req.body
-        ) /* create a new model in the database */
-        res.status(201).json({ success: true, data })
+        ); /* create a new model in the database */
+
+        // we send the whole list of boards down as that is what the API expects
+        const data = await Board.find(filter);
+        res.status(201).json(data)
       } catch (error) {
         // TODO suppress the error?
         res.status(400).json({ success: false, error })
       }
-      break
+      break;
     default:
       res.status(400).json({ success: false })
       break

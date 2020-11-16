@@ -65,6 +65,6 @@ const BoardSchema = new mongoose.Schema({
       delete ret.__v;
     }
   }
-})
+});
 
 export default mongoose.models.Board || mongoose.model('Board', BoardSchema)

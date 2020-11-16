@@ -1,32 +1,54 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import useSWR from "swr";
+import { mutate } from "swr";
+import fetcher from "../utils/fetch";
+import { useRouter } from 'next/router'
 
-export default function CreateBoardModal(props) {
-    const handleClose = () => props.setModal(false);
-    const handleSubmit = () => {
-        // TODO implement POST
-        // https://swr.vercel.app/docs/with-nextjs
-        // https://github.com/vercel/swr/blob/master/examples/optimistic-ui/pages/index.js
-        const { data, error } = useSWR('/api/board');
-    }
+export default function CreateBoardModal({ setModal, showModal }) {
+    const handleClose = () => setModal(false);
+    const router = useRouter();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const { target: form } = e;
+        const { elements } = form;
+        const alias = +Date.now();
+
+        const newBoard = {
+            title: elements.title.value,
+            recipientFirstName: elements.recipientFirstName.value,
+            recipientLastName: elements.recipientFirstName.value,
+            ownerId: 1,         // TODO server to populate owner field
+            // TODO server to add lastModifiedTime
+            // id: alias,
+        };
+
+        await mutate('/api/boards',(boards) => [ ...boards, newBoard], false);
+
+        await mutate('/api/boards', await fetcher('/api/boards', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newBoard)
+        }));
+
+        return router.push(`/cheer/${alias}/`)
+    };
 
     return (
-        <Modal show={props.showModal} onHide={handleClose}
+        <Modal show={showModal} onHide={handleClose}
                size="lg"
                aria-labelledby="contained-modal-title-vcenter"
                centered
-        >
+        ><Form onSubmit={handleSubmit}>
             <Modal.Header closeButton>
                 <Modal.Title>Create New CheerShare</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Who is this Kudoboard for?</Form.Label>
-                        <Form.Control type="text" placeholder="First name" />
-                        <Form.Control type="text" placeholder="Last name" />
+                        <Form.Control type="text" placeholder="First name" name="recipientFirstName"/>
+                        <Form.Control type="text" placeholder="Last name" name="recipientLastName" />
                         <Form.Text className="text-muted">
                             We'll never share your email with anyone else.
                         </Form.Text>
@@ -34,18 +56,17 @@ export default function CreateBoardModal(props) {
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>What title would you like on top of the CheerShare?</Form.Label>
-                        <Form.Control type="text" />
+                        <Form.Control type="text" name="title" />
                     </Form.Group>
-                </Form>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleSubmit}>
+                <Button variant="primary" type="submit">
                     Save Changes
                 </Button>
             </Modal.Footer>
-        </Modal>
+        </Form></Modal>
     );
 }
