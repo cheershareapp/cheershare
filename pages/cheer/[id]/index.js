@@ -28,7 +28,7 @@ export default function Editor({ data: initialData }) {
     useEffect(async () => {
         const Muuri = (await import('muuri')).default;
 
-        columnGrids = itemContainers.map((container) => {
+        columnGrids = !columnGrids ? itemContainers.map((container) => {
             return new Muuri(container.current, {
                 items: '.' + styles.boardItem,
                 layoutDuration: 400,
@@ -64,8 +64,8 @@ export default function Editor({ data: initialData }) {
                 item.getGrid().refreshItems([item]);
                 // TODO serializeLayout() -> API call
             });
-        });
-    }, columnGrids);
+        }) : columnGrids;
+    }, []);
 
     // useEffect(() => {
     //     columnGrids.forEach(function (grid) {
@@ -73,18 +73,38 @@ export default function Editor({ data: initialData }) {
     //         grid.layout();
     //     });
     // });
-
-    const [sidebar, setSidebar] = useState(false)
     const router = useRouter();
 
     const { id } = router.query;
 
-    // const { data : boards } = useSWR(`/api/boards`, fetcher); // shouldRevalidate = false
-    const { data, error, mutate } = useSWR(`/api/boards/${id}`, fetcher, initialData);
+    const { data: serverData, error, mutate } = useSWR(`/api/boards/${id}`, fetcher, initialData);
+    // shouldRevalidate = false
 
-    if (!data) return <></>
-    // const { data: pins, error, mutate } = useSWR(`/api/pins?${id}`, fetcher, {
-    // });
+    const [sidebar, setSidebar] = useState(false);
+    const [data, _setData] = useState(initialData);
+
+    if (!serverData) return <></>;
+
+    const setData = async (d) => {
+        _setData({
+            ...d,
+            ...data
+        });
+        return mutate(await fetcher(`/api/boards/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(d)
+        }), false);
+    };
+    const setTitle = (e) => {
+        if (e.keyCode !== 13) return;
+
+        e.target.blur();
+
+        return setData({
+            title: e.target.innerText,
+        });
+    };
 
     const pins = data.pins.map(i =>
         <CheerPin {...i} key={id+i}/>
@@ -103,9 +123,9 @@ export default function Editor({ data: initialData }) {
             <Header/>
             {/*style={{ backgroundImage: "url(https://www.kudoboard.com/images/fun-background.png)"}}*/}
             <Container className={styles.board} ref={board}>
-                <Row className="justify-content-md-center my-5 border-bottom bg-danger"
+                <Row className="justify-content-md-center my-5 border-bottom"
                      style={{height: "6rem"}}>
-                    <h1>{ data.title }</h1>
+                    <h1 contentEditable onKeyDown={setTitle}>{ data.title }</h1>
                 </Row>
                 {!('preview' in router.query) && <Row className="m-2">
                     <Col>
