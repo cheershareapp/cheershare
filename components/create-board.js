@@ -19,7 +19,7 @@ export default function CreateBoardModal({ setModal, showModal }) {
             title: elements.title.value,
             recipientFirstName: elements.recipientFirstName.value,
             recipientLastName: elements.recipientFirstName.value,
-            ownerId: 1,         // TODO server to populate owner field
+            ownerId: 1,         // TODO session.user.id || 1,
             // TODO server to add lastModifiedTime
             // id: alias,
         };

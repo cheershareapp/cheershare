@@ -6,7 +6,7 @@ import Board from "./Board";
 
 /* PinSchema will correspond to a collection in your MongoDB database. */
 const PinSchema = new mongoose.Schema({
-  owner: {
+  ownerId: {
     /* The owner of this board */
 
     type: String,
@@ -17,7 +17,6 @@ const PinSchema = new mongoose.Schema({
     required: [true, "Please provide the board which this pin belongs."],
   },
   mediaUrl: {
-    required: [true, 'Please provide an image url for this pet.'],
     type: String,
   },
   message: {
@@ -26,13 +25,25 @@ const PinSchema = new mongoose.Schema({
   mediaRatioHint: {
     type: String,
   },
-  sortOrder: {
-    required: [true, 'Please provide the position of this pin.'],
-    type: String,
+  columnIndex: {
+    // required: [true, 'Please provide the position of this pin.'],
+    type: Number,
+  },
+  itemIndex: {
+    // required: [true, 'Please provide the position of this pin.'],
+    type: Number,
   },
   likeCount: {
     type: Number,
   },
+}, {  /* TODO refactor toJSON to a global place */
+    toJSON: {
+        transform: function(doc, ret) {
+            ret.id = ret._id.toString()
+            delete ret._id;
+            delete ret.__v;
+        }
+    }
 });
 
 export default mongoose.models.Pin || mongoose.model('Pin', PinSchema)

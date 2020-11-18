@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {signIn, signOut, useSession} from "next-auth/client";
+import { mutate } from "swr"
 
 import Header from "../../../components/header";
 import Footer from "../../../components/footer";
@@ -13,6 +14,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Alert from "react-bootstrap/Alert";
 import {useRouter} from "next/router";
+import fetcher from "../../../utils/fetch";
 
 // TODO break up each of these pages as components, shrink this file
 // maybe use React Portal?
@@ -96,7 +98,35 @@ function renderPage(page, setPage) {
 
 export default function Add() {
     const [ page, setPage ] = useState('');
-    const router = useRouter()
+    const router = useRouter();
+    const [ session, loading ] = useSession();
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        const { target: formEl } = e;
+        const { elements } = formEl;
+        const { id: boardId } = router.query;
+
+        const newPin = {
+            message: elements.message.value,
+            ownerId: session.user.id || 1, // TODO remove || 1
+            boardId,
+        };
+
+        await mutate(`/api/boards/${boardId}`, async board => {
+            debugger;
+            const { pins, ...rest } = board;
+            return {
+                pins: pins.append(await fetcher(`/api/boards/${boardId}/pins`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newPin)
+                })),
+                ...rest
+            }
+        });
+        router.back()
+    };
 
     return (<>
         <Header/>
@@ -114,8 +144,8 @@ export default function Add() {
                 </Tab>
             </Tabs>
             { renderPage(page, setPage) }
-            <Form>
-                <Form.Control as="textarea" rows={10} />
+            <Form onSubmit={handleFormSubmit}>
+                <Form.Control as="textarea" rows={10} name="message"/>
 
                 <Button variant="primary" type="submit">
                     Post

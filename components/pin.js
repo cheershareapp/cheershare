@@ -14,15 +14,13 @@ export default class CheerPin extends React.Component {
                 <Card.Img src={imageSource} className="bd-placeholder-img card-img-top" width="100%" onLoad={this.props.onImageLoad}/>
 
                 <Card.Body className={styles.boardItemContent}>
-                    <Card.Text>This is a wider card with supporting text below as a
-                        natural lead-in to additional content. This content is a little bit
-                        longer.</Card.Text>
+                    <Card.Text> {this.props.message} </Card.Text>
                     <div className="d-flex justify-content-between align-items-center">
                         <ButtonGroup>
                             <Button variant="outline-secondary">Like</Button>
                             <Button variant="outline-secondary">Edit</Button>
                         </ButtonGroup>
-                        <small className="text-muted">{this.props.id + 1} mins</small>
+                        <small className="text-muted">{this.props.likeCount || 1} likes</small>
                     </div>
                 </Card.Body>
             </Card>

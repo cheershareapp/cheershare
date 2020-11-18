@@ -8,6 +8,7 @@ import styles from "../../../styles/Editor.module.css"
 import { ButtonGroup, Button, Row, Col, Container} from "react-bootstrap";
 import Link from "next/link";
 import dbConnect from "../../../utils/db";
+import groupBy from "../../../utils/groupby";
 import Board from "../../../models/Board";
 import Pin from "../../../models/Pin";
 import useSWR, { mutate } from "swr";
@@ -25,10 +26,17 @@ export default function Editor({ data: initialData }) {
     const board = useRef();
     let columnGrids = [];
 
+    const serializeLayout = () => {
+        return columnGrids.map(grid => {
+            return grid.getItems().map(item => {
+                return item.getElement().getAttribute('data-id')
+            })
+        })
+    };
     useEffect(async () => {
         const Muuri = (await import('muuri')).default;
 
-        columnGrids = !columnGrids ? itemContainers.map((container) => {
+        columnGrids = !columnGrids.length ? itemContainers.map((container) => {
             return new Muuri(container.current, {
                 items: '.' + styles.boardItem,
                 layoutDuration: 400,
@@ -39,6 +47,11 @@ export default function Editor({ data: initialData }) {
                 dragContainer: board.current,
                 dragSort: () => {
                     return columnGrids;
+                },
+                sortData: {
+                    id: function (item, element) {
+                        return parseFloat(element.getAttribute('data-id'));
+                    }
                 },
                 dragAutoScroll: {
                     targets: (item) => {
@@ -62,10 +75,12 @@ export default function Editor({ data: initialData }) {
                 item.getElement().style.width = '';
                 item.getElement().style.height = '';
                 item.getGrid().refreshItems([item]);
-                // TODO serializeLayout() -> API call
+
+                const serialized = serializeLayout();
+                console.log(serialized, 'dragReleased')
             });
         }) : columnGrids;
-    }, []);
+    }, columnGrids);
 
     // useEffect(() => {
     //     columnGrids.forEach(function (grid) {
@@ -85,15 +100,15 @@ export default function Editor({ data: initialData }) {
 
     if (!serverData) return <></>;
 
-    const setData = async (d) => {
+    const setData = async (partial) => {
         _setData({
-            ...d,
+            ...partial,
             ...data
         });
         return mutate(await fetcher(`/api/boards/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(d)
+            body: JSON.stringify(partial)
         }), false);
     };
     const setTitle = (e) => {
@@ -106,10 +121,12 @@ export default function Editor({ data: initialData }) {
         });
     };
 
-    const pins = data.pins.map(i =>
-        <CheerPin {...i} key={id+i}/>
-    );
-    const [p1, p2, p3, p4, p5] = pins;
+    const pinsByColumn = Object.values(groupBy(data.pins, i =>
+        i.columnIndex));
+
+    const [col1, col2, col3] = pinsByColumn.map(pins => pins.map((item, idx) =>
+        <CheerPin {...item} key={idx}/>
+    ));
 
     // TODO figure out spinner/lazy-loading
     /*
@@ -117,88 +134,88 @@ export default function Editor({ data: initialData }) {
     {!this.checkLoaded() && <Spinner animation="border" />}
     className={!this.state.loaded && 'visible'}
      */
+    //https://www.kudoboard.com/images/fun-background.png
+    return (<>
+        <Header/>
 
-    return (
-        <>
-            <Header/>
-            {/*style={{ backgroundImage: "url(https://www.kudoboard.com/images/fun-background.png)"}}*/}
-            <Container className={styles.board} ref={board}>
-                <Row className="justify-content-md-center my-5 border-bottom"
-                     style={{height: "6rem"}}>
-                    <h1 contentEditable onKeyDown={setTitle}>{ data.title }</h1>
-                </Row>
-                {!('preview' in router.query) && <Row className="m-2">
-                    <Col>
+        {/*style={{ backgroundImage: `url(${data.backgroundImage})`}}*/}
+        <Container className={styles.board} ref={board}>
+            <Row className="justify-content-md-center my-5 border-bottom"
+                 style={{height: "6rem"}}>
+                <h1 contentEditable onKeyDown={setTitle}
+                    suppressContentEditableWarning={true}>
+                    { data.title }
+                </h1>
+            </Row>
+            {!('preview' in router.query) && <Row className="m-2">
+                <Col>
 
-                    <Link href={`${id}/add`}>
-                        <Button variant="primary" size="lg">
-                            Add a cheer!
-                        </Button>
-                    </Link>
-                    </Col>
-                    <Col className="text-right align-text-bottom">
-                        <ButtonGroup aria-label="Basic example">
+                <Link href={`${id}/add`}>
+                    <Button variant="primary" size="lg">
+                        Add a cheer!
+                    </Button>
+                </Link>
+                </Col>
+                <Col className="text-right align-text-bottom">
+                    <ButtonGroup aria-label="Basic example">
 
-                            <Link href={`${id}?preview`}>
-                                <Button variant="secondary">Preview</Button>
-                            </Link>
-                            <Link href={`${id}/invite`}>
-                                <Button variant="secondary">Invite</Button>
-                            </Link>
-                            <Button variant="secondary">Schedule</Button>
-                            <Button variant="secondary" onClick={() => setSidebar(true)}>Background</Button>
-                            <Button variant="secondary" onClick={() => setSidebar(true)}>Settings</Button>
-                        </ButtonGroup>
-                    </Col>
-                </Row> }
-                <Row>
-                    <Col className={styles.boardColumn}>
-                        <div className={styles.boardColumnContent} ref={itemContainers[0]}>
-                            {p1}
-                            {p2}
+                        <Link href={`${id}?preview`}>
+                            <Button variant="secondary">Preview</Button>
+                        </Link>
+                        <Link href={`${id}/invite`}>
+                            <Button variant="secondary">Invite</Button>
+                        </Link>
+                        <Button variant="secondary">Schedule</Button>
+                        <Button variant="secondary" onClick={() => setSidebar(true)}>Background</Button>
+                        <Button variant="secondary" onClick={() => setSidebar(true)}>Settings</Button>
+                    </ButtonGroup>
+                </Col>
+            </Row> }
+            <Row>
+                <Col className={styles.boardColumn}>
+                    <div className={styles.boardColumnContent} ref={itemContainers[0]}>
+                        {col1}
+                    </div>
+                </Col>
+                <Col className={styles.boardColumn}>
+                    <div className={styles.boardColumnContent} ref={itemContainers[1]}>
+                        {col2}
+                    </div>
+                </Col>
+                <Col className={styles.boardColumn}>
+                    <div className={styles.boardColumnContent} ref={itemContainers[2]}>
+                        {col3}
+
+                        <div className={styles.boardItem} data-id={1}>
+                            <div className={styles.boardItemContent}><span>Item #</span>11</div>
                         </div>
-                    </Col>
-                    <Col className={styles.boardColumn}>
-                        <div className={styles.boardColumnContent} ref={itemContainers[1]}>
-                            {p3}
+                        <div className={styles.boardItem} data-id={2}>
+                            <div className={styles.boardItemContent}><span>Item #</span>12</div>
                         </div>
-                    </Col>
-                    <Col className={styles.boardColumn}>
-                        <div className={styles.boardColumnContent} ref={itemContainers[2]}>
-                            {p4}
-                            {p5}
-
-                            <div className={styles.boardItem}>
-                                <div className={styles.boardItemContent}><span>Item #</span>11</div>
-                            </div>
-                            <div className={styles.boardItem}>
-                                <div className={styles.boardItemContent}><span>Item #</span>12</div>
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-            <Sidebar show={sidebar} setSidebar={setSidebar}/>
-            <style jsx global>{`
-                .muuri-item-placeholder {
-                    z-index: 9;
-                    margin: 0;
-                    opacity: 0.7;
-                }
-                .muuri-item-releasing {
-                    z-index: 9998;
-                }
-                .muuri-item-dragging {
-                    z-index: 19999;
-                    cursor: move;
-                }
-                .muuri-item-hidden {
-                    z-index: 0;
-                }
-            `}</style>
-            <Footer/>
-        </>
-    );
+                    </div>
+                </Col>
+            </Row>
+        </Container>
+        <Sidebar show={sidebar} setSidebar={setSidebar}/>
+        <style jsx global>{`
+            .muuri-item-placeholder {
+                z-index: 9;
+                margin: 0;
+                opacity: 0.7;
+            }
+            .muuri-item-releasing {
+                z-index: 9998;
+            }
+            .muuri-item-dragging {
+                z-index: 19999;
+                cursor: move;
+            }
+            .muuri-item-hidden {
+                z-index: 0;
+            }
+        `}</style>
+        <Footer/>
+    </>);
 }
 
 export async function getServerSideProps(context) {
