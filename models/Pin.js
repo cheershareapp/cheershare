@@ -1,16 +1,19 @@
 import mongoose from 'mongoose'
+
+// TODO figure out mongoose FK lookup
 import User from "next-auth";
+import Board from "./Board";
 
 /* PinSchema will correspond to a collection in your MongoDB database. */
 const PinSchema = new mongoose.Schema({
   owner: {
     /* The owner of this board */
 
-    type: User,
+    type: String,
     required: [true, "Please provide owner to this board"],
   },
-  board: {
-    type: mongoose.models.Board,
+  boardId: {
+    type: String,
     required: [true, "Please provide the board which this pin belongs."],
   },
   mediaUrl: {
@@ -30,6 +33,6 @@ const PinSchema = new mongoose.Schema({
   likeCount: {
     type: Number,
   },
-})
+});
 
-export default mongoose.models.Pin || mongoose.model('Board', PinSchema)
+export default mongoose.models.Pin || mongoose.model('Pin', PinSchema)

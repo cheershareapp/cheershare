@@ -10,7 +10,7 @@ const Sidebar = ({ show, setSidebar }) => {
     // TODO Use Optimized images for Pins, image search, background selection, etc.
     // https://nextjs.org/docs/basic-features/image-optimization
     return (<>
-        <Modal show={show} onHide={handleClose}  animation={false} scrollable size="sm"
+        <Modal show={show} onHide={handleClose} animation={false} size="sm"
                dialogClassName={styles.sidebarDialog} contentClassName={styles.sidebarContent}>
             <Modal.Header closeButton>
                 <Modal.Title>Change background</Modal.Title>
@@ -56,10 +56,7 @@ const Sidebar = ({ show, setSidebar }) => {
             </Nav.Item>
         </Nav>
         */}
-        <style jsx global>{`
-        .modal-dialog {
-            right: 0;
-        }
+        <style jsx>{`
         /* TODO figure out sidebar transition */
         .fade .modal-dialog {
             right: -320px;

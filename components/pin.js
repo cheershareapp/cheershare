@@ -2,7 +2,7 @@ import React from 'react';
 import {Card, Button, ButtonGroup} from "react-bootstrap";
 import styles from "../styles/Editor.module.css"
 
-export default class Pin extends React.Component {
+export default class CheerPin extends React.Component {
     componentDidMount() {
     }
 

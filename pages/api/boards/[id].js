@@ -1,5 +1,6 @@
 import dbConnect from '../../../utils/db'
 import Board from '../../../models/Board'
+import Pin from "../../../models/Pin";
 
 export default async function handler(req, res) {
   const {
@@ -12,11 +13,17 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET' /* Get a model by its ID */:
       try {
-        const pet = await Board.findById(id)
-        if (!pet) {
+        const board = await Board.findById(id);
+        if (!board) {
           return res.status(400).json({ success: false })
         }
-        res.status(200).json({ success: true, data: pet })
+        // TODO const board = await Board.findOne().or([{ _id : id }, { slug: id }]);
+        const pins = await Pin.find({ boardId: board.id });
+
+        res.status(200).json({
+            pins: pins.map(v => v.toJSON()),
+            ...board.toJSON()
+        } )
       } catch (error) {
         res.status(400).json({ success: false })
       }
