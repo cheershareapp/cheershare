@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, Button, ButtonGroup} from "react-bootstrap";
 import styles from "../styles/Editor.module.css"
+import Image from 'next/image';
 
 export default class CheerPin extends React.Component {
     componentDidMount() {
@@ -11,7 +12,8 @@ export default class CheerPin extends React.Component {
         return (
             <div className={styles.boardItem}>
             <Card className="shadow-sm">
-                <Card.Img src={imageSource} className="bd-placeholder-img card-img-top" width="100%" onLoad={this.props.onImageLoad}/>
+                {/*<Card.Img src={imageSource} className="bd-placeholder-img card-img-top" width="100%"/>*/}
+                <Image src={imageSource} className="card-img bd-placeholder-img card-img-top" width="100%" height="100%" layout="responsive"/>
 
                 <Card.Body className={styles.boardItemContent}>
                     <Card.Text> {this.props.message} </Card.Text>

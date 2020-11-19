@@ -22,11 +22,19 @@ https://github.com/haltu/muuri/blob/gh-pages/css/demo-kanban.css
  */
 
 export default function Editor({ data: initialData }) {
+    /* Data fetch */
+    const router = useRouter();
+    const { id } = router.query;
+
+    const { data: serverData, error, mutate } = useSWR(`/api/boards/${id}`, fetcher, initialData);
+    /* end data fetch */
+
+    /* DOM setup */
     const itemContainers = [useRef(), useRef(), useRef()];
     let columnGrids = [];
 
     const boardRef = useCallback(async (node) => {
-        if (!node) return;
+        if (!node || columnGrids.length > 0) return;
         const Muuri = (await import('muuri')).default;
 
         columnGrids = itemContainers.map((container) => {
@@ -60,18 +68,18 @@ export default function Editor({ data: initialData }) {
                     createElement: (item) => item.getElement().cloneNode(true),
                 },
             })
-                .on('dragInit', (item) => {
-                    item.getElement().style.width = item.getWidth() + 'px';
-                    item.getElement().style.height = item.getHeight() + 'px';
-                })
-                .on('dragReleaseEnd', (item) => {
-                    item.getElement().style.width = '';
-                    item.getElement().style.height = '';
-                    item.getGrid().refreshItems([item]);
+            .on('dragInit', (item) => {
+                item.getElement().style.width = item.getWidth() + 'px';
+                item.getElement().style.height = item.getHeight() + 'px';
+            })
+            .on('dragReleaseEnd', (item) => {
+                item.getElement().style.width = '';
+                item.getElement().style.height = '';
+                item.getGrid().refreshItems([item]);
 
-                    const serialized = serializeLayout();
-                    console.log(serialized, 'dragReleased')
-                });
+                const serialized = serializeLayout();
+                console.log(serialized, 'dragReleased')
+            });
         });
     }, []);
 
@@ -82,23 +90,17 @@ export default function Editor({ data: initialData }) {
             })
         })
     };
-    // useEffect(() => {
-    //     columnGrids.forEach(function (grid) {
-    //         grid.refreshItems();
-    //         grid.layout();
-    //     });
-    // });
-    const router = useRouter();
+    useEffect(() => {
+        columnGrids.forEach((grid) => {
+            console.log('useEffect layout');
+            grid.refreshItems().layout();
+        });
+    });
+    /* end DOM setup */
 
-    const { id } = router.query;
-
-    const { data: serverData, error, mutate } = useSWR(`/api/boards/${id}`, fetcher, initialData);
-    // shouldRevalidate = false
-
+    /* State setup */
     const [sidebar, setSidebar] = useState(false);
     const [data, _setData] = useState(initialData);
-
-    if (!serverData) return <></>;
 
     const setData = async (partial) => {
         _setData({
@@ -120,14 +122,19 @@ export default function Editor({ data: initialData }) {
             title: e.target.innerText,
         });
     };
+    /* end state setup */
 
+    /* Children setup */
     const pinsByColumn = Object.values(groupBy(data.pins, i =>
         i.columnIndex));
 
     const [col1, col2, col3] = pinsByColumn.map(pins => pins.map((item, idx) =>
         <CheerPin {...item} key={idx}/>
     ));
+    /* end children setup */
 
+    // early return is frowned in functional approach, as it tries to keep a consistent number of hook calls
+    if (!serverData || error) return <></>;
     // TODO figure out spinner/lazy-loading
     /*
     https://medium.com/evolve-technology/hide-that-da6264a7e1f
@@ -140,7 +147,7 @@ export default function Editor({ data: initialData }) {
 
         {/*style={{ backgroundImage: `url(${data.backgroundImage})`}}*/}
         <Container className={styles.board} ref={boardRef}>
-            <Row className="justify-content-md-center my-5 border-bottom"
+            <Row className="justify-content-md-center my-5"
                  style={{height: "6rem"}}>
                 <h1 contentEditable onKeyDown={setTitle}
                     suppressContentEditableWarning={true}>
