@@ -26,7 +26,6 @@ export default function ListBoards({ data: initialData }) {
     // TODO develop board filter
     //.filter(b => b.owner === session.user.id)
 
-    console.log(boards)
     return (<>
         <Header/>
         <CreateBoardModal showModal={showModal} setModal={setModal} />

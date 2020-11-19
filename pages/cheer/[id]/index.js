@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, {useState, useRef, useEffect, useCallback} from "react";
 import {useRouter} from 'next/router'
 import CheerPin from "../../../components/pin";
 import Header from "../../../components/header";
@@ -23,20 +23,13 @@ https://github.com/haltu/muuri/blob/gh-pages/css/demo-kanban.css
 
 export default function Editor({ data: initialData }) {
     const itemContainers = [useRef(), useRef(), useRef()];
-    const board = useRef();
     let columnGrids = [];
 
-    const serializeLayout = () => {
-        return columnGrids.map(grid => {
-            return grid.getItems().map(item => {
-                return item.getElement().getAttribute('data-id')
-            })
-        })
-    };
-    useEffect(async () => {
+    const boardRef = useCallback(async (node) => {
+        if (!node) return;
         const Muuri = (await import('muuri')).default;
 
-        columnGrids = !columnGrids.length ? itemContainers.map((container) => {
+        columnGrids = itemContainers.map((container) => {
             return new Muuri(container.current, {
                 items: '.' + styles.boardItem,
                 layoutDuration: 400,
@@ -44,7 +37,7 @@ export default function Editor({ data: initialData }) {
                 dragReleaseDuration: 400,
                 dragReleaseEasing: 'ease',
                 dragEnabled: true,
-                dragContainer: board.current,
+                dragContainer: node,
                 dragSort: () => {
                     return columnGrids;
                 },
@@ -56,7 +49,7 @@ export default function Editor({ data: initialData }) {
                 dragAutoScroll: {
                     targets: (item) => {
                         return [
-                            { element: board.current, priority: 1, axis: Muuri.AutoScroller.AXIS_X },
+                            { element: node, priority: 1, axis: Muuri.AutoScroller.AXIS_X },
                             { element: item.getGrid().getElement().parentNode, priority: 1, axis: Muuri.AutoScroller.AXIS_Y },
                         ];
                     },
@@ -67,21 +60,28 @@ export default function Editor({ data: initialData }) {
                     createElement: (item) => item.getElement().cloneNode(true),
                 },
             })
-            .on('dragInit', (item) => {
-                item.getElement().style.width = item.getWidth() + 'px';
-                item.getElement().style.height = item.getHeight() + 'px';
+                .on('dragInit', (item) => {
+                    item.getElement().style.width = item.getWidth() + 'px';
+                    item.getElement().style.height = item.getHeight() + 'px';
+                })
+                .on('dragReleaseEnd', (item) => {
+                    item.getElement().style.width = '';
+                    item.getElement().style.height = '';
+                    item.getGrid().refreshItems([item]);
+
+                    const serialized = serializeLayout();
+                    console.log(serialized, 'dragReleased')
+                });
+        });
+    }, []);
+
+    const serializeLayout = () => {
+        return columnGrids.map(grid => {
+            return grid.getItems().map(item => {
+                return item.getElement().getAttribute('data-id')
             })
-            .on('dragReleaseEnd', (item) => {
-                item.getElement().style.width = '';
-                item.getElement().style.height = '';
-                item.getGrid().refreshItems([item]);
-
-                const serialized = serializeLayout();
-                console.log(serialized, 'dragReleased')
-            });
-        }) : columnGrids;
-    }, columnGrids);
-
+        })
+    };
     // useEffect(() => {
     //     columnGrids.forEach(function (grid) {
     //         grid.refreshItems();
@@ -139,7 +139,7 @@ export default function Editor({ data: initialData }) {
         <Header/>
 
         {/*style={{ backgroundImage: `url(${data.backgroundImage})`}}*/}
-        <Container className={styles.board} ref={board}>
+        <Container className={styles.board} ref={boardRef}>
             <Row className="justify-content-md-center my-5 border-bottom"
                  style={{height: "6rem"}}>
                 <h1 contentEditable onKeyDown={setTitle}

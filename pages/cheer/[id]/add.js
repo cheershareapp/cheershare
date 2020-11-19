@@ -15,6 +15,9 @@ import Tabs from "react-bootstrap/Tabs";
 import Alert from "react-bootstrap/Alert";
 import {useRouter} from "next/router";
 import fetcher from "../../../utils/fetch";
+import dbConnect from "../../../utils/db";
+import Board from "../../../models/Board";
+import Pin from "../../../models/Pin";
 
 // TODO break up each of these pages as components, shrink this file
 // maybe use React Portal?
@@ -96,16 +99,16 @@ function renderPage(page, setPage) {
     }
 }
 
-export default function Add() {
+export default function Add({ data: board }) {
     const [ page, setPage ] = useState('');
     const router = useRouter();
     const [ session, loading ] = useSession();
+    const { id: boardId } = router.query;
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         const { target: formEl } = e;
         const { elements } = formEl;
-        const { id: boardId } = router.query;
 
         const newPin = {
             message: elements.message.value,
@@ -113,19 +116,17 @@ export default function Add() {
             boardId,
         };
 
-        await mutate(`/api/boards/${boardId}`, async board => {
-            debugger;
-            const { pins, ...rest } = board;
-            return {
-                pins: pins.append(await fetcher(`/api/boards/${boardId}/pins`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newPin)
-                })),
-                ...rest
-            }
+        const { pins, ...rest } = board;
+        const newPinBody = await fetcher(`/api/boards/${boardId}/pins`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newPin)
         });
-        router.back()
+        return mutate(`/api/boards/${boardId}`, {
+                pins: [...pins, newPinBody],
+                ...rest
+        });
+        // return router.push(`cheer/${boardId}`);
     };
 
     return (<>
@@ -158,4 +159,20 @@ export default function Add() {
 
         <Footer fixed/>
     </>);
+}
+
+export async function getServerSideProps(context) {
+    const { id } = context.params;
+    // const [ session, loading ] = useSession();
+    // TODO should be done in API and just import the function here
+    await dbConnect();
+    const board = await Board.findOne().or([{ _id : id }, { slug: id }]);
+    const pins = await Pin.find({ boardId: board.id });
+
+    return {
+        props: { data: {
+                pins: pins.map(v => v.toJSON()),
+                ...board.toJSON()
+            } }, // will be passed to the page component as props
+    }
 }
