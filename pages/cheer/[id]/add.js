@@ -122,11 +122,11 @@ export default function Add({ data: board }) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newPin)
         });
-        return mutate(`/api/boards/${boardId}`, {
+        await mutate(`/api/boards/${boardId}`, {
                 pins: [...pins, newPinBody],
                 ...rest
-        });
-        // return router.push(`cheer/${boardId}`);
+        }, true);
+        return router.back(); // push(`cheer/${boardId}`);
     };
 
     return (<>

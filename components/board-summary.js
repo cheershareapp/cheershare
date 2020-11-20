@@ -2,7 +2,7 @@ import {Row, Col, Media, Button, ButtonGroup, ListGroup, Form, Container} from "
 import React from "react";
 import Link from "next/link";
 
-export default function BoardSummary({id, recipientFirstName: firstName, recipientLastName: lastName, title}) {
+export default function BoardSummary({id, recipientFirstName: firstName, recipientLastName: lastName, title, pinCount}) {
     return (<Media>
         <Link href={`/cheer/${id}`}>
         <svg className="bd-placeholder-img mr-3" width="200" height="200"
@@ -53,10 +53,12 @@ export default function BoardSummary({id, recipientFirstName: firstName, recipie
                 </Form.Group>
             </Form>
 
-            <Link href={`/cheer/${id}/upgrade`}>POSTS Upgrade 4 (Max of 10)</Link>
+            <p>POSTS {pinCount} (Max of 10) <Link href={`/cheer/${id}/upgrade`}>Upgrade</Link> </p>
             <div className="d-flex justify-content-between align-items-center">
                 <ButtonGroup>
-                    <Button href={`/cheer/${id}/invite`} variant="outline-secondary" size="sm" as={Link}>Invite</Button>
+                    <Link href={`/cheer/${id}/invite`}>
+                    <Button variant="outline-secondary" size="sm">Invite</Button>
+                    </Link>
                     <Button href={`/cheer/${id}`} variant="outline-secondary" size="sm" as={Link}>Edit</Button>
                 </ButtonGroup>
                 <small className="text-muted">LAST POST ADDED 3 days ago</small>

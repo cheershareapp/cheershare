@@ -10,7 +10,7 @@ export default class CheerPin extends React.Component {
     render() {
         const imageSource = `https://placeimg.com/${this.props.id % 2 ? '400/200' : '200/200'}/all?${this.props.id}`;
         return (
-            <div className={styles.boardItem}>
+            <div className={styles.boardItem} data-id={this.props.id}>
             <Card className="shadow-sm">
                 {/*<Card.Img src={imageSource} className="bd-placeholder-img card-img-top" width="100%"/>*/}
                 <Image src={imageSource} className="card-img bd-placeholder-img card-img-top" width="100%" height="100%" layout="responsive"/>

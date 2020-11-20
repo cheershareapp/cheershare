@@ -1,4 +1,5 @@
 import dbConnect from '../../../utils/db'
+import Pin from '../../../models/Pin'
 import Board from '../../../models/Board'
 import { getSession } from 'next-auth/client'
 
@@ -17,7 +18,13 @@ export default async function handler(req, res) {
     case 'GET':
       try {
         const boards = await Board.find(filter); /* find all the data in our database */
-        res.status(200).json(boards)
+        const responsePromise = boards.map(async board => {
+          return {
+            ...board,
+            pinCount: await Pin.count({ boardId: board._id })
+          }
+        });
+        res.status(200).json(await Promise.all(responsePromise))
       } catch (error) {
         res.status(400).json({ success: false })
       }

@@ -7,8 +7,8 @@ This is a [Next.js](https://nextjs.org/) project to share cheer.
 - [x] Bootstrap + Commerce-like theme
 - [ ] Implement page protection with next-auth
 - [ ] Configure google and facebook oauth tokens
-- [ ] Use `<Link>` instead of `<a>`
-- [ ] Use `<Image>` instead of `<img>`
+- [x] Use `<Link>` instead of `<a>`
+- [x] Use `<Image>` instead of `<img>`
 
 
 ## Data Structures
@@ -25,6 +25,45 @@ User also has a 1 to 1 relationship with Profile
 Profile should contain personal settings (timezone, credit card, email preference, etc)
 
 
+## Muuri serialization
+
+| Column 1 | Column 2 | Column 3 |
+|----------|----------|----------|
+| Pin 1    | Pin 2    | Pin 3    |
+|          |          |          |
+```
+serialized = [
+  [Pin 1],
+  [Pin 2],
+  [Pin 3]
+]
+
+serialized.map((col, columnIndex) => {
+  col.map((el, rowIndex) => {
+    {
+      rowIndex,
+      columnIndex,
+      ...el.props
+    }
+  })
+})
+.flat()
+```
+
+
+| Column 1 | Column 2 | Column 3 |
+|----------|----------|----------|
+| Pin 1    | Pin 3    |          |
+|          | Pin 2    |          |
+```
+[
+  [Pin 1],
+  [Pin 2, Pin 3],
+  []
+]
+
+Change is on Pin 3, change Column to 2 and Row to 2
+```
 ## Getting Started
 
 First, run the development server:

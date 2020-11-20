@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import Pin from "./Pin";
 
 /* BoardSchema will correspond to a collection in your MongoDB database. */
 const BoardSchema = new mongoose.Schema({
@@ -24,11 +25,6 @@ const BoardSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please specify the recipient\'s last name.'],
     maxlength: [120, 'Recipient name specified cannot be more than 120 characters'],
-  },
-  pinCount: {
-    /* Board's pin count, if applicable */
-
-    type: Number,
   },
   deliveryStatus: {
     /* Has the board been delivered, if applicable */
@@ -60,11 +56,27 @@ const BoardSchema = new mongoose.Schema({
 }, {
   toJSON: {
     transform: function(doc, ret) {
-      ret.id = ret._id.toString()
+      ret.id = ret._id.toString();
       delete ret._id;
       delete ret.__v;
     }
   }
 });
 
-export default mongoose.models.Board || mongoose.model('Board', BoardSchema)
+BoardSchema.statics.index = async (ownerId) => {
+  const queryFilter = {
+    // ownerId
+  };
+  const boards = await Board.find(queryFilter);
+  const responsePromise = boards.map(async board => {
+    return {
+      ...board.toJSON(),
+      pinCount: await Pin.count({ boardId: board._id })
+    }
+  });
+
+  return Promise.all(responsePromise);
+};
+
+const Board = mongoose.models.Board || mongoose.model('Board', BoardSchema)
+export default Board;

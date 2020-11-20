@@ -19,7 +19,6 @@ export default function ListBoards({ data: initialData }) {
     const [ session, loading ] = useSession();
     const { data: boards, error, mutate } = useSWR('/api/boards', fetcher, { initialData });
 
-    // TODO use a modal provider
     const [showModal, setModal] = useState(false);
     const handleShow = () => setModal(true);
 
@@ -62,10 +61,8 @@ export default function ListBoards({ data: initialData }) {
 export async function getServerSideProps(context) {
     // const [ session, loading ] = useSession();
     await dbConnect();
-    const boards = await Board.find({});
-    /* TODO replace with findby Userid
-    *  { ownerId: session.user.id } */
+    const boards = await Board.index(1);
     return {
-        props: { data: boards.map(v => v.toJSON()) }, // will be passed to the page component as props
+        props: { data: boards }, // will be passed to the page component as props
     }
 }

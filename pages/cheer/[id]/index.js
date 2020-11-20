@@ -13,6 +13,7 @@ import Board from "../../../models/Board";
 import Pin from "../../../models/Pin";
 import useSWR, { mutate } from "swr";
 import fetcher from "../../../utils/fetch";
+import comparer from "../../../utils/diff";
 
 /*
 References
@@ -37,63 +38,84 @@ export default function Editor({ data: initialData }) {
         if (!node || columnGrids.length > 0) return;
         const Muuri = (await import('muuri')).default;
 
-        columnGrids = itemContainers.map((container) => {
-            return new Muuri(container.current, {
-                items: '.' + styles.boardItem,
-                layoutDuration: 400,
-                layoutEasing: 'ease',
-                dragReleaseDuration: 400,
-                dragReleaseEasing: 'ease',
-                dragEnabled: true,
-                dragContainer: node,
-                dragSort: () => {
-                    return columnGrids;
+        columnGrids = itemContainers.map(async container => new Muuri(container.current, {
+            items: '.' + styles.boardItem,
+            layoutDuration: 400,
+            layoutEasing: 'ease',
+            dragReleaseDuration: 400,
+            dragReleaseEasing: 'ease',
+            dragEnabled: true,
+            dragContainer: node,
+            dragSort: () => {
+                return columnGrids;
+            },
+            sortData: {
+                id: function (item, element) {
+                    return parseFloat(element.getAttribute('data-id'));
+                }
+            },
+            dragAutoScroll: {
+                targets: (item) => {
+                    return [
+                        { element: node, priority: 1, axis: Muuri.AutoScroller.AXIS_X },
+                        { element: item.getGrid().getElement().parentNode, priority: 1, axis: Muuri.AutoScroller.AXIS_Y },
+                    ];
                 },
-                sortData: {
-                    id: function (item, element) {
-                        return parseFloat(element.getAttribute('data-id'));
-                    }
-                },
-                dragAutoScroll: {
-                    targets: (item) => {
-                        return [
-                            { element: node, priority: 1, axis: Muuri.AutoScroller.AXIS_X },
-                            { element: item.getGrid().getElement().parentNode, priority: 1, axis: Muuri.AutoScroller.AXIS_Y },
-                        ];
-                    },
-                    sortDuringScroll: false,
-                },
-                dragPlaceholder: {
-                    enabled: true,
-                    createElement: (item) => item.getElement().cloneNode(true),
-                },
-            })
-            .on('dragInit', (item) => {
-                item.getElement().style.width = item.getWidth() + 'px';
-                item.getElement().style.height = item.getHeight() + 'px';
-            })
-            .on('dragReleaseEnd', (item) => {
-                item.getElement().style.width = '';
-                item.getElement().style.height = '';
-                item.getGrid().refreshItems([item]);
+                sortDuringScroll: false,
+            },
+            dragPlaceholder: {
+                enabled: true,
+                createElement: (item) => item.getElement().cloneNode(true),
+            },
+        })
+        .on('dragInit', (item) => {
+            item.getElement().style.width = item.getWidth() + 'px';
+            item.getElement().style.height = item.getHeight() + 'px';
+        })
+        .on('dragReleaseEnd', (item) => {
+            item.getElement().style.width = '';
+            item.getElement().style.height = '';
+            item.getGrid().refreshItems([item]);
 
-                const serialized = serializeLayout();
-                console.log(serialized, 'dragReleased')
-            });
-        });
+            const serialized = serializeLayout();
+            const difference = serialized.filter(comparer(data.pins));
+
+            // TODO mutute pins?
+            return fetcher(`/api/boards/${id}/pins`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(difference)
+            })
+        }));
+
+        try {
+            columnGrids = await Promise.all(columnGrids)
+        } catch (err) {
+            console.error(err);
+        }
+
     }, []);
 
     const serializeLayout = () => {
-        return columnGrids.map(grid => {
+        const serialized = columnGrids.map(grid => {
             return grid.getItems().map(item => {
-                return item.getElement().getAttribute('data-id')
+                return item.getElement().getAttribute('data-id');
             })
         })
+
+        return serialized.map((col, columnIndex) => {
+            return col.map((id, rowIndex) => {
+                return {
+                    id,
+                    rowIndex,
+                    columnIndex
+                };
+            })
+        }).flat();
     };
     useEffect(() => {
         columnGrids.forEach((grid) => {
-            console.log('useEffect layout');
-            grid.refreshItems().layout();
+            grid.refreshItems && grid.refreshItems().layout();
         });
     });
     /* end DOM setup */
@@ -104,8 +126,8 @@ export default function Editor({ data: initialData }) {
 
     const setData = async (partial) => {
         _setData({
-            ...partial,
-            ...data
+            ...data,
+            ...partial
         });
         return mutate(await fetcher(`/api/boards/${id}`, {
             method: 'PUT',
@@ -125,12 +147,8 @@ export default function Editor({ data: initialData }) {
     /* end state setup */
 
     /* Children setup */
-    const pinsByColumn = Object.values(groupBy(data.pins, i =>
-        i.columnIndex));
-
-    const [col1, col2, col3] = pinsByColumn.map(pins => pins.map((item, idx) =>
-        <CheerPin {...item} key={idx}/>
-    ));
+    const pinsByColumn = groupBy(data.pins, "columnIndex");
+    const [col1, col2, col3, col4] = [pinsByColumn[0], pinsByColumn[1], pinsByColumn[2], pinsByColumn[undefined]];
     /* end children setup */
 
     // early return is frowned in functional approach, as it tries to keep a consistent number of hook calls
@@ -181,24 +199,18 @@ export default function Editor({ data: initialData }) {
             <Row>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[0]}>
-                        {col1}
+                        {col1 && col1.map((item, idx) => <CheerPin {...item} key={idx}/>)}
+                        {col4 && col4.map((item, idx) => <CheerPin {...item} key={idx}/>)}
                     </div>
                 </Col>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[1]}>
-                        {col2}
+                        {col2 && col2.map((item, idx) => <CheerPin {...item} key={idx}/>)}
                     </div>
                 </Col>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[2]}>
-                        {col3}
-
-                        <div className={styles.boardItem} data-id={1}>
-                            <div className={styles.boardItemContent}><span>Item #</span>11</div>
-                        </div>
-                        <div className={styles.boardItem} data-id={2}>
-                            <div className={styles.boardItemContent}><span>Item #</span>12</div>
-                        </div>
+                        {col3 && col3.map((item, idx) => <CheerPin {...item} key={idx}/>)}
                     </div>
                 </Col>
             </Row>
