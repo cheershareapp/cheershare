@@ -11,17 +11,19 @@ export default async function handler(req, res) {
     // TODO re-enable Not Signed in
     // return res.status(401).end()
   }
+
   await dbConnect();
   const filter = {};
 
   switch (method) {
     case 'GET':
       try {
+        // TODO replace with Board.index(filter)
         const boards = await Board.find(filter); /* find all the data in our database */
         const responsePromise = boards.map(async board => {
           return {
-            ...board,
-            pinCount: await Pin.count({ boardId: board._id })
+            ...board.toJSON(),
+            pinCount: await Pin.countDocuments({ boardId: board._id })
           }
         });
         res.status(200).json(await Promise.all(responsePromise))
@@ -31,20 +33,21 @@ export default async function handler(req, res) {
       break;
     case 'POST':
       try {
-        await Board.create(
+        const board = await Board.create(
             req.body
         ); /* create a new model in the database */
 
-        // we send the whole list of boards down as that is what the API expects
-        const data = await Board.find(filter);
-        res.status(201).json(data)
+        res.status(201).json({
+          ...board.toJSON(),
+          pinCount: 0
+        })
       } catch (error) {
         // TODO suppress the error?
         res.status(400).json({ success: false, error })
       }
       break;
     default:
-      res.status(400).json({ success: false })
+      res.status(400).json({ success: false });
       break
   }
 }

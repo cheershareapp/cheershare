@@ -13,26 +13,28 @@ export default function CreateBoardModal({ setModal, showModal }) {
         e.preventDefault();
         const { target: form } = e;
         const { elements } = form;
-        const alias = +Date.now();
+        // const alias = +Date.now();
 
-        const newBoard = {
+        const newBoardProps = {
             title: elements.title.value,
             recipientFirstName: elements.recipientFirstName.value,
-            recipientLastName: elements.recipientFirstName.value,
+            recipientLastName: elements.recipientLastName.value,
             ownerId: 1,         // TODO session.user.id || 1,
-            // TODO server to add lastModifiedTime
             // id: alias,
         };
 
-        await mutate('/api/boards',(boards) => [ ...boards, newBoard], false);
-
-        await mutate('/api/boards', await fetcher('/api/boards', {
+        const newBoard = await fetcher('/api/boards', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newBoard)
-        }));
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(newBoardProps)
+        });
 
-        return router.push(`/cheer/${alias}/`)
+        // TODO add check when boards is undefined
+        await mutate('/api/boards',async (boards) => [ ...boards, newBoard]);
+
+        // await mutate('/api/boards', );
+
+        return router.push(`/cheer/${newBoard.id}/`)
     };
 
     return (

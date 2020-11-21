@@ -56,22 +56,31 @@ const BoardSchema = new mongoose.Schema({
 }, {
   toJSON: {
     transform: function(doc, ret) {
+      ret.createdAt = +(ret.createdAt);
+      ret.updatedAt = +(ret.updatedAt);
       ret.id = ret._id.toString();
+
       delete ret._id;
       delete ret.__v;
     }
-  }
+  },
+  timestamps: true
+  // Consider just using a timestamp function
 });
 
-BoardSchema.statics.index = async (ownerId) => {
-  const queryFilter = {
+// TODO figure out subdocs
+// https://mongoosejs.com/docs/subdocs.html#subdocuments-versus-nested-paths
+
+BoardSchema.statics.index = async (queryFilter) => {
+  // const queryFilter = {
     // ownerId
-  };
+    // id
+  // };
   const boards = await Board.find(queryFilter);
   const responsePromise = boards.map(async board => {
     return {
       ...board.toJSON(),
-      pinCount: await Pin.count({ boardId: board._id })
+      pinCount: await Pin.countDocuments({ boardId: board._id })
     }
   });
 

@@ -32,9 +32,13 @@ export default function BoardSummary({id, recipientFirstName: firstName, recipie
                         <Form.Control plaintext readOnly defaultValue={`${firstName} ${lastName}`} />
                     </Col>
 
-                    <Form.Text column="true" sm="4" className="text-right">
-                        MINI BOARD
-                    </Form.Text>
+                    <Form.Label column="true" sm="3" className="text-right">
+                        <p>POSTS (Max of 10) </p>
+                    </Form.Label>
+                    <Col>
+                        <Form.Control plaintext readOnly defaultValue={`${pinCount} of 10`}/>
+                        <Link href={`/cheer/${id}/upgrade`}>Upgrade MINI BOARD</Link>
+                    </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="formPlaintextPassword">
                     <Form.Label column="true" sm="2">
@@ -53,13 +57,14 @@ export default function BoardSummary({id, recipientFirstName: firstName, recipie
                 </Form.Group>
             </Form>
 
-            <p>POSTS {pinCount} (Max of 10) <Link href={`/cheer/${id}/upgrade`}>Upgrade</Link> </p>
             <div className="d-flex justify-content-between align-items-center">
                 <ButtonGroup>
                     <Link href={`/cheer/${id}/invite`}>
-                    <Button variant="outline-secondary" size="sm">Invite</Button>
+                        <Button variant="outline-secondary" size="sm">Invite</Button>
                     </Link>
-                    <Button href={`/cheer/${id}`} variant="outline-secondary" size="sm" as={Link}>Edit</Button>
+                    <Link href={`/cheer/${id}`}>
+                        <Button variant="outline-secondary" size="sm">Edit</Button>
+                    </Link>
                 </ButtonGroup>
                 <small className="text-muted">LAST POST ADDED 3 days ago</small>
             </div>

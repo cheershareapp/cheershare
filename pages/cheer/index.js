@@ -61,7 +61,7 @@ export default function ListBoards({ data: initialData }) {
 export async function getServerSideProps(context) {
     // const [ session, loading ] = useSession();
     await dbConnect();
-    const boards = await Board.index(1);
+    const boards = await Board.index(/* { ownerId: xx }*/);
     return {
         props: { data: boards }, // will be passed to the page component as props
     }
