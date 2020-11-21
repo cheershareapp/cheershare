@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-import React, {Component} from 'react';
 import { useSession } from 'next-auth/client'
 import Footer from "../components/footer";
 import useSWR from "swr";
@@ -21,7 +20,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Hello <span>{"data.name"}!</span>
+          Hello <span>{session && session.user && session.user.name}!</span>
         </h1>
 
         <p className={styles.description}>

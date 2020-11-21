@@ -29,10 +29,7 @@ export default function CreateBoardModal({ setModal, showModal }) {
             body: JSON.stringify(newBoardProps)
         });
 
-        // TODO add check when boards is undefined
-        await mutate('/api/boards',async (boards) => [ ...boards, newBoard]);
-
-        // await mutate('/api/boards', );
+        await mutate('/api/boards',async (boards) => boards ? [ ...boards, newBoard ] : [ newBoard ]);
 
         return router.push(`/cheer/${newBoard.id}/`)
     };
@@ -48,7 +45,7 @@ export default function CreateBoardModal({ setModal, showModal }) {
             </Modal.Header>
             <Modal.Body>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Who is this Kudoboard for?</Form.Label>
+                        <Form.Label>Who is this Cheerboard for?</Form.Label>
                         <Form.Control type="text" placeholder="First name" name="recipientFirstName"/>
                         <Form.Control type="text" placeholder="Last name" name="recipientLastName" />
                         <Form.Text className="text-muted">
@@ -57,7 +54,7 @@ export default function CreateBoardModal({ setModal, showModal }) {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>What title would you like on top of the CheerShare?</Form.Label>
+                        <Form.Label>What title would you like on top of the Cheerboard?</Form.Label>
                         <Form.Control type="text" name="title" />
                     </Form.Group>
             </Modal.Body>

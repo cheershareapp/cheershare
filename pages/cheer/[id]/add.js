@@ -112,7 +112,7 @@ export default function Add({ data: board }) {
 
         const newPin = {
             message: elements.message.value,
-            ownerId: session.user.id || 1, // TODO remove || 1
+            ownerId: 1, // TODO do this in the server
             boardId,
         };
 
