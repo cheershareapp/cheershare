@@ -1,22 +1,28 @@
 import dbConnect from '../../../../../utils/db'
 import Pin from "../../../../../models/Pin";
-import Board from "../../../../../models/Board";
+import { getSession } from "@nuvest/next-auth/client";
 
 export default async function handler(req, res) {
     const {
         query: { id },
         method,
     } = req;
+    const session = await getSession({ req });
+
+    if (!session) {
+        return res.status(401).end()
+    }
 
     await dbConnect();
 
     switch (method) {
         case 'POST' /* Edit a model by its ID */:
             try {
-                const pin = await Pin.create(
-                    req.body
-                );
-                res.status(200).json(pin)
+                const pin = await Pin.create({
+                    ...req.body,
+                    ownerId: session.user.id
+                });
+                res.status(201).json(pin)
             } catch (error) {
                 res.status(400).json({ success: false, error })
             }
@@ -43,10 +49,10 @@ export default async function handler(req, res) {
             }
             break;
 
-        case 'DELETE' /* Delete a model by its ID */:
+        case 'DELETE':
             try {
-                const deletedPet = await Board.deleteOne({ _id: id });
-                if (!deletedPet) {
+                const deletedPin = await Pin.deleteOne({ _id: id, /* Delete only Pins you own? */ });
+                if (!deletedPin) {
                     return res.status(400).json({ success: false })
                 }
                 res.status(200).json({ success: true, data: {} })

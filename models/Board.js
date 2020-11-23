@@ -13,8 +13,11 @@ const BoardSchema = new mongoose.Schema({
   ownerId: {
     /* The owner of this board */
 
-    type: Number,
+    type: String,
     required: [true, "Please provide owner to this board"],
+  },
+  recipientId: {
+    type: String,
   },
   recipientFirstName: {
     type: String,

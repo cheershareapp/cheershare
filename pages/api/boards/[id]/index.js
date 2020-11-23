@@ -1,14 +1,20 @@
 import dbConnect from '../../../../utils/db'
 import Board from '../../../../models/Board'
 import Pin from "../../../../models/Pin";
+import { getSession } from '@nuvest/next-auth/client'
 
 export default async function handler(req, res) {
     const {
         query: { id },
         method,
-    } = req
+    } = req;
+    const session = await getSession({ req });
 
-    await dbConnect()
+    if (!session) {
+        return res.status(401).end()
+    }
+
+    await dbConnect();
 
     switch (method) {
         case 'GET' /* Get a model by its ID */:
@@ -17,7 +23,6 @@ export default async function handler(req, res) {
                 if (!board) {
                     return res.status(400).json({ success: false })
                 }
-                // TODO const board = await Board.findOne().or([{ _id : id }, { slug: id }]);
                 const pins = await Pin.find({ boardId: board.id });
 
                 res.status(200).json({
@@ -27,18 +32,20 @@ export default async function handler(req, res) {
             } catch (error) {
                 res.status(400).json({ success: false })
             }
-            break
+            break;
 
-        case 'PUT' /* Edit a model by its ID */:
+        case 'PUT' /* Edit board by its ID */:
             try {
                 const board = await Board.findByIdAndUpdate(id, req.body, {
                     new: true,
                     runValidators: true,
-                })
+                });
                 if (!board) {
                     return res.status(400).json({ success: false })
                 }
-                // res.status(200).json(board)
+                if (board.ownerId !== session.user.id) {
+                    return res.status(401).json({ success: false })
+                }
                 const pins = await Pin.find({ boardId: board.id });
 
                 res.status(200).json({
@@ -48,22 +55,22 @@ export default async function handler(req, res) {
             } catch (error) {
                 res.status(400).json({ success: false })
             }
-            break
+            break;
 
-        case 'DELETE' /* Delete a model by its ID */:
+        case 'DELETE' /* Delete board by its ID */:
             try {
-                const deletedPet = await Board.deleteOne({ _id: id })
-                if (!deletedPet) {
+                const deletedBoard = await Board.deleteOne({ _id: id, ownerId: session.user.id });
+                if (!deletedBoard) {
                     return res.status(400).json({ success: false })
                 }
                 res.status(200).json({ success: true, data: {} })
             } catch (error) {
                 res.status(400).json({ success: false })
             }
-            break
+            break;
 
         default:
-            res.status(400).json({ success: false })
+            res.status(400).json({ success: false });
             break
     }
 }

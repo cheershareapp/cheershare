@@ -19,8 +19,6 @@ export default function CreateBoardModal({ setModal, showModal }) {
             title: elements.title.value,
             recipientFirstName: elements.recipientFirstName.value,
             recipientLastName: elements.recipientLastName.value,
-            ownerId: 1,         // TODO session.user.id || 1,
-            // id: alias,
         };
 
         const newBoard = await fetcher('/api/boards', {

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {signIn, signOut, useSession} from "next-auth/client";
+import {signIn, signOut, useSession} from "@nuvest/next-auth/client";
 import { mutate } from "swr"
 
 import Header from "../../../components/header";

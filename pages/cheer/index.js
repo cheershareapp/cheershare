@@ -1,6 +1,6 @@
 import {useState} from "react";
 import useSWR, {mutate} from 'swr'
-import {useSession} from "next-auth/client";
+import {useSession, getSession} from "@nuvest/next-auth/client";
 
 import Header from "../../components/header";
 import Footer from "../../components/footer";
@@ -22,8 +22,10 @@ export default function ListBoards({ data: initialData }) {
     const [showModal, setModal] = useState(false);
     const handleShow = () => setModal(true);
 
-    // TODO develop board filter
-    //.filter(b => b.owner === session.user.id)
+    if (loading) return <></>;
+    const filteredBoards = filter === "given" ?
+        boards.filter(b => b.ownerId === session.user.id) :
+        boards.filter(b => b.recipientId === session.user.id);
 
     return (<>
         <Header/>
@@ -48,20 +50,23 @@ export default function ListBoards({ data: initialData }) {
             </Nav>
 
             <ListGroup variant="flush">
-                {boards.map((board, i) => <ListGroup.Item key={board.id || i}>
+                {filteredBoards.map((board, i) => <ListGroup.Item key={board.id || i}>
                     <BoardSummary {...board}/>
                 </ListGroup.Item>)}
             </ListGroup>
         </Container>) : ("loading") }
-        {/* TODO figure out loading */}
         <Footer fixed/>
     </>);
 }
 
 export async function getServerSideProps(context) {
-    // const [ session, loading ] = useSession();
+    const session = await getSession(context);
     await dbConnect();
-    const boards = await Board.index(/* { ownerId: xx }*/);
+    const boards = await Board.index({ $or: [
+        {ownerId: session.user.id},
+        {recipientId: session.user.id}
+    ]});
+
     return {
         props: { data: boards }, // will be passed to the page component as props
     }
