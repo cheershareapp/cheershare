@@ -2,7 +2,13 @@ import {Row, Col, Media, Button, ButtonGroup, ListGroup, Form, Container} from "
 import React from "react";
 import Link from "next/link";
 
-export default function BoardSummary({id, recipientFirstName: firstName, recipientLastName: lastName, title, pinCount}) {
+const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+const DAY = 24 * 60 * 60 * 60 * 1000;
+
+export default function BoardSummary({id, recipientFirstName: firstName, recipientLastName: lastName, title, pinCount, updatedAt, createdAt}) {
+    const elapsed = +new Date() - updatedAt;
+    const timeAgo = rtf.format(Math.round(elapsed/DAY), 'day');
+    const createdAtDate = new Date(createdAt);
     return (<Media>
         <Link href={`/cheer/${id}`}>
         <svg className="bd-placeholder-img mr-3" width="200" height="200"
@@ -16,13 +22,6 @@ export default function BoardSummary({id, recipientFirstName: firstName, recipie
 
         <Media.Body>
             <h4>{title}</h4>
-            {/*<Container>*/}
-            {/*    <Row>*/}
-            {/*        <Col xs={7}>*/}
-            {/*            <label>For</label>*/}
-            {/*        </Col>*/}
-            {/*    </Row>*/}
-            {/*</Container>*/}
             <Form>
                 <Form.Group as={Row} controlId="formPlaintextEmail">
                     <Form.Label column="true" sm="2">
@@ -52,7 +51,7 @@ export default function BoardSummary({id, recipientFirstName: firstName, recipie
                         CREATED
                     </Form.Label>
                     <Col>
-                        <Form.Control plaintext readOnly defaultValue="October 30, 2020"/>
+                        <Form.Control plaintext readOnly defaultValue={createdAtDate.toDateString()}/>
                     </Col>
                 </Form.Group>
             </Form>
@@ -66,7 +65,7 @@ export default function BoardSummary({id, recipientFirstName: firstName, recipie
                         <Button variant="outline-secondary" size="sm">Edit</Button>
                     </Link>
                 </ButtonGroup>
-                <small className="text-muted">LAST POST ADDED 3 days ago</small>
+                <small className="text-muted">LAST POST ADDED {timeAgo}</small>
             </div>
         </Media.Body>
     </Media>);
