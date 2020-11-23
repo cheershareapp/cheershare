@@ -159,8 +159,9 @@ export default function Editor({ data: initialData }) {
     {!this.checkLoaded() && <Spinner animation="border" />}
     className={!this.state.loaded && 'visible'}
      */
-    //https://www.kudoboard.com/images/fun-background.png
-    return (<>
+    return (<div style={{
+        backgroundImage: "url(https://www.kudoboard.com/images/fun-background.png)"
+    }}>
         <Header/>
 
         {/*style={{ backgroundImage: `url(${data.backgroundImage})`}}*/}
@@ -234,21 +235,20 @@ export default function Editor({ data: initialData }) {
             }
         `}</style>
         <Footer/>
-    </>);
+    </div>);
 }
 
 export async function getServerSideProps(context) {
     const { id } = context.params;
-    // const [ session, loading ] = useSession();
-    // TODO should be done in API and just import the function here
     await dbConnect();
-    const board = await Board.findOne().or([{ _id : id }, { slug: id }]);
+
+    const [ board ] = await Board.index({ _id: id});
     const pins = await Pin.find({ boardId: board.id });
 
     return {
         props: { data: {
             pins: pins.map(v => v.toJSON()),
-            ...board.toJSON()
+            ...board
         } }, // will be passed to the page component as props
     }
 }

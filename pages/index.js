@@ -1,14 +1,13 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-import { useSession } from 'next-auth/client'
+import { useSession } from '@nuvest/next-auth/client'
 import Footer from "../components/footer";
 import useSWR from "swr";
 import Link from "next/link";
 
 export default function Home() {
     const [ session, loading ] = useSession();
-    // const { data, error } = useSWR('/api/hello');
     // if (error) return <div>failed to load</div>;
     // if (!data) return <div>loading...</div>;
   return (

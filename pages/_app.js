@@ -1,5 +1,5 @@
 import { SWRConfig } from 'swr'
-import { Provider } from 'next-auth/client'
+import { Provider } from '@nuvest/next-auth/client'
 import 'bootstrap/dist/css/bootstrap.css'
 
 function MyApp({ Component, pageProps }) {

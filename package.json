@@ -11,12 +11,12 @@
     "e2e": "start-server-and-test dev http://localhost:3000 cy:run"
   },
   "dependencies": {
+    "@nuvest/next-auth": "^3.1.0",
     "bootstrap": "^4.5.3",
     "isomorphic-unfetch": "^3.1.0",
     "mongoose": "^5.10.15",
     "muuri": "^0.9.3",
     "next": "^10.0.2",
-    "next-auth": "^3.1.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",

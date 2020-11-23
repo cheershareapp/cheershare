@@ -3,16 +3,14 @@
 /// <reference types="Cypress" />
 
 describe('Login and Logout flows', () => {
-  it('can process credentialed login', () => {
+  beforeEach('do credentialed login', () => {
     cy.visit('api/auth/signin');
     cy.contains('button', 'Sign in with Credentials');
-    // adding visibility ensures the DOM has been updated
-    // and the elements are actually visible to the user
-    // cy.get('li').should('have.length.gt', 5).and('be.visible')
+
     cy.get('#input-username-for-credentials-provider').type('bob@burgers.com');
     cy.get('#input-password-for-credentials-provider').type('password123{enter}');
 
-    cy.contains('h1', 'Hello J Smith')
+    // cy.contains('h1', 'Hello J Smith')
   });
 
   it('lists all the boards', () => {
