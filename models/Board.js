@@ -74,15 +74,14 @@ const BoardSchema = new mongoose.Schema({
 // TODO figure out subdocs
 // https://mongoosejs.com/docs/subdocs.html#subdocuments-versus-nested-paths
 
-BoardSchema.statics.index = async (queryFilter) => {
-  // const queryFilter = {
-    // ownerId
-    // id
-  // };
+BoardSchema.statics.index = async (queryFilter, options) => {
   const boards = await Board.find(queryFilter);
+  // const { nestPins } = options;
   const responsePromise = boards.map(async board => {
+    // const pins = nestPins ? { pins: await Pin.find({ boardId: board._id }) } : {};
     return {
       ...board.toJSON(),
+      // ...pins,
       pinCount: await Pin.countDocuments({ boardId: board._id })
     }
   });

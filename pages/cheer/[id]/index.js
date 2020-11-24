@@ -3,7 +3,7 @@ import {useRouter} from 'next/router'
 import CheerPin from "../../../components/pin";
 import Header from "../../../components/header";
 import Footer from "../../../components/footer";
-import Sidebar from "../../../components/sidebar";
+import Sidebar from "../../../components/Sidebar";
 import styles from "../../../styles/Editor.module.css"
 import { ButtonGroup, Button, Row, Col, Container} from "react-bootstrap";
 import Link from "next/link";

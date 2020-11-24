@@ -9,6 +9,7 @@ export default function BoardSummary({id, recipientFirstName: firstName, recipie
     const elapsed = +new Date() - updatedAt;
     const timeAgo = rtf.format(Math.round(elapsed/DAY), 'day');
     const createdAtDate = new Date(createdAt);
+
     return (<Media>
         <Link href={`/cheer/${id}`}>
         <svg className="bd-placeholder-img mr-3" width="200" height="200"

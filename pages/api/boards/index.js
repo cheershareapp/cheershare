@@ -25,6 +25,7 @@ export default async function handler(req, res) {
         res.status(400).json({ success: false })
       }
       break;
+
     case 'POST':
       try {
         const board = await Board.create({
@@ -43,6 +44,7 @@ export default async function handler(req, res) {
         res.status(400).json({ success: false, error })
       }
       break;
+
     default:
       res.status(400).json({ success: false });
       break

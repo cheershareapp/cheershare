@@ -1,5 +1,5 @@
-import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
+import NextAuth from '@nuvest/next-auth';
+import Providers from '@nuvest/next-auth/providers';
 
 const options = {
     // Configure one or more authentication providers
@@ -26,13 +26,8 @@ const options = {
                 password: {  label: "Password", type: "password" }
             },
             authorize: async (credentials) => {
-                const user = (credentials) => {
-                    // You need to provide your own logic here that takes the credentials
-                    // submitted and returns either a object representing a user or value
-                    // that is false/null if the credentials are invalid.
-                    // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-                    return null
-                }
+                // Waiting on https://github.com/nextauthjs/next-auth/pull/784
+                const user = { id: 1, name: 'J Smith', email: 'yo.jsmith@example.com' };
                 if (user) {
                     // Any user object returned here will be saved in the JSON Web Token
                     return Promise.resolve(user)
@@ -48,7 +43,19 @@ const options = {
 
     // Testing Only
     // database: 'sqlite://localhost/:memory:?synchronize=true',
-    session: { jwt: true }
+    session: { jwt: true },
+    callbacks: {
+        /**
+         * @param  {object} session      Session object
+         * @param  {object} user         User object    (if using database sessions)
+         *                               JSON Web Token (if not using database sessions)
+         * @return {object}              Session that will be returned to the client
+         */
+        session: async (session, user, sessionToken) => {
+            session.user.id = "1";  // Add property to session
+            return Promise.resolve(session)
+        }
+    }
 }
 
 export default (req, res) => NextAuth(req, res, options)

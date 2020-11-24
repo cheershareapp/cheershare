@@ -1,14 +1,12 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import styles from '../styles/Sidebar.module.css'
+import styles from './Sidebar.module.css';
 
-const Sidebar = ({ show, setSidebar }) => {
+export default function Sidebar ({ show, setSidebar, backgrounds }) {
     const handleClose = () => setSidebar(false);
     const handleShow = () => setSidebar(true);
 
-    // TODO Use Optimized images for Pins, image search, background selection, etc.
-    // https://nextjs.org/docs/basic-features/image-optimization
     return (<>
         <Modal show={show} onHide={handleClose} animation={false} size="sm"
                dialogClassName={styles.sidebarDialog} contentClassName={styles.sidebarContent}>
@@ -16,9 +14,9 @@ const Sidebar = ({ show, setSidebar }) => {
                 <Modal.Title>Change background</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {[...Array(10)].map(() =>
+                {[...Array(10)].map((_, i) =>
                     <svg className="bd-placeholder-img m-3" width="100" height="100"
-                         xmlns="http://www.w3.org/2000/svg" role="img"
+                         xmlns="http://www.w3.org/2000/svg" role="img" key={i}
                          aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
                          focusable="false"><title>Placeholder</title>
                         <rect width="100%" height="100%" fill="#55595c"/>
@@ -69,4 +67,13 @@ const Sidebar = ({ show, setSidebar }) => {
     </>);
 };
 
-export default Sidebar;
+/*
+export async function getStaticProps(context) {
+    const backgrounds = fs.readdirSync('./public/images').filter(file => file.includes('background'));
+    console.log(backgrounds, 'sidebar');
+
+    return {
+        props: { backgrounds }, // will be passed to the page component as props
+    }
+}
+*/

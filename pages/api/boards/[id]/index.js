@@ -1,7 +1,7 @@
+import { getSession } from '@nuvest/next-auth/client'
 import dbConnect from '../../../../utils/db'
 import Board from '../../../../models/Board'
 import Pin from "../../../../models/Pin";
-import { getSession } from '@nuvest/next-auth/client'
 
 export default async function handler(req, res) {
     const {
@@ -19,6 +19,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET' /* Get a model by its ID */:
             try {
+                // TODO replace with Board.index({_id: id}, { nestPins: true })
                 const board = await Board.findById(id);
                 if (!board) {
                     return res.status(400).json({ success: false })
