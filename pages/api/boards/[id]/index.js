@@ -19,17 +19,9 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET' /* Get a model by its ID */:
             try {
-                // TODO replace with Board.index({_id: id}, { nestPins: true })
-                const board = await Board.findById(id);
-                if (!board) {
-                    return res.status(400).json({ success: false })
-                }
-                const pins = await Pin.find({ boardId: board.id });
+                const response = await Board.index({_id: id}, { nestPins: true });
 
-                res.status(200).json({
-                    pins: pins.map(v => v.toJSON()),
-                    ...board.toJSON()
-                } )
+                res.status(200).json(response[0]);
             } catch (error) {
                 res.status(400).json({ success: false })
             }

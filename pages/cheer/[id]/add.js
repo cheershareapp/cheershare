@@ -17,7 +17,6 @@ import {useRouter} from "next/router";
 import fetcher from "../../../utils/fetch";
 import dbConnect from "../../../utils/db";
 import Board from "../../../models/Board";
-import Pin from "../../../models/Pin";
 import Gallery from "../../../components/Gallery";
 
 // TODO break up each of these pages as components, shrink this file
@@ -169,22 +168,16 @@ export default function Add({ data: board }) {
             </Form>
         </Container>
 
-        <Footer fixed/>
+        <Footer/>
     </>);
 }
 
 export async function getServerSideProps(context) {
     const { id } = context.params;
     // const [ session, loading ] = useSession();
-    // TODO should be done in API and just import the function here
     await dbConnect();
-    const board = await Board.findOne().or([{ _id : id }, { slug: id }]);
-    const pins = await Pin.find({ boardId: board.id });
-
+    const data = await Board.index({_id: id}, { nestPins: true });
     return {
-        props: { data: {
-                pins: pins.map(v => v.toJSON()),
-                ...board.toJSON()
-            } }, // will be passed to the page component as props
+        props: { data: data[0] }, // will be passed to the page component as props
     }
 }
