@@ -13,6 +13,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Board from "../../models/Board";
 import dbConnect from "../../utils/db";
 import fetcher from "../../utils/fetch";
+import {redirectToLogin} from "../../utils/redirectToLogin";
 
 export default function ListBoards({ data: initialData }) {
     const [filter, setFilter] = useState('given');
@@ -61,6 +62,10 @@ export default function ListBoards({ data: initialData }) {
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
+
+    if (!session) {
+        redirectToLogin(context.res);
+    }
     await dbConnect();
     const boards = await Board.index({ $or: [
         {ownerId: session.user.id},

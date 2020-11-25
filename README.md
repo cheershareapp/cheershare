@@ -5,12 +5,14 @@ This is a [Next.js](https://nextjs.org/) project to share cheer.
 - [x] Sidebar for Editor screen
 - [x] APIs to save and load cheerboards
 - [x] Bootstrap + Commerce-like theme
-- [ ] Implement page protection with next-auth
+- [x] Implement page protection with next-auth
 - [ ] Configure google and facebook oauth tokens
+- [x] Configure unsplash and giphy oauth tokens
 - [x] Use `<Link>` instead of `<a>`
 - [x] Use `<Image>` instead of `<img>`
 - [x] Use session and authentication to filter access
 - [ ] Company logo background #209CEE https://fonts.google.com/specimen/Leckerli+One?query=leck
+- [ ] Figure out email server
 
 ## Data Structures
 
