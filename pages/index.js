@@ -19,6 +19,22 @@ export default function Home() {
         </Head>
         <Header/>
         <main className="px-lg-5">
+
+            <div className="row my-md-3 bg-light">
+                <div className="col-md-5 p-lg-5 mx-auto my-5">
+                    <h1 className="display-4 font-weight-normal">The Perfect Group Card for Special Occasions</h1>
+                    <p className="lead font-weight-normal">Celebrate someone with an online group card filled with
+                        messages, GIFs, photos, & videos!</p>
+                    <Link href="/cheer/"><a className="btn btn-outline-secondary">Create Cheerboard</a></Link>
+                </div>
+                <div className="col-md-7"
+                     style={{
+                         backgroundImage: 'url(https://net.hr/wp-content/uploads/2017/11/6117861789_80c0a34801_z.jpg?quality=100&strip=all)',
+                         backgroundSize: 'cover'}}>
+                </div>
+            </div>
+
+            {/*
             <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
                 <div className="col-md-5 p-lg-5 mx-auto my-5">
                     <h1 className="display-4 font-weight-normal">The Perfect Group Card for Special Occasions</h1>
@@ -26,102 +42,79 @@ export default function Home() {
                         messages, GIFs, photos, & videos!</p>
                     <Link href="/cheer/"><a className="btn btn-outline-secondary">Create Cheerboard</a></Link>
                 </div>
-                {/*
                 <div className="product-device shadow-sm d-none d-md-block">Want an ongoing plan for your company?</div>
                 <div className="product-device product-device-2 shadow-sm d-none d-md-block">Try Kudoboard for Business</div>
-                */}
-            </div>
+            </div>*/}
 
-            <div className="text-center my-4">
-                <h1>How Our Group Cards Work</h1>
-                <p>Start a digital group card for a colleague, friend, or family member. Share the link with anyone,
+            <div className="text-center my-4 bg-light p-lg-5 mx-auto my-5">
+                <h1 className="display-8 font-weight-normal">How Our Group Cards Work</h1>
+                <p className="lead">Start a digital group card for a colleague, friend, or family member. Share the link with anyone,
                     anywhere so they can post. Deliver when you're ready!</p>
                 <div className="row">
                     <div className="col-lg-3">
                         <h4><span className="badge badge-light">1</span> Create a Cheershare</h4>
-                        <img className="bd-placeholder-img rounded-top"
-                             src={`https://placeimg.com/200/200/tech/sepia/1`}/>
+                        <img className="bd-placeholder-img rounded"
+                             src={`https://placeimg.com/200/200/tech/sepia/1`} width="100%"/>
                         <p>Choose a recipient to celebrate with the group greeting card.</p>
                     </div>
                     <div className="col-lg-3">
                         <h4><span className="badge badge-light">2</span> Add Your Content</h4>
-                        <img className="bd-placeholder-img rounded-top"
-                             src={`https://placeimg.com/200/200/tech/sepia//2`}/>
+                        <img className="bd-placeholder-img rounded"
+                             src={`https://placeimg.com/200/200/tech/sepia//2`} width="100%"/>
                         <p>Get creative. Attach messages, photos, GIFs or videos to the recipient's board.</p>
                     </div>
                     <div className="col-lg-3">
                         <h4><span className="badge badge-light">3</span> Invite your friends</h4>
-                        <img className="bd-placeholder-img rounded-top"
-                             src={`https://placeimg.com/200/200/tech/sepia//3`}/>
+                        <img className="bd-placeholder-img rounded"
+                             src={`https://placeimg.com/200/200/tech/sepia//3`} width="100%"/>
                         <p>Invite others to add their contributions and watch the virtual group card grow.</p>
                     </div>
                     <div className="col-lg-3">
                         <h4><span className="badge badge-light">4</span> Deliver Appreciation</h4>
-                        <img className="bd-placeholder-img rounded-top"
-                             src={`https://placeimg.com/200/200/tech/sepia//4`}/>
+                        <img className="bd-placeholder-img rounded"
+                             src={`https://placeimg.com/200/200/tech/sepia//4`} width="100%"/>
                         <p>Deliver it online, print it out as a poster, or play it as a slideshow!</p>
                     </div>
                 </div>
 
                 <Link href="/cheer/"><a className="btn btn-secondary my-4">Create Cheerboard</a></Link>
             </div>
-            <div className="album py-5 bg-light">
-                <div className="">
-                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        {/*
-                          // https://stackoverflow.com/a/31144138
-                          position: absolute;
-                          top: 50%;
-                          width: 100%;
-                          text-align: center;
-                          font-size: 18px;
-                        */}
-                        {['Birthday', 'Farewell', 'Work Anniversary', 'Get Well Soon', 'Retirement', 'Promotion'].map((caption, i) =>
-                            <div className="col text-center">
-                                <Figure>
-                                    <Figure.Image
-                                        alt="171x180"
-                                        src={`https://placeimg.com/300/300/${i}`}
-                                    />
-                                    <Figure.Caption>
-                                        {caption}
-                                    </Figure.Caption>
-                                </Figure>
-                            </div>)}
-                        <style jsx global>{`
-                        .figure-img {
-                            -webkit-filter: grayscale(100%);
-                        }
-                        .figure-img :hover {
-                            -webkit-filter: none;
-                        }
-                        `}</style>
-                    </div>
+            <div className="text-center py-5">
+                <h1 className="display-8 font-weight-normal">Group Cards for Birthdays, Holidays, & Other Occasions</h1>
+                <p className="lead">Get inspired with these sample Cheers:</p>
+
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    {['Birthday', 'Farewell', 'Work Anniversary', 'Get Well Soon', 'Retirement', 'Promotion'].map((caption, i) =>
+                        <div className="col">
+                            <Figure>
+                                <Figure.Image
+                                    alt="171x180"
+                                    src={`https://placeimg.com/300/150/${i}`}
+                                />
+                                <Figure.Caption>
+                                    {caption}
+                                </Figure.Caption>
+                            </Figure>
+                        </div>)}
+                    <style jsx global>{`
+                    .figure-img {
+                        -webkit-filter: grayscale(100%);
+                    }
+                    .figure-img :hover {
+                        -webkit-filter: none;
+                    }
+                    /*
+                      // https://stackoverflow.com/a/31144138
+                      position: absolute;
+                      top: 50%;
+                      width: 100%;
+                      text-align: center;
+                      font-size: 18px;
+                    */
+                    `}</style>
                 </div>
             </div>
             {/*
-            <hr className="featurette-divider"/>
-
-            <div className="row featurette">
-                <div className="col-md-7">
-                    <h2 className="featurette-heading">First featurette heading. <span className="text-muted">It’ll blow your mind.</span>
-                    </h2>
-                    <p className="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula
-                        porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl
-                        consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-                </div>
-                <div className="col-md-5">
-                    <svg className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-                         width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img"
-                         aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice"
-                         focusable="false"><title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#eee"/>
-                        <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                    </svg>
-
-                </div>
-            </div>
-
             <hr className="featurette-divider"/>
 
             <div className="row featurette">
@@ -171,12 +164,13 @@ export default function Home() {
             <hr className="featurette-divider"/>
             */}
 
+            <div className='container'>
             <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
                 <h1 className="display-4">Pricing</h1>
                 <p className="lead">Choose the option that's right for you. From single group cards to ongoing plans,
                     for personal use or for the office. Every Cheershare offers:</p>
                 <div className="container my-3">
-                    <div className="row text-center">
+                    <div className="row">
                         <div className="col">
                             ✅ Add text, pics, GIFs, videos
                         </div>
@@ -185,7 +179,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className="row text-center">
+                    <div className="row">
                         <div className="col">
                             ✅ Accessible forever
                         </div>
@@ -194,7 +188,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className="row text-center">
+                    <div className="row">
                         <div className="col">
                             ✅ Deliver online or print as poster
                         </div>
@@ -212,7 +206,7 @@ export default function Home() {
                             <h1 className="card-title pricing-card-title">Free</h1>
                         </div>
                         <div className="card-body">
-                            <p>Great for a small group of contributors, 1-to-1 boards, or to test the Kudoboard system.</p>
+                            <p>Great for a small group of contributors, 1-to-1 boards, or to test the Cheershare system.</p>
                             <hr/>
                             <ul className="list-unstyled mt-3 mb-4">
                                 <li>Up to 15 posts</li>
@@ -266,13 +260,14 @@ export default function Home() {
                 <div className="col">
                     <div className="card mb-4 shadow-sm">
                         <div className="card-header text-center">
-                            <h2 className="my-3 font-weight-normal">Want unlimited boards, multiple creators, & more?</h2>
-                            <h5 className="card-title pricing-card-title">Check out our Business and Enterprise plans for all your organization's needs.</h5>
+                            <h4 className="my-3 font-weight-normal">Want unlimited boards, multiple creators, & more?</h4>
+                            <h6 className="card-title my-5">Check out our Business and Enterprise plans for all your organization's needs.</h6>
 
                             <button type="button" className="btn btn-lg btn-block btn-primary">See Business Plan</button>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
 
             <footer className="pt-4 my-md-5 pt-md-5 border-top">
