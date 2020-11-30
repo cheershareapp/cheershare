@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {signIn, signOut, useSession} from "@nuvest/next-auth/client";
+import {signIn, signOut, useSession} from "next-auth/client";
 import {Container, Navbar, Nav, NavDropdown, Dropdown, DropdownButton, Button} from "react-bootstrap";
 import CreateBoardModal from "./create-board";
 import Link from "next/link";

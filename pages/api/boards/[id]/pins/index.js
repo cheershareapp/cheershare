@@ -1,6 +1,6 @@
 import dbConnect from '../../../../../utils/db'
 import Pin from "../../../../../models/Pin";
-import { getSession } from "@nuvest/next-auth/client";
+import { getSession } from "next-auth/client";
 
 export default async function handler(req, res) {
     const {

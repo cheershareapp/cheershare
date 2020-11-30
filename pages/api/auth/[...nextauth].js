@@ -1,5 +1,5 @@
-import NextAuth from '@nuvest/next-auth';
-import Providers from '@nuvest/next-auth/providers';
+import NextAuth from 'next-auth';
+import Providers from 'next-auth/providers';
 
 const options = {
     // Configure one or more authentication providers

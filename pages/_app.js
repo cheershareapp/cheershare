@@ -1,4 +1,4 @@
-import { Provider } from '@nuvest/next-auth/client'
+import { Provider } from 'next-auth/client'
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import 'bootstrap/dist/css/bootstrap.css'

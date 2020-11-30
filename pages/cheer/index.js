@@ -1,6 +1,6 @@
 import {useState} from "react";
 import useSWR, {mutate} from 'swr'
-import {useSession, getSession} from "@nuvest/next-auth/client";
+import {useSession, getSession} from "next-auth/client";
 
 import Header from "../../components/header";
 import Footer from "../../components/footer";

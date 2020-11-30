@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-import { useSession } from '@nuvest/next-auth/client'
+import { useSession } from 'next-auth/client'
 import Footer from "../components/footer";
 import CheckoutForm from "../components/CheckoutForm";
 import Link from "next/link";

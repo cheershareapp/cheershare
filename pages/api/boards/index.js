@@ -1,6 +1,6 @@
 import dbConnect from '../../../utils/db'
 import Board from '../../../models/Board'
-import { getSession } from '@nuvest/next-auth/client'
+import { getSession } from 'next-auth/client'
 
 export default async function handler(req, res) {
   const { method } = req;
