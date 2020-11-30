@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import {signIn, signOut, useSession} from "next-auth/client";
+import {getSession, signIn, signOut, useSession} from "next-auth/client";
+import { mutate } from "swr"
 
 import Header from "../../../components/header";
 import Footer from "../../../components/footer";
@@ -13,7 +14,14 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Alert from "react-bootstrap/Alert";
 import {useRouter} from "next/router";
+import fetcher from "../../../utils/fetch";
+import dbConnect from "../../../utils/db";
+import Board from "../../../models/Board";
+import Gallery from "../../../components/Gallery";
+import {redirectToLogin} from "../../../utils/redirectToLogin";
 
+// TODO break up each of these pages as components, shrink this file
+// maybe use React Portal?
 const ImagePage = ({ onSelect }) => <Nav defaultActiveKey="" onSelect={onSelect}>
     <Nav.Item>
         <Nav.Link eventKey="upload-image">Upload Image</Nav.Link>
@@ -35,35 +43,39 @@ const VideoPage = ({ onSelect }) => <Nav defaultActiveKey="" onSelect={onSelect}
     </Nav.Item>
 </Nav>;
 
-const SearchPage = ({ vendor }) => <><Form>
-    <Form.Group controlId="formSearch">
-        <InputGroup>
-            <Form.Control
-                placeholder="Search for..."
-                aria-label="Search for..."
-                aria-describedby="basic-addon2"
-            />
-            <InputGroup.Append>
-                <Button variant="outline-secondary">Search</Button>
-            </InputGroup.Append>
-        </InputGroup>
+const SearchPage = ({ vendor, setMediaUrl }) => {
+    const [ query, setQuery ] = useState('');
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const { target: form } = e;
+        const { elements } = form;
+        setQuery(elements.query.value);
+    };
 
-        <Form.Text className="text-muted text-right">
-            Powered by {vendor}
-        </Form.Text>
-    </Form.Group>
-</Form>
-    <Alert className="overflow-auto text-center" style={{maxHeight: "30vh"}} variant="info">
-        {[...Array(10)].map(() =>
-        <svg className="bd-placeholder-img m-3" width="200" height="200"
-             xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
-             focusable="false"><title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#55595c"/>
-            <text x="30%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-        </svg>)}
-    </Alert>
-</>
+    return <><Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formSearch">
+            <InputGroup>
+                <Form.Control
+                    placeholder="Search for..."
+                    aria-label="Search for..."
+                    aria-describedby="basic-addon2"
+                    name="query"
+                />
+                <InputGroup.Append>
+                    <Button variant="outline-secondary">Search</Button>
+                </InputGroup.Append>
+            </InputGroup>
+
+            <Form.Text className="text-muted text-right">
+                Powered by {vendor}
+            </Form.Text>
+        </Form.Group>
+        </Form>
+        <Alert className="overflow-auto text-center" style={{maxHeight: "30vh"}} variant="info">
+            <Gallery q={query} vendor={vendor} onImageSelect={setMediaUrl}/>
+        </Alert>
+    </>
+}
 
 const UploadPage = ({ filetype }) => <Form className="min-vh-20">
     Add an {filetype} from your computer or phone
@@ -78,11 +90,11 @@ const UploadPage = ({ filetype }) => <Form className="min-vh-20">
     </Alert>
 </Form>
 
-function renderPage(page, setPage) {
+function renderPage(page, setMediaUrl) {
     switch (page) {
-        case "unsplash": return <SearchPage vendor="unsplash"/>;
-        case "giphy": return <SearchPage vendor="giphy"/>;
-        case "youtube": return <SearchPage vendor="youtube"/>;
+        case "unsplash": return <SearchPage vendor="unsplash" setMediaUrl={setMediaUrl}/>;
+        case "giphy": return <SearchPage vendor="giphy" setMediaUrl={setMediaUrl}/>;
+        case "youtube": return <SearchPage vendor="youtube" setMediaUrl={setMediaUrl}/>;
 
         case "upload-image":
         case "upload-video":
@@ -92,9 +104,42 @@ function renderPage(page, setPage) {
     }
 }
 
-export default function Add() {
+export default function Add({ data: board }) {
     const [ page, setPage ] = useState('');
-    const router = useRouter()
+    const [ mediaUrl, setMediaUrl ] = useState('');
+    const router = useRouter();
+    const [ session, loading ] = useSession();
+    const { id: boardId } = router.query;
+
+    const handleSelectImage = (url) => {
+        setMediaUrl(url);
+        setPage('');
+    };
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        const { target: formEl } = e;
+        const { elements } = formEl;
+
+        const newPin = {
+            message: elements.message.value,
+            boardId,
+            mediaUrl,
+        };
+
+        const { pins, ...rest } = board;
+        const newPinBody = await fetcher(`/api/boards/${boardId}/pins`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newPin)
+        });
+        await mutate(`/api/boards/${boardId}`, {
+            pins: [...pins, newPinBody],
+            ...rest,
+            // TODO coverImage: rest.coverImage || newPin.mediaUrl,
+        }, true);
+        return router.back(); // push(`cheer/${boardId}`);
+    };
 
     return (<>
         <Header/>
@@ -111,9 +156,10 @@ export default function Add() {
                     <VideoPage onSelect={setPage}/>
                 </Tab>
             </Tabs>
-            { renderPage(page, setPage) }
-            <Form>
-                <Form.Control as="textarea" rows={10} />
+            { renderPage(page, handleSelectImage) }
+            <img src={mediaUrl} />
+            <Form onSubmit={handleFormSubmit}>
+                <Form.Control as="textarea" rows={10} name="message"/>
 
                 <Button variant="primary" type="submit">
                     Post
@@ -124,6 +170,20 @@ export default function Add() {
             </Form>
         </Container>
 
-        <Footer fixed/>
+        <Footer/>
     </>);
+}
+
+export async function getServerSideProps(context) {
+    const { id } = context.params;
+    const session = await getSession(context);
+
+    if (!session) {
+        redirectToLogin(context.res);
+    }
+    await dbConnect();
+    const data = await Board.index({_id: id}, { nestPins: true });
+    return {
+        props: { data: data[0] }, // will be passed to the page component as props
+    }
 }

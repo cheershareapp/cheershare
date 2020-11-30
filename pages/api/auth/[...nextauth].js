@@ -26,13 +26,8 @@ const options = {
                 password: {  label: "Password", type: "password" }
             },
             authorize: async (credentials) => {
-                const user = (credentials) => {
-                    // You need to provide your own logic here that takes the credentials
-                    // submitted and returns either a object representing a user or value
-                    // that is false/null if the credentials are invalid.
-                    // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-                    return null
-                }
+                // Waiting on https://github.com/nextauthjs/next-auth/pull/784
+                const user = { id: 1, name: 'J Smith', email: 'yo.jsmith@example.com' };
                 if (user) {
                     // Any user object returned here will be saved in the JSON Web Token
                     return Promise.resolve(user)
@@ -44,11 +39,23 @@ const options = {
     ],
 
     // A database is optional, but required to persist accounts in a database
-    // database: process.env.DATABASE_URL,
+    database: process.env.MONGODB_URI,
 
     // Testing Only
-    database: 'sqlite://localhost/:memory:?synchronize=true',
-    session: { jwt: true }
+    // database: 'sqlite://localhost/:memory:?synchronize=true',
+    session: { jwt: true },
+    callbacks: {
+        /**
+         * @param  {object} session      Session object
+         * @param  {object} user         User object    (if using database sessions)
+         *                               JSON Web Token (if not using database sessions)
+         * @return {object}              Session that will be returned to the client
+         */
+        session: async (session, user, sessionToken) => {
+            session.user.id = "1";  // Add property to session
+            return Promise.resolve(session)
+        }
+    }
 }
 
 export default (req, res) => NextAuth(req, res, options)

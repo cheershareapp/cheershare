@@ -3,19 +3,31 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "e2e": "start-server-and-test dev http://localhost:3000 cy:run"
   },
   "dependencies": {
-    "bootstrap": "^4.5.3",
-    "muuri": "^0.9.3",
-    "next": "10.0.0",
+    "@giphy/js-fetch-api": "^2.0.0-alpha.0",
     "next-auth": "^3.1.0",
+    "@stripe/react-stripe-js": "^1.1.2",
+    "@stripe/stripe-js": "^1.11.0",
+    "bootstrap": "^4.5.3",
+    "isomorphic-unfetch": "^3.1.0",
+    "mongoose": "^5.10.15",
+    "muuri": "^0.9.3",
+    "next": "^10.0.2",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
-    "sqlite3": "^5.0.0",
-    "swr": "^0.3.8"
+    "swr": "^0.3.9",
+    "unsplash-js": "^6.3.0"
+  },
+  "devDependencies": {
+    "cypress": "^5.6.0",
+    "start-server-and-test": "^1.11.6"
   }
 }
