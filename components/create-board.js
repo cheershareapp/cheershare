@@ -13,7 +13,7 @@ export default function CreateBoardModal({ setModal, showModal }) {
         e.preventDefault();
         const { target: form } = e;
         const { elements } = form;
-        // const alias = +Date.now();
+        // TODO future optimization, const alias = +Date.now();
 
         const newBoardProps = {
             title: elements.title.value,

@@ -31,8 +31,8 @@ export default function ListBoards({ data: initialData }) {
     return (<>
         <Header/>
         <CreateBoardModal showModal={showModal} setModal={setModal} />
-        {boards ? (<Container>
-                <Nav variant="pills" activeKey={filter} onSelect={setFilter} className="py-4">
+        <Container>
+            <Nav variant="pills" activeKey={filter} onSelect={setFilter} className="py-4">
                 <Nav.Item>
                     <Nav.Link eventKey="given">
                         Given
@@ -55,8 +55,8 @@ export default function ListBoards({ data: initialData }) {
                     <BoardSummary {...board}/>
                 </ListGroup.Item>)}
             </ListGroup>
-        </Container>) : ("loading") }
-        <Footer fixed/>
+        </Container>
+        <Footer/>
     </>);
 }
 

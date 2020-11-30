@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {signIn, signOut, useSession} from "@nuvest/next-auth/client";
+import {getSession, signIn, signOut, useSession} from "@nuvest/next-auth/client";
 import { mutate } from "swr"
 
 import Header from "../../../components/header";
@@ -18,6 +18,7 @@ import fetcher from "../../../utils/fetch";
 import dbConnect from "../../../utils/db";
 import Board from "../../../models/Board";
 import Gallery from "../../../components/Gallery";
+import {redirectToLogin} from "../../../utils/redirectToLogin";
 
 // TODO break up each of these pages as components, shrink this file
 // maybe use React Portal?
@@ -69,7 +70,7 @@ const SearchPage = ({ vendor, setMediaUrl }) => {
                 Powered by {vendor}
             </Form.Text>
         </Form.Group>
-    </Form>
+        </Form>
         <Alert className="overflow-auto text-center" style={{maxHeight: "30vh"}} variant="info">
             <Gallery q={query} vendor={vendor} onImageSelect={setMediaUrl}/>
         </Alert>
@@ -133,8 +134,9 @@ export default function Add({ data: board }) {
             body: JSON.stringify(newPin)
         });
         await mutate(`/api/boards/${boardId}`, {
-                pins: [...pins, newPinBody],
-                ...rest
+            pins: [...pins, newPinBody],
+            ...rest,
+            // TODO coverImage: rest.coverImage || newPin.mediaUrl,
         }, true);
         return router.back(); // push(`cheer/${boardId}`);
     };
@@ -174,7 +176,11 @@ export default function Add({ data: board }) {
 
 export async function getServerSideProps(context) {
     const { id } = context.params;
-    // const [ session, loading ] = useSession();
+    const session = await getSession(context);
+
+    if (!session) {
+        redirectToLogin(context.res);
+    }
     await dbConnect();
     const data = await Board.index({_id: id}, { nestPins: true });
     return {

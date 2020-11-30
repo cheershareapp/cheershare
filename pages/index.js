@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 
 import { useSession } from '@nuvest/next-auth/client'
 import Footer from "../components/footer";
-import useSWR from "swr";
+import CheckoutForm from "../components/CheckoutForm";
 import Link from "next/link";
 
 export default function Home() {
@@ -11,9 +11,9 @@ export default function Home() {
     // if (error) return <div>failed to load</div>;
     // if (!data) return <div>loading...</div>;
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Welcome to Cheershare</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -42,7 +42,7 @@ export default function Home() {
               </Link>
           </div>
       </main>
-
+        <CheckoutForm />
         <Footer />
     </div>
   );

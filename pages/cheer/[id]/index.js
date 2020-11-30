@@ -22,6 +22,10 @@ https://github.com/haltu/muuri/blob/gh-pages/js/demo-kanban.js
 https://github.com/haltu/muuri/blob/gh-pages/css/demo-kanban.css
  */
 
+function byRow(a, b) {
+    return a.rowIndex - b.rowIndex;
+}
+
 export default function Editor({ data: initialData }) {
     /* Data fetch */
     const router = useRouter();
@@ -200,18 +204,18 @@ export default function Editor({ data: initialData }) {
             <Row>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[0]}>
-                        {col1 && col1.map((item, idx) => <CheerPin {...item} key={idx}/>)}
-                        {col4 && col4.map((item, idx) => <CheerPin {...item} key={idx}/>)}
+                        {col1 && col1.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx}/>)}
+                        {col4 && col4.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx}/>)}
                     </div>
                 </Col>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[1]}>
-                        {col2 && col2.map((item, idx) => <CheerPin {...item} key={idx}/>)}
+                        {col2 && col2.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx}/>)}
                     </div>
                 </Col>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[2]}>
-                        {col3 && col3.map((item, idx) => <CheerPin {...item} key={idx}/>)}
+                        {col3 && col3.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx}/>)}
                     </div>
                 </Col>
             </Row>
