@@ -4,9 +4,13 @@ import Providers from 'next-auth/providers';
 const options = {
     // Configure one or more authentication providers
     providers: [
-        Providers.GitHub({
-            clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET
+        Providers.Google({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET
+        }),
+        Providers.Facebook({
+            clientId: process.env.FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET
         }),
         Providers.Email({
             server: process.env.EMAIL_SERVER,
@@ -14,6 +18,7 @@ const options = {
             // maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
         }),
 
+        /*
         // Testing Only
         Providers.Credentials({
             // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -36,14 +41,14 @@ const options = {
                 }
             }
         })
+         */
     ],
 
     // A database is optional, but required to persist accounts in a database
     database: process.env.MONGODB_URI,
 
     // Testing Only
-    // database: 'sqlite://localhost/:memory:?synchronize=true',
-    session: { jwt: true },
+    // session: { jwt: true },
     callbacks: {
         /**
          * @param  {object} session      Session object
@@ -52,10 +57,11 @@ const options = {
          * @return {object}              Session that will be returned to the client
          */
         session: async (session, user, sessionToken) => {
-            session.user.id = "1";  // Add property to session
+            // Add id property to session
+            session.user.id = user.id;
             return Promise.resolve(session)
         }
     }
-}
+};
 
 export default (req, res) => NextAuth(req, res, options)

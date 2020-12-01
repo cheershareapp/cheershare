@@ -85,7 +85,7 @@ export default function Home() {
 
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     {['Birthday', 'Farewell', 'Work Anniversary', 'Get Well Soon', 'Retirement', 'Promotion'].map((caption, i) =>
-                        <div className="col">
+                        <div className="col" key={i}>
                             <Figure>
                                 <Figure.Image
                                     alt="171x180"
