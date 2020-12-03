@@ -25,6 +25,7 @@ export default function Profile() {
                 <div className="py-5">
                 <h1>My Profile</h1>
                 </div>
+                <pre>{JSON.stringify(session, null, 4)}</pre>
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>

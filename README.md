@@ -13,6 +13,7 @@ This is a [Next.js](https://nextjs.org/) project to share cheer.
 - [x] Use session and authentication to filter access
 - [ ] Company logo background #209CEE https://fonts.google.com/specimen/Leckerli+One?query=leck
 - [ ] Figure out email server
+- [ ] Figure out Domain name https://vercel.com/docs/custom-domains
 
 ## Data Structures
 
