@@ -1,9 +1,40 @@
 import React from "react";
+import Image from "next/image"
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import styles from './Sidebar.module.css';
+/*
+TODO implement directory lookup for all backgrounds
+https://medium.com/@boris.poehland.business/next-js-api-routes-how-to-read-files-from-directory-compatible-with-vercel-5fb5837694b9
+import fs from 'fs'
+import path from 'path'
 
-export default function Sidebar ({ show, setSidebar, backgrounds }) {
+export default (req, res) => {
+  const dirRelativeToPublicFolder = 'img'
+
+  const dir = path.resolve('./public', dirRelativeToPublicFolder);
+
+  const filenames = fs.readdirSync(dir);
+
+  const images = filenames.map(name => path.join('/', dirRelativeToPublicFolder, name))
+
+  res.statusCode = 200
+  res.json(images);
+}
+ */
+const backgrounds = [
+    "balloons",
+    "brick",
+    "camouflage",
+    "celebration",
+    "chevrons",
+    "circles",
+    "confetti",
+    "dots",
+    "fabric",
+    "feathers"
+];
+export default function Sidebar ({ show, setSidebar }) {
     const handleClose = () => setSidebar(false);
     const handleShow = () => setSidebar(true);
 
@@ -14,14 +45,9 @@ export default function Sidebar ({ show, setSidebar, backgrounds }) {
                 <Modal.Title>Change background</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {[...Array(10)].map((_, i) =>
-                    <svg className="bd-placeholder-img m-3" width="100" height="100"
-                         xmlns="http://www.w3.org/2000/svg" role="img" key={i}
-                         aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
-                         focusable="false"><title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#55595c"/>
-                        <text x="30%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                    </svg>)}
+                {backgrounds.map((name, i) =>
+                    <Image src={`/images/${name}-background.png`} width="120" height="120" className="m-3" key={i}/>
+                )}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
