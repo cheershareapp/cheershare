@@ -6,15 +6,16 @@ This is a [Next.js](https://nextjs.org/) project to share cheer.
 - [x] APIs to save and load cheerboards
 - [x] Bootstrap + Commerce-like theme
 - [x] Implement page protection with next-auth
-- [ ] Configure google and facebook oauth tokens
+- [x] Configure google and facebook oauth tokens
 - [x] Configure unsplash and giphy oauth tokens
 - [x] Use `<Link>` instead of `<a>`
 - [x] Use `<Image>` instead of `<img>`
 - [x] Use session and authentication to filter access
 - [ ] Company logo background #209CEE https://fonts.google.com/specimen/Leckerli+One?query=leck
-- [ ] Figure out email server
-- [ ] Figure out Domain name https://vercel.com/docs/custom-domains
-
+- [x] Figure out email server
+- [x] Figure out Domain name https://vercel.com/docs/custom-domains
+- [ ] Sign in modal, when the user creates a board without authentication https://next-auth.js.org/configuration/pages
+- [ ] on logout navigate to homepage
 ## Data Structures
 
 User schema is defined by NextAuth

@@ -7,6 +7,7 @@ import Footer from "../components/footer";
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import {redirectToLogin} from "../utils/redirectToLogin";
 
 export default function Profile() {
     const [ session, loading ] = useSession();
@@ -15,8 +16,9 @@ export default function Profile() {
     if (typeof window !== 'undefined' && loading) return null
 
     // If no session exists, display access denied message
-    // TODO implement AccessDenied component
-    if (!session) { return  <><h1>AccessDenied</h1></> }
+    if (typeof window !== 'undefined' && !session) {
+        redirectToLogin();
+    }
     return (
         <>
             <Header/>
