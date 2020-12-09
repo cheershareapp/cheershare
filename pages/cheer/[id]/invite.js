@@ -1,33 +1,50 @@
 import Footer from "../../../components/footer";
 import Header from "../../../components/header";
-import styles from "../../../styles/Home.module.css";
+// import styles from "../../../styles/Home.module.css";
 import React from "react";
 import { useRouter } from 'next/router'
-import {Button} from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
-export default function Invite() {
-    const router = useRouter()
+export default function Invite({fullUrl}) {
+    const router = useRouter();
 
     return (
         <>
             <Header />
-            <main>
-                <h1 className={styles.title}>
+            <main className="container">
+                <h1 className="mt-3">
                     Invite Contributors
+                    {/*<small className="text-muted">Everyone can add their cheer</small>*/}
+                    <Button className="float-right" variant="link" onClick={() => router.back()}>Back to board</Button>
                 </h1>
 
-                <h3>Link</h3>
-                <p className={styles.description}>
-                    Copy/paste the URL below. It will take folks directly to the Kudoboard to contribute.
-                    <input type="text" placeholder="URL"/>
+                <h3 className="mt-5">Link</h3>
+                <p class="lead">
+                    Copy/paste the URL below. It will take folks directly to the CheerShare to contribute.
                 </p>
+                <Form.Control type="text" placeholder="URL" value={`https://getcheershare.com${router.asPath}`}/>
 
-                <h3>Facebook</h3>
-                <p className={styles.description}>
+                <h3 className="mt-5">Facebook</h3>
+                <p className="lead">
                     Send the invite through a Facebook message.
-                    <Button>Go to Facebook</Button>
                 </p>
-                <Button variant="link" onClick={() => router.back()}>Back to board</Button>
+                <Button>Go to Facebook</Button>
+
+                <h3 className="mt-5">Email</h3>
+                <p className="lead">
+                    Send the invite through an Email message.
+                </p>
+                <Form>
+                    <Form.Label>Email addresses</Form.Label>
+                    <Form.Control as="textarea" rows={3} placeholder="alice@yahoo.com, bob@gmail.com, clarie@msn.com"/>
+                    <Form.Text className="text-muted">
+                        We'll never share your email with anyone else.
+                    </Form.Text>
+
+                    <Button variant="primary" type="submit">
+                        Send invites
+                    </Button>
+                </Form>
             </main>
             <Footer fixed/>
         </>
