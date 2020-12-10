@@ -152,7 +152,7 @@ export default function Editor({ data: initialData }) {
     const [col1, col2, col3, col4] = [pinsByColumn[0], pinsByColumn[1], pinsByColumn[2], pinsByColumn[undefined]];
     /* end children setup */
 
-    // early return is frowned in functional approach, as it tries to keep a consistent number of hook calls
+    const previewMode = 'preview' in router.query;
 
     // TODO figure out spinner/lazy-loading
     /*
@@ -174,7 +174,7 @@ export default function Editor({ data: initialData }) {
                     { data.title }
                 </h1>
             </Row>
-            {!('preview' in router.query) && <Row className="m-2">
+            {!previewMode && <Row className="m-2">
                 <Col>
 
                 <Link href={`${id}/add`}>
@@ -203,18 +203,18 @@ export default function Editor({ data: initialData }) {
             <Row>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[0]}>
-                        {col1 && col1.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx}/>)}
-                        {col4 && col4.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx}/>)}
+                        {col1 && col1.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} previewMode={previewMode}/>)}
+                        {col4 && col4.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} previewMode={previewMode}/>)}
                     </div>
                 </Col>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[1]}>
-                        {col2 && col2.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx}/>)}
+                        {col2 && col2.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} previewMode={previewMode}/>)}
                     </div>
                 </Col>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[2]}>
-                        {col3 && col3.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx}/>)}
+                        {col3 && col3.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} previewMode={previewMode}/>)}
                     </div>
                 </Col>
             </Row>

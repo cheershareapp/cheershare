@@ -1,6 +1,7 @@
 import {Row, Col, Media, Button, ButtonGroup, ListGroup, Form, Container} from "react-bootstrap";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
 const DAY = 24 * 60 * 60 * 60 * 1000;
@@ -13,21 +14,25 @@ export default function BoardSummary({
  pinCount,
  updatedAt,
  createdAt,
- ownerName
+ ownerName,
+ coverImage
 }) {
     const elapsed = +new Date() - updatedAt;
     const timeAgo = rtf.format(Math.round(elapsed/DAY), 'day');
     const createdAtDate = new Date(createdAt);
+    const coverImageEl = coverImage
+        ? <Image src={coverImage} width="200" height="200" />
+        : (<svg width="200" height="200"
+               xmlns="http://www.w3.org/2000/svg" role="img"
+               aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+               focusable="false"><title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#55595c"/>
+            <text x="30%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+        </svg>);
 
     return (<Media>
         <Link href={`/cheer/${id}`}>
-        <svg className="bd-placeholder-img mr-3" width="200" height="200"
-             xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
-             focusable="false"><title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#55595c"/>
-            <text x="30%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-        </svg>
+            <div className="bd-placeholder-img mr-3">{ coverImageEl }</div>
         </Link>
 
         <Media.Body>
