@@ -31,7 +31,7 @@ export default function ListBoards({ data: initialData }) {
     return (<>
         <Header/>
         <CreateBoardModal showModal={showModal} setModal={setModal} />
-        <Container>
+        <Container className="min-vh-100">
             <Nav variant="pills" activeKey={filter} onSelect={setFilter} className="py-4">
                 <Nav.Item>
                     <Nav.Link eventKey="given">
