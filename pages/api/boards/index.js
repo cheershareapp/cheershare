@@ -17,7 +17,8 @@ export default async function handler(req, res) {
       try {
         const boards = await Board.index({ $or: [
             {ownerId: session.user.id},
-            {recipientId: session.user.id}
+            {collaborators: session.user.id},
+            {recipientEmail: session.user.email},
           ]});
 
         res.status(200).json(boards)
@@ -32,7 +33,8 @@ export default async function handler(req, res) {
           ...req.body,
 
           /* create a new Board with the session owner */
-          ownerId: session.user.id
+          ownerId: session.user.id,
+          ownerName: session.user.name || session.user.email.split('@')[0]
         });
 
         res.status(201).json({

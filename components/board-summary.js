@@ -5,7 +5,16 @@ import Link from "next/link";
 const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
 const DAY = 24 * 60 * 60 * 60 * 1000;
 
-export default function BoardSummary({id, recipientFirstName: firstName, recipientLastName: lastName, title, pinCount, updatedAt, createdAt}) {
+export default function BoardSummary({
+ id,
+ recipientFirstName: firstName,
+ recipientLastName: lastName,
+ title,
+ pinCount,
+ updatedAt,
+ createdAt,
+ ownerName
+}) {
     const elapsed = +new Date() - updatedAt;
     const timeAgo = rtf.format(Math.round(elapsed/DAY), 'day');
     const createdAtDate = new Date(createdAt);
@@ -45,7 +54,7 @@ export default function BoardSummary({id, recipientFirstName: firstName, recipie
                         CREATOR
                     </Form.Label>
                     <Col sm="2">
-                        <Form.Control plaintext readOnly defaultValue="Sid Ghodke" />
+                        <Form.Control plaintext readOnly defaultValue={ownerName} />
                     </Col>
 
                     <Form.Label column="true" sm="3" className="text-right">

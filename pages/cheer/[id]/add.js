@@ -137,7 +137,6 @@ export default function Add({ data: board }) {
         await mutate(`/api/boards/${boardId}`, {
             pins: [...pins, newPinBody],
             ...rest,
-            // TODO coverImage: rest.coverImage || newPin.mediaUrl,
         }, true);
         return router.back(); // push(`cheer/${boardId}`);
     };

@@ -1,5 +1,6 @@
 import dbConnect from '../../../../../utils/db'
 import Pin from "../../../../../models/Pin";
+import Board from "../../../../../models/Board";
 import { getSession } from "next-auth/client";
 
 export default async function handler(req, res) {
@@ -16,12 +17,21 @@ export default async function handler(req, res) {
     await dbConnect();
 
     switch (method) {
-        case 'POST' /* Edit a model by its ID */:
+        case 'POST' /* Create a new Pin and update the Board with the cover image */:
             try {
+                const ownerId = session.user.id;
                 const pin = await Pin.create({
                     ...req.body,
-                    ownerId: session.user.id
+                    ownerId,
+                    ownerName: session.user.name || session.user.email.split('@')[0]
                 });
+
+                const board = await Board.findById(pin.boardId);
+                board.collaborators.push(ownerId);
+                board.coverImage = board.coverImage || pin.mediaUrl;
+                // TODO what happens to coverImage when the last pin is deleted?
+
+                await board.save();
                 res.status(201).json(pin)
             } catch (error) {
                 res.status(400).json({ success: false, error })

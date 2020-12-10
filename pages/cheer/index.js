@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import useSWR, {mutate} from 'swr'
 import {useSession, getSession} from "next-auth/client";
 
@@ -24,9 +24,9 @@ export default function ListBoards({ data: initialData }) {
     const handleShow = () => setModal(true);
 
     if (loading) return <></>;
-    const filteredBoards = filter === "given" ?
-        boards.filter(b => b.ownerId === session.user.id) :
-        boards.filter(b => b.recipientId === session.user.id);
+    const filteredBoards = filter === "given"
+        ? boards.filter(b => b.recipientEmail !== session.user.email)
+        : boards.filter(b => b.recipientEmail === session.user.email);
 
     return (<>
         <Header/>
@@ -69,7 +69,8 @@ export async function getServerSideProps(context) {
     await dbConnect();
     const boards = await Board.index({ $or: [
         {ownerId: session.user.id},
-        {recipientId: session.user.id}
+        {collaborators: session.user.id},
+        {recipientEmail: session.user.email},
     ]});
 
     return {
