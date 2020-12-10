@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, Button, ButtonGroup} from "react-bootstrap";
-import styles from "../styles/Editor.module.css"
+import styles from "styles/Editor.module.css"
 import Image from 'next/image';
 
 export default function CheerPin ({mediaUrl, id, editable, ownerName, message}) {
