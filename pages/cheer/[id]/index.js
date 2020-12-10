@@ -44,22 +44,15 @@ export default function Editor({ data: initialData }) {
     };
     /* end state setup */
 
-    if (!data || error) return <></>;
+    // if (!data || error) return <></>;
 
     const editable = !('preview' in router.query);
 
     // TODO(future) figure out spinner/lazy-loading
-    /*
-    https://medium.com/evolve-technology/hide-that-da6264a7e1f
-    {!this.checkLoaded() && <Spinner animation="border" />}
-    className={!this.state.loaded && 'visible'}
-     */
     return (<div style={{
         backgroundImage: "url(https://www.kudoboard.com/images/fun-background.png)"
-    }}>
+    }}>  {/* data.backgroundImage */}
         <Header/>
-
-        {/*style={{ backgroundImage: `url(${data.backgroundImage})`}}*/}
         <Container className={styles.board}>
             <CheerBanner id={id} data={data} editable={editable} setData={setData}/>
             <CheerBody id={id} data={data} editable={editable} />

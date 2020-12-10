@@ -180,7 +180,7 @@ export async function getServerSideProps(context) {
     const session = await getSession(context);
 
     if (!session) {
-        redirectToLogin(context.res);
+        redirectToLogin('/cheer', context.res);
     }
     await dbConnect();
     const data = await Board.index({_id: id}, { nestPins: true });

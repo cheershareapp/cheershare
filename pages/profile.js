@@ -17,7 +17,7 @@ export default function Profile() {
 
     // If no session exists, display access denied message
     if (typeof window !== 'undefined' && !session) {
-        redirectToLogin();
+        redirectToLogin('/profile');
     }
     return (
         <>

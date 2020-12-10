@@ -42,8 +42,8 @@ export default async function handler(req, res) {
           pinCount: 0
         })
       } catch (error) {
-        // TODO suppress the error?
-        res.status(400).json({ success: false, error })
+        // TODO(mvp) console log the error?
+        res.status(400).json({ success: false })
       }
       break;
 

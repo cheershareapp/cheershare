@@ -9,7 +9,8 @@ function MyApp({ Component, pageProps }) {
   return <Provider session={pageProps.session} >
       <Elements stripe={stripePromise}>
           <Component {...pageProps} />
-      </Elements></Provider>
+      </Elements>
+  </Provider>
 }
 
 export default MyApp

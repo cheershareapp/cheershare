@@ -1,13 +1,13 @@
 import React, {useCallback, useEffect, useRef} from 'react';
 import {Col, Row} from "react-bootstrap";
 
-import styles from "../../styles/Editor.module.css";
-
-import CheerPin from "../pin";
-
 import groupBy from "../../utils/groupby";
 import comparer from "../../utils/diff";
 import fetcher from "../../utils/fetch";
+
+import styles from "../../styles/Editor.module.css";
+
+import CheerPin from "../pin";
 
 
 function byRow(a, b) {
@@ -15,7 +15,6 @@ function byRow(a, b) {
 }
 
 function CheerBody({id, editable, data}) {
-    /* DOM setup */
     const itemContainers = [useRef(), useRef(), useRef()];
     let columnGrids = [];
 
@@ -35,9 +34,7 @@ function CheerBody({id, editable, data}) {
                 return columnGrids;
             },
             sortData: {
-                id: function (item, element) {
-                    return parseFloat(element.getAttribute('data-id'));
-                }
+                id: (item, element) => parseFloat(element.getAttribute('data-id'))
             },
             dragAutoScroll: {
                 targets: (item) => {
@@ -75,12 +72,7 @@ function CheerBody({id, editable, data}) {
                 })
             }));
 
-        try {
-            columnGrids = await Promise.all(columnGrids)
-        } catch (err) {
-            console.error(err);
-        }
-
+        columnGrids = await Promise.all(columnGrids)
     }, []);
 
     const serializeLayout = () => {
@@ -88,7 +80,7 @@ function CheerBody({id, editable, data}) {
             return grid.getItems().map(item => {
                 return item.getElement().getAttribute('data-id');
             })
-        })
+        });
 
         return serialized.map((col, columnIndex) => {
             return col.map((id, rowIndex) => {
@@ -100,18 +92,20 @@ function CheerBody({id, editable, data}) {
             })
         }).flat();
     };
+
     useEffect(() => {
         columnGrids.forEach((grid) => {
             grid.refreshItems && grid.refreshItems().layout();
         });
-    });
-    /* end DOM setup */
 
-    /* Children setup */
+        // add unmount logic
+        return () => {
+            columnGrids.forEach(m => m.destroy());
+        }
+    });
+
     const pinsByColumn = groupBy(data.pins, "columnIndex");
     const [col1, col2, col3, col4] = [pinsByColumn[0], pinsByColumn[1], pinsByColumn[2], pinsByColumn[undefined]];
-    /* end children setup */
-
 
     return (<Row ref={boardRef}>
             <Col className={styles.boardColumn}>

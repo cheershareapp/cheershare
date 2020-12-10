@@ -64,7 +64,7 @@ const BoardSchema = new mongoose.Schema({
 }, {
   toJSON: {
     transform: function(doc, ret) {
-      // TODO get the ownerName by doing a User lookup
+      // TODO(future) get the ownerName by doing a User lookup
       // User.findOne(ret.ownerId);
 
       ret.createdAt = +(ret.createdAt);
@@ -79,7 +79,7 @@ const BoardSchema = new mongoose.Schema({
   // Consider just using a timestamp function
 });
 
-// TODO figure out subdocs
+// TODO(future) figure out subdocs
 // https://mongoosejs.com/docs/subdocs.html#subdocuments-versus-nested-paths
 
 BoardSchema.statics.index = async (queryFilter, options = {}) => {

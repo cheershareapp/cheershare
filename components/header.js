@@ -7,6 +7,9 @@ import Link from "next/link";
 export default function Header(props) {
     const [ session, loading ] = useSession();
     const [showModal, setModal] = useState(props.showModal || false);
+    const callbackUrl = `https://getcheershare.com/cheer`;
+
+    const signInRedirect = () => signIn(null, { callbackUrl });
 
     return (
         <header>
@@ -16,8 +19,8 @@ export default function Header(props) {
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
                         {!session && <>
-                            <Nav.Link onClick={signIn}>Register</Nav.Link>
-                            <Button onClick={signIn}>Sign In</Button>
+                            <Nav.Link onClick={signInRedirect}>Register</Nav.Link>
+                            <Button onClick={signInRedirect}>Sign In</Button>
                         </>}
 
                         {session && <>
