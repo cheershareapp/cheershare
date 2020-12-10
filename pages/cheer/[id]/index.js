@@ -3,10 +3,10 @@ import {useRouter} from 'next/router'
 import CheerPin from "../../../components/pin";
 import Header from "../../../components/header";
 import Footer from "../../../components/footer";
+import CheerBanner from "../../../components/CheerBanner";
 import Sidebar from "../../../components/Sidebar";
 import styles from "../../../styles/Editor.module.css"
-import { ButtonGroup, Button, Row, Col, Container} from "react-bootstrap";
-import Link from "next/link";
+import { Row, Col, Container} from "react-bootstrap";
 import dbConnect from "../../../utils/db";
 import groupBy from "../../../utils/groupby";
 import Board from "../../../models/Board";
@@ -167,39 +167,7 @@ export default function Editor({ data: initialData }) {
 
         {/*style={{ backgroundImage: `url(${data.backgroundImage})`}}*/}
         <Container className={styles.board} ref={boardRef}>
-            <Row className="justify-content-md-center my-5"
-                 style={{height: "6rem"}}>
-                <h1 contentEditable onKeyDown={setTitle}
-                    suppressContentEditableWarning={true}>
-                    { data.title }
-                </h1>
-            </Row>
-            {editable && <Row className="m-2">
-                <Col>
-
-                <Link href={`${id}/add`}>
-                    <Button variant="primary" size="lg">
-                        Add a cheer!
-                    </Button>
-                </Link>
-                </Col>
-                <Col className="text-right align-text-bottom">
-                    <ButtonGroup aria-label="Basic example">
-
-                        <Link href={`${id}?preview`}>
-                            <Button variant="secondary">Preview</Button>
-                        </Link>
-                        <Link href={`${id}/invite`}>
-                            <Button variant="secondary">Invite</Button>
-                        </Link>
-                        <Link href={`${id}/deliver`}>
-                            <Button variant="secondary">Deliver</Button>
-                        </Link>
-                        <Button variant="secondary" onClick={() => setSidebar(true)}>Background</Button>
-                        <Button variant="secondary" onClick={() => setSidebar(true)}>Settings</Button>
-                    </ButtonGroup>
-                </Col>
-            </Row> }
+            <CheerBanner id={id} data={data} editable={editable} setData={setData}/>
             <Row>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[0]}>
