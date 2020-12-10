@@ -31,7 +31,7 @@ export default function Editor({ data: initialData }) {
     const router = useRouter();
     const { id } = router.query;
 
-    const { data: serverData, error, mutate } = useSWR(`/api/boards/${id}`, fetcher, initialData);
+    const { data, error, mutate } = useSWR(`/api/boards/${id}`, fetcher, initialData);
     /* end data fetch */
 
     /* DOM setup */
@@ -126,13 +126,8 @@ export default function Editor({ data: initialData }) {
 
     /* State setup */
     const [sidebar, setSidebar] = useState(false);
-    const [data, _setData] = useState(initialData);
 
     const setData = async (partial) => {
-        _setData({
-            ...data,
-            ...partial
-        });
         return mutate(await fetcher(`/api/boards/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -150,13 +145,15 @@ export default function Editor({ data: initialData }) {
     };
     /* end state setup */
 
+    if (!data || error) return <></>;
+
     /* Children setup */
     const pinsByColumn = groupBy(data.pins, "columnIndex");
     const [col1, col2, col3, col4] = [pinsByColumn[0], pinsByColumn[1], pinsByColumn[2], pinsByColumn[undefined]];
     /* end children setup */
 
     // early return is frowned in functional approach, as it tries to keep a consistent number of hook calls
-    if (!serverData || error) return <></>;
+
     // TODO figure out spinner/lazy-loading
     /*
     https://medium.com/evolve-technology/hide-that-da6264a7e1f
