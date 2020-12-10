@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import {getSession, signIn, signOut, useSession} from "next-auth/client";
+import {getSession, useSession} from "next-auth/client";
+import Image from 'next/image';
 import { mutate } from "swr"
 
 import Header from "../../../components/header";
@@ -62,7 +63,7 @@ const SearchPage = ({ vendor, setMediaUrl }) => {
                     name="query"
                 />
                 <InputGroup.Append>
-                    <Button variant="outline-secondary">Search</Button>
+                    <Button variant="outline-secondary" type="submit">Search</Button>
                 </InputGroup.Append>
             </InputGroup>
 
@@ -144,7 +145,7 @@ export default function Add({ data: board }) {
     return (<>
         <Header/>
 
-        <Container>
+        <Container className="min-vh-100">
             <div className="py-5">
                 <h1>Add a Post</h1>
             </div>
@@ -157,7 +158,8 @@ export default function Add({ data: board }) {
                 </Tab>
             </Tabs>
             { renderPage(page, handleSelectImage) }
-            <img src={mediaUrl} />
+            { mediaUrl &&
+                <Image src={mediaUrl} width="400%" height="400%" layout="intrinsic"/>}
             <Form onSubmit={handleFormSubmit}>
                 <Form.Control as="textarea" rows={10} name="message"/>
 

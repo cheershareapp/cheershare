@@ -195,7 +195,9 @@ export default function Editor({ data: initialData }) {
                         <Link href={`${id}/invite`}>
                             <Button variant="secondary">Invite</Button>
                         </Link>
-                        <Button variant="secondary">Schedule</Button>
+                        <Link href={`${id}/deliver`}>
+                            <Button variant="secondary">Deliver</Button>
+                        </Link>
                         <Button variant="secondary" onClick={() => setSidebar(true)}>Background</Button>
                         <Button variant="secondary" onClick={() => setSidebar(true)}>Settings</Button>
                     </ButtonGroup>

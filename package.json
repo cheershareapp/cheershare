@@ -12,14 +12,14 @@
   },
   "dependencies": {
     "@giphy/js-fetch-api": "^2.0.0-alpha.0",
-    "next-auth": "^3.1.0",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.11.0",
     "bootstrap": "^4.5.3",
     "isomorphic-unfetch": "^3.1.0",
-    "mongoose": "^5.10.18",
+    "mongoose": "^5.11.6",
     "muuri": "^0.9.3",
     "next": "^10.0.3",
+    "next-auth": "^3.1.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
@@ -29,5 +29,8 @@
   "devDependencies": {
     "cypress": "^5.6.0",
     "start-server-and-test": "^1.11.6"
+  },
+  "resolutions": {
+    "typeorm": "0.2.28"
   }
 }
