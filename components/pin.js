@@ -3,7 +3,7 @@ import {Card, Button, ButtonGroup} from "react-bootstrap";
 import styles from "../styles/Editor.module.css"
 import Image from 'next/image';
 
-export default function CheerPin ({mediaUrl, id, previewMode, ownerName, message}) {
+export default function CheerPin ({mediaUrl, id, editable, ownerName, message}) {
     return (<div className={styles.boardItem} data-id={id}>
         <Card className="shadow-sm">
             { mediaUrl &&
@@ -11,7 +11,7 @@ export default function CheerPin ({mediaUrl, id, previewMode, ownerName, message
             <Card.Body className={styles.boardItemContent}>
                 <Card.Text> {message} </Card.Text>
                 <div className="d-flex justify-content-between align-items-center">
-                    {!previewMode && <ButtonGroup>
+                    {editable && <ButtonGroup>
                         <Button variant="outline-secondary">Like</Button>
                         <Button variant="outline-secondary">Edit</Button>
                     </ButtonGroup>}

@@ -152,7 +152,7 @@ export default function Editor({ data: initialData }) {
     const [col1, col2, col3, col4] = [pinsByColumn[0], pinsByColumn[1], pinsByColumn[2], pinsByColumn[undefined]];
     /* end children setup */
 
-    const previewMode = 'preview' in router.query;
+    const editable = !('preview' in router.query);
 
     // TODO figure out spinner/lazy-loading
     /*
@@ -174,7 +174,7 @@ export default function Editor({ data: initialData }) {
                     { data.title }
                 </h1>
             </Row>
-            {!previewMode && <Row className="m-2">
+            {editable && <Row className="m-2">
                 <Col>
 
                 <Link href={`${id}/add`}>
@@ -203,18 +203,18 @@ export default function Editor({ data: initialData }) {
             <Row>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[0]}>
-                        {col1 && col1.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} previewMode={previewMode}/>)}
-                        {col4 && col4.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} previewMode={previewMode}/>)}
+                        {col1 && col1.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} editable={editable}/>)}
+                        {col4 && col4.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} editable={editable}/>)}
                     </div>
                 </Col>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[1]}>
-                        {col2 && col2.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} previewMode={previewMode}/>)}
+                        {col2 && col2.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} editable={editable}/>)}
                     </div>
                 </Col>
                 <Col className={styles.boardColumn}>
                     <div className={styles.boardColumnContent} ref={itemContainers[2]}>
-                        {col3 && col3.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} previewMode={previewMode}/>)}
+                        {col3 && col3.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} editable={editable}/>)}
                     </div>
                 </Col>
             </Row>
