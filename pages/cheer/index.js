@@ -2,18 +2,18 @@ import React, {useState} from "react";
 import useSWR, {mutate} from 'swr'
 import {useSession, getSession} from "next-auth/client";
 
-import Header from "../../components/header";
-import Footer from "../../components/footer";
-import BoardSummary from "../../components/board-summary";
-import CreateBoardModal from "../../components/create-board";
+import Header from "components/header";
+import Footer from "components/footer";
+import BoardSummary from "components/board-summary";
+import CreateBoardModal from "components/create-board";
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import ListGroup from "react-bootstrap/ListGroup";
-import Board from "../../models/Board";
-import dbConnect from "../../utils/db";
-import fetcher from "../../utils/fetch";
-import {redirectToLogin} from "../../utils/redirectToLogin";
+import Board from "models/Board";
+import dbConnect from "utils/db";
+import fetcher from "utils/fetch";
+import {redirectToLogin} from "utils/redirectToLogin";
 
 export default function ListBoards({ data: initialData }) {
     const [filter, setFilter] = useState('given');

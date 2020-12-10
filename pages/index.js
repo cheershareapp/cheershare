@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styles from 'styles/Home.module.css'
 
 import {useSession} from 'next-auth/client'
-import Footer from "../components/footer";
-import Header from "../components/header";
+import Footer from "components/footer";
+import Header from "components/header";
 import Link from "next/link";
 import React from "react";
 import {Figure} from "react-bootstrap";

@@ -1,13 +1,13 @@
 import React, {useCallback, useEffect, useRef} from 'react';
 import {Col, Row} from "react-bootstrap";
 
-import groupBy from "../../utils/groupby";
-import comparer from "../../utils/diff";
-import fetcher from "../../utils/fetch";
+import groupBy from "utils/groupby";
+import comparer from "utils/diff";
+import fetcher from "utils/fetch";
 
-import styles from "../../styles/Editor.module.css";
+import styles from "styles/Editor.module.css";
 
-import CheerPin from "../pin";
+import CheerPin from "components/CheerPin";
 
 
 function byRow(a, b) {

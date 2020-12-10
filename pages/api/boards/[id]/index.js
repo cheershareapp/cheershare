@@ -1,7 +1,7 @@
 import { getSession } from 'next-auth/client'
-import dbConnect from '../../../../utils/db'
-import Board from '../../../../models/Board'
-import Pin from "../../../../models/Pin";
+import dbConnect from 'utils/db'
+import Board from 'models/Board'
+import Pin from "models/Pin";
 
 export default async function handler(req, res) {
     const {

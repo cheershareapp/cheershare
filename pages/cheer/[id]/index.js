@@ -1,21 +1,21 @@
 import React, {useState, useRef, useEffect, useCallback} from "react";
 import {useRouter} from 'next/router'
 
-import Header from "../../../components/header";
-import Footer from "../../../components/footer";
-import CheerBanner from "../../../components/CheerBanner";
-import CheerBody from "../../../components/CheerBody";
-import Sidebar from "../../../components/Sidebar";
+import Header from "components/header";
+import Footer from "components/footer";
+import CheerBanner from "components/CheerBanner";
+import CheerBody from "components/CheerBody";
+import Sidebar from "components/Sidebar";
 
-import styles from "../../../styles/Editor.module.css"
+import styles from "styles/Editor.module.css"
 import { Container} from "react-bootstrap";
 
-import Board from "../../../models/Board";
-import Pin from "../../../models/Pin";
+import Board from "models/Board";
+import Pin from "models/Pin";
 import useSWR, { mutate } from "swr";
 
-import dbConnect from "../../../utils/db";
-import fetcher from "../../../utils/fetch";
+import dbConnect from "utils/db";
+import fetcher from "utils/fetch";
 
 /*
 References

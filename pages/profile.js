@@ -1,13 +1,13 @@
 import React from "react";
 import {useSession} from "next-auth/client";
 
-import Header from "../components/header";
-import Footer from "../components/footer";
+import Header from "components/header";
+import Footer from "components/footer";
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {redirectToLogin} from "../utils/redirectToLogin";
+import {redirectToLogin} from "utils/redirectToLogin";
 
 export default function Profile() {
     const [ session, loading ] = useSession();

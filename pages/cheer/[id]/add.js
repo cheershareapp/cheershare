@@ -3,8 +3,8 @@ import {getSession, useSession} from "next-auth/client";
 import Image from 'next/image';
 import { mutate } from "swr"
 
-import Header from "../../../components/header";
-import Footer from "../../../components/footer";
+import Header from "components/header";
+import Footer from "components/footer";
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
@@ -15,11 +15,11 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Alert from "react-bootstrap/Alert";
 import {useRouter} from "next/router";
-import fetcher from "../../../utils/fetch";
-import dbConnect from "../../../utils/db";
-import Board from "../../../models/Board";
-import Gallery from "../../../components/Gallery";
-import {redirectToLogin} from "../../../utils/redirectToLogin";
+import fetcher from "utils/fetch";
+import dbConnect from "utils/db";
+import Board from "models/Board";
+import Gallery from "components/Gallery";
+import {redirectToLogin} from "utils/redirectToLogin";
 
 // TODO break up each of these pages as components, shrink this file
 // maybe use React Portal?

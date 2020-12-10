@@ -2,7 +2,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { mutate } from "swr";
-import fetcher from "../utils/fetch";
+import fetcher from "utils/fetch";
 import { useRouter } from 'next/router'
 
 export default function CreateBoardModal({ setModal, showModal }) {
