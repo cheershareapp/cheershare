@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React from "react";
 import {useSession} from "next-auth/client";
 
 import Header from "../components/header";
@@ -23,7 +23,7 @@ export default function Profile() {
         <>
             <Header/>
 
-            <Container>
+            <Container className="min-vh-100">
                 <div className="py-5">
                 <h1>My Profile</h1>
                 </div>

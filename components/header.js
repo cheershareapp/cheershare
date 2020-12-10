@@ -39,7 +39,7 @@ export default function Header(props) {
                                 title=""
                             >
                                 <Dropdown.Header>{session.user.email || 'Email'}</Dropdown.Header>
-                                <Dropdown.Item><Link href="profile">Account</Link></Dropdown.Item>
+                                <Dropdown.Item><Link href="/profile/">Account</Link></Dropdown.Item>
                                 <Dropdown.Item eventKey="2">History</Dropdown.Item>
                                 <Dropdown.Item eventKey="3">Invite Friend</Dropdown.Item>
                                 <Dropdown.Divider />

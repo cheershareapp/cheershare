@@ -1,12 +1,14 @@
 import Footer from "../../../components/footer";
 import Header from "../../../components/header";
-// import styles from "../../../styles/Home.module.css";
 import React from "react";
 import { useRouter } from 'next/router'
 import { Button, Form } from "react-bootstrap";
 
 export default function Invite({fullUrl}) {
     const router = useRouter();
+
+    // Slice out '/invite' from the end of the path
+    const shareableLink = `https://getcheershare.com${router.asPath}`.slice(0, -7);
 
     return (
         <>
@@ -22,7 +24,7 @@ export default function Invite({fullUrl}) {
                 <p class="lead">
                     Copy/paste the URL below. It will take folks directly to the CheerShare to contribute.
                 </p>
-                <Form.Control type="text" placeholder="URL" value={`https://getcheershare.com${router.asPath}`}/>
+                <Form.Control type="text" placeholder="URL" value={shareableLink}/>
 
                 <h3 className="mt-5">Facebook</h3>
                 <p className="lead">
