@@ -5,6 +5,9 @@ const PinSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide owner to this board"],
   },
+  ownerName: {
+    type: String,
+  },
   boardId: {
     type: String,
     required: [true, "Please provide the board which this pin belongs."],

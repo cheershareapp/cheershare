@@ -26,6 +26,9 @@
     "swr": "^0.3.9",
     "unsplash-js": "^6.3.0"
   },
+  "peerOptionalDependencies": {
+    "mongodb": "^3.6.3"
+  },
   "devDependencies": {
     "cypress": "^5.6.0",
     "start-server-and-test": "^1.11.6"

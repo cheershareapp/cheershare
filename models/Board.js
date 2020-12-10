@@ -16,7 +16,13 @@ const BoardSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide owner to this board"],
   },
-  recipientId: {
+  ownerName: {
+    type: String
+  },
+  collaborators: {
+    type: [String],
+  },
+  recipientEmail: {
     type: String,
   },
   recipientFirstName: {
@@ -53,12 +59,14 @@ const BoardSchema = new mongoose.Schema({
   coverImage: {
     /* Url for the cover photo */
 
-    // required: [true, 'Please provide an image url for the cover photo of this board.'],
     type: String,
   },
 }, {
   toJSON: {
     transform: function(doc, ret) {
+      // TODO get the ownerName by doing a User lookup
+      // User.findOne(ret.ownerId);
+
       ret.createdAt = +(ret.createdAt);
       ret.updatedAt = +(ret.updatedAt);
       ret.id = ret._id.toString();
