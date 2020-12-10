@@ -21,7 +21,7 @@ const PinSchema = new mongoose.Schema({
   columnIndex: {
     type: Number,
   },
-  itemIndex: {
+  rowIndex: {
     type: Number,
   },
   likeCount: {

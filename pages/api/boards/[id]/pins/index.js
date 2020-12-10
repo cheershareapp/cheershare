@@ -29,7 +29,7 @@ export default async function handler(req, res) {
                 const board = await Board.findById(pin.boardId);
                 board.collaborators.push(ownerId);
                 board.coverImage = board.coverImage || pin.mediaUrl;
-                // TODO what happens to coverImage when the last pin is deleted?
+                // TODO(future) what happens to coverImage when the last pin is deleted?
 
                 await board.save();
                 res.status(201).json(pin)
