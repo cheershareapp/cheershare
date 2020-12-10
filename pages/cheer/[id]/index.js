@@ -31,7 +31,7 @@ export default function Editor({ data: initialData }) {
     const router = useRouter();
     const { id } = router.query;
 
-    const { data, error, mutate } = useSWR(`/api/boards/${id}`, fetcher, initialData);
+    const { data, error, mutate } = useSWR(`/api/boards/${id}`, fetcher, { refreshInterval: 1000, initialData });
     /* end data fetch */
 
     /* DOM setup */
