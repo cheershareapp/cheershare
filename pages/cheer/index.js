@@ -18,12 +18,13 @@ import {redirectToLogin} from "utils/redirectToLogin";
 export default function ListBoards({ data: initialData }) {
     const [filter, setFilter] = useState('given');
     const [ session, loading ] = useSession();
+    if (loading) return <></>;
+
     const { data: boards, error, mutate } = useSWR('/api/boards', fetcher, { initialData });
 
     const [showModal, setModal] = useState(false);
     const handleShow = () => setModal(true);
 
-    if (loading) return <></>;
     const filteredBoards = filter === "given"
         ? boards.filter(b => b.recipientEmail !== session.user.email)
         : boards.filter(b => b.recipientEmail === session.user.email);

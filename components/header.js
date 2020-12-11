@@ -10,14 +10,13 @@ export default function Header(props) {
     const callbackUrl = `https://getcheershare.com/cheer`;
 
     const signInRedirect = () => signIn(null, { callbackUrl });
-
     return (
         <header>
             <Navbar bg="light" className="shadow-sm">
                 <Container>
                     <Navbar.Brand><Link href="/">CheerShare</Link></Navbar.Brand>
                     <Navbar.Toggle />
-                    <Navbar.Collapse className="justify-content-end">
+                    { !loading && <Navbar.Collapse className="justify-content-end">
                         {!session && <>
                             <Nav.Link onClick={signInRedirect}>Register</Nav.Link>
                             <Button onClick={signInRedirect}>Sign In</Button>
@@ -46,10 +45,10 @@ export default function Header(props) {
                                 <Dropdown.Item eventKey="2">History</Dropdown.Item>
                                 <Dropdown.Item eventKey="3">Invite Friend</Dropdown.Item>
                                 <Dropdown.Divider />
-                                <Dropdown.Item onClick={signOut}>Logout</Dropdown.Item>
+                                <Dropdown.Item onClick={() => signOut({ callbackUrl: '/' })}>Logout</Dropdown.Item>
                             </DropdownButton>
                         </>}
-                    </Navbar.Collapse>
+                    </Navbar.Collapse>}
                 </Container>
             </Navbar>
             <CreateBoardModal showModal={showModal} setModal={setModal}/>
