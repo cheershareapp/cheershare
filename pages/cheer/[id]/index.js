@@ -44,14 +44,12 @@ export default function Editor({ data: initialData }) {
     };
     /* end state setup */
 
-    // if (!data || error) return <></>;
-
     const editable = !('preview' in router.query);
 
     // TODO(future) figure out spinner/lazy-loading
     return (<div style={{
-        backgroundImage: "url(https://www.kudoboard.com/images/fun-background.png)"
-    }}>  {/* data.backgroundImage */}
+        backgroundImage: `url(${data.backgroundImage || '/images/fun-background.png'})`
+    }}>
         <Header/>
         <Container className={styles.board}>
             <CheerBanner id={id} data={data} editable={editable} setData={setData} setSidebar={setSidebar}/>
