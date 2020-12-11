@@ -18,7 +18,6 @@ import {redirectToLogin} from "utils/redirectToLogin";
 export default function ListBoards({ data: initialData }) {
     const [filter, setFilter] = useState('given');
     const [ session, loading ] = useSession();
-    if (loading) return <></>;
 
     const { data: boards, error, mutate } = useSWR('/api/boards', fetcher, { initialData });
 
@@ -52,9 +51,9 @@ export default function ListBoards({ data: initialData }) {
             </Nav>
 
             <ListGroup variant="flush">
-                {filteredBoards.map((board, i) => <ListGroup.Item key={board.id || i}>
+                { !loading && filteredBoards.map((board, i) => <ListGroup.Item key={board.id || i}>
                     <BoardSummary {...board}/>
-                </ListGroup.Item>)}
+                </ListGroup.Item>) }
             </ListGroup>
         </Container>
         <Footer/>
