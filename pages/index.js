@@ -10,7 +10,7 @@ export default function Home() {
             <title>Welcome to Cheershare</title>
         </Head>
         <Header/>
-        <main className="px-lg-5">
+        <main className="px-md-5">
 
             <div className="row my-md-3 bg-light">
                 <div className="col-md-5 p-lg-5 mx-auto my-5">
@@ -43,26 +43,36 @@ export default function Home() {
                 <p className="lead">Start a digital group card for a colleague, friend, or family member. Share the link with anyone,
                     anywhere so they can post. Deliver when you're ready!</p>
                 <div className="row">
-                    <div className="col-lg-3">
+                    <div className="col-sm">
                         <h4><span className="badge badge-light">1</span> Create a Cheershare</h4>
+                    </div>
+                    <div className="col-sm">
+                        <h4><span className="badge badge-light">2</span> Add Your Content</h4>
+                    </div>
+                    <div className="col-sm">
+                        <h4><span className="badge badge-light">3</span> Invite your friends</h4>
+                    </div>
+                    <div className="col-sm">
+                        <h4><span className="badge badge-light">4</span> Deliver Appreciation</h4>
+                    </div>
+                </div>
+                <div className="row row-cols-1 row-cols-sm-4 row-cols-md-4">
+                    <div className="col">
                         <img className="bd-placeholder-img rounded"
                              src={`https://placeimg.com/200/200/tech/sepia/1`} width="100%"/>
                         <p>Choose a recipient to celebrate with the group greeting card.</p>
                     </div>
-                    <div className="col-lg-3">
-                        <h4><span className="badge badge-light">2</span> Add Your Content</h4>
+                    <div className="col">
                         <img className="bd-placeholder-img rounded"
                              src={`https://placeimg.com/200/200/tech/sepia//2`} width="100%"/>
                         <p>Get creative. Attach messages, photos, GIFs or videos to the recipient's board.</p>
                     </div>
-                    <div className="col-lg-3">
-                        <h4><span className="badge badge-light">3</span> Invite your friends</h4>
+                    <div className="col">
                         <img className="bd-placeholder-img rounded"
                              src={`https://placeimg.com/200/200/tech/sepia//3`} width="100%"/>
                         <p>Invite others to add their contributions and watch the virtual group card grow.</p>
                     </div>
-                    <div className="col-lg-3">
-                        <h4><span className="badge badge-light">4</span> Deliver Appreciation</h4>
+                    <div className="col">
                         <img className="bd-placeholder-img rounded"
                              src={`https://placeimg.com/200/200/tech/sepia//4`} width="100%"/>
                         <p>Deliver it online, print it out as a poster, or play it as a slideshow!</p>
