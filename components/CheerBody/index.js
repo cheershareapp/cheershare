@@ -1,86 +1,36 @@
 import React, {useCallback, useEffect, useRef} from 'react';
 import {Col, Row} from "react-bootstrap";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
+import styles from "styles/Editor.module.css";
+import CheerList from "components/CheerList";
 import groupBy from "utils/groupby";
 import comparer from "utils/diff";
 import fetcher from "utils/fetch";
 
-import styles from "styles/Editor.module.css";
-
-import CheerPin from "components/CheerPin";
-
-
-function byRow(a, b) {
-    return a.rowIndex - b.rowIndex;
-}
 
 function CheerBody({id, editable, data}) {
-    const itemContainers = [useRef(), useRef(), useRef()];
-    let columnGrids = [];
+    const onDragEnd = (item) => {
+        const serialized = serializeLayout();
+        const difference = serialized.filter(comparer(data.pins));
 
-    const boardRef = useCallback(async (node) => {
-        if (!node || columnGrids.length > 0) return;
-        const Muuri = (await import('muuri')).default;
-
-        columnGrids = itemContainers.map(async container => new Muuri(container.current, {
-            items: '.' + styles.boardItem,
-            layoutDuration: 400,
-            layoutEasing: 'ease',
-            dragReleaseDuration: 400,
-            dragReleaseEasing: 'ease',
-            dragEnabled: true,
-            dragContainer: node,
-            dragSort: () => {
-                return columnGrids;
-            },
-            sortData: {
-                id: (item, element) => parseFloat(element.getAttribute('data-id'))
-            },
-            dragAutoScroll: {
-                targets: (item) => {
-                    return [
-                        { element: node, priority: 1, axis: Muuri.AutoScroller.AXIS_X },
-                        { element: item.getGrid().getElement().parentNode, priority: 1, axis: Muuri.AutoScroller.AXIS_Y },
-                    ];
-                },
-                sortDuringScroll: false,
-            },
-            dragPlaceholder: {
-                enabled: true,
-                createElement: (item) => item.getElement().cloneNode(true),
-            },
+        // TODO mutute pins?
+        return fetcher(`/api/boards/${id}/pins`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(difference)
         })
-            .on('dragInit', (item) => {
-                item.getElement().style.width = item.getWidth() + 'px';
-                item.getElement().style.height = item.getHeight() + 'px';
-            })
-            .on('dragReleaseEnd', (item) => {
-                item.getElement().style.width = '';
-                item.getElement().style.height = '';
-                item.getGrid().refreshItems([item]);
-
-                const serialized = serializeLayout();
-                if (!data) debugger;
-                const difference = serialized.filter(comparer(data.pins));
-                console.log(serialized, difference, 'pin change')
-
-                // TODO mutute pins?
-                return fetcher(`/api/boards/${id}/pins`, {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(difference)
-                })
-            }));
-
-        columnGrids = await Promise.all(columnGrids)
-    }, []);
+    };
 
     const serializeLayout = () => {
+        /*
         const serialized = columnGrids.map(grid => {
             return grid.getItems().map(item => {
                 return item.getElement().getAttribute('data-id');
             })
         });
+         */
+        const serialized = [];
 
         return serialized.map((col, columnIndex) => {
             return col.map((id, rowIndex) => {
@@ -91,57 +41,29 @@ function CheerBody({id, editable, data}) {
                 };
             })
         }).flat();
+
     };
 
-    useEffect(() => {
-        columnGrids.forEach((grid) => {
-            grid.refreshItems && grid.refreshItems().layout();
-        });
-
-        // add unmount logic
-        return () => {
-            columnGrids.forEach(m => m.destroy());
-        }
-    });
-
+    // put the pins into columns
     const pinsByColumn = groupBy(data.pins, "columnIndex");
-    const [col1, col2, col3, col4] = [pinsByColumn[0], pinsByColumn[1], pinsByColumn[2], pinsByColumn[undefined]];
 
-    return (<Row ref={boardRef}>
-            <Col className={styles.boardColumn}>
-                <div className={styles.boardColumnContent} ref={itemContainers[0]}>
-                    {col1 && col1.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} editable={editable}/>)}
-                    {col4 && col4.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} editable={editable}/>)}
-                </div>
-            </Col>
-            <Col className={styles.boardColumn}>
-                <div className={styles.boardColumnContent} ref={itemContainers[1]}>
-                    {col2 && col2.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} editable={editable}/>)}
-                </div>
-            </Col>
-            <Col className={styles.boardColumn}>
-                <div className={styles.boardColumnContent} ref={itemContainers[2]}>
-                    {col3 && col3.sort(byRow).map((item, idx) => <CheerPin {...item} key={idx} editable={editable}/>)}
-                </div>
-            </Col>
-        <style jsx global>{`
-        .muuri-item-placeholder {
-            z-index: 9;
-            margin: 0;
-            opacity: 0.7;
-        }
-        .muuri-item-releasing {
-            z-index: 9998;
-        }
-        .muuri-item-dragging {
-            z-index: 19999;
-            cursor: move;
-        }
-        .muuri-item-hidden {
-            z-index: 0;
-        }
-        `}</style>
-    </Row>);
+    // if we have any misplaced pins join them to the first column
+    const cols = [0, 1, 2, undefined].map(i => pinsByColumn[i] || []);
+    cols[0] = cols[0].concat(cols.pop());
+
+    return (<DragDropContext onDragEnd={onDragEnd}><Row>
+        {cols.map((col, index) =>
+            <Droppable droppableId={index.toString()} className={styles.boardColumn} key={index}>
+                {provided => (
+                    <Col className={styles.boardColumn} ref={provided.innerRef} {...provided.droppableProps}>
+                        <CheerList data={col} editable={editable}>
+                            {provided.placeholder}
+                        </CheerList>
+                    </Col>
+                )}
+            </Droppable>
+        )}
+    </Row></DragDropContext>);
 }
 
 export default CheerBody;

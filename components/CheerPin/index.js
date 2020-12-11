@@ -2,10 +2,16 @@ import React from 'react';
 import {Card, Button, ButtonGroup} from "react-bootstrap";
 import styles from "styles/Editor.module.css"
 import Image from 'next/image';
+import {Draggable} from "react-beautiful-dnd";
 
-export default function CheerPin ({mediaUrl, id, editable, ownerName, message}) {
-    return (<div className={styles.boardItem} data-id={id}>
-        <Card className="shadow-sm">
+export default function CheerPin ({mediaUrl, id, editable, ownerName, message, index}) {
+    return (<Draggable draggableId={id} index={index}>
+        {(provided, snapshot) => (
+        <Card className="shadow-sm"
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+        >
             { mediaUrl &&
                 <Image src={mediaUrl} className="card-img bd-placeholder-img card-img-top" width="100%" height="100%" layout="responsive"/>}
             <Card.Body className={styles.boardItemContent}>
@@ -20,5 +26,6 @@ export default function CheerPin ({mediaUrl, id, editable, ownerName, message}) 
                 </div>
             </Card.Body>
         </Card>
-    </div>);
+        )}
+    </Draggable>);
 }
