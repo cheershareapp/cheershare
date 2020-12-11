@@ -1,21 +1,13 @@
-import Head from 'next/head'
-import styles from 'styles/Home.module.css'
-
-import {useSession} from 'next-auth/client'
-import Footer from "components/footer";
-import Header from "components/header";
-import Link from "next/link";
 import React from "react";
+import Head from 'next/head'
+import Link from "next/link";
 import {Figure} from "react-bootstrap";
+import Header from "components/header";
 
 export default function Home() {
-    const [session, loading] = useSession();
-    // if (error) return <div>failed to load</div>;
-    // if (!data) return <div>loading...</div>;
     return (<>
         <Head>
             <title>Welcome to Cheershare</title>
-            <link rel="icon" href="/favicon.ico"/>
         </Head>
         <Header/>
         <main className="px-lg-5">
