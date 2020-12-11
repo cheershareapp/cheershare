@@ -9,7 +9,8 @@ import Router from "next/router";
  */
 
 export const redirectToLogin = (callbackUrl, server) => {
-    const login = `/api/auth/signin?callbackUrl=${encodeURIComponent(process.env.NEXTAUTH_URL+callbackUrl)}}`;
+    const NEXTAUTH_URL = process.env.NEXTAUTH_URL || 'https://getcheershare.com'
+    const login = `/api/auth/signin?callbackUrl=${encodeURIComponent(NEXTAUTH_URL+callbackUrl)}}`;
     if (server) {
         // @see https://github.com/zeit/next.js/wiki/Redirecting-in-%60getInitialProps%60
         // server rendered pages need to do a server redirect
