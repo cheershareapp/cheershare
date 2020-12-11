@@ -46,6 +46,7 @@ export default async function handler(req, res) {
                     ...board.toJSON()
                 } )
             } catch (error) {
+                console.error(error, 'PUT /api/boards/:id');
                 res.status(400).json({ success: false })
             }
             break;

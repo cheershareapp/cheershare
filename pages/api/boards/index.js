@@ -42,7 +42,7 @@ export default async function handler(req, res) {
           pinCount: 0
         })
       } catch (error) {
-        // TODO(mvp) console log the error?
+        console.error(error, 'POST /api/boards');
         res.status(400).json({ success: false })
       }
       break;
