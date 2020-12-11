@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, ButtonGroup, Col, Row} from "react-bootstrap";
 import Link from "next/link";
 
-function CheerBanner({id, editable, data, setData}) {
+function CheerBanner({id, editable, data, setData, setSidebar}) {
     const setTitle = (e) => {
         if (e.keyCode !== 13) return;
 

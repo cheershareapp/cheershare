@@ -54,7 +54,7 @@ export default function Editor({ data: initialData }) {
     }}>  {/* data.backgroundImage */}
         <Header/>
         <Container className={styles.board}>
-            <CheerBanner id={id} data={data} editable={editable} setData={setData}/>
+            <CheerBanner id={id} data={data} editable={editable} setData={setData} setSidebar={setSidebar}/>
             <CheerBody id={id} data={data} editable={editable} />
         </Container>
         <Sidebar show={sidebar} setSidebar={setSidebar}/>
