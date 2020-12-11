@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect, useCallback} from "react";
+import React, {useState} from "react";
 import {useRouter} from 'next/router'
 
 import Header from "components/header";
@@ -16,24 +16,18 @@ import useSWR, { mutate } from "swr";
 
 import dbConnect from "utils/db";
 import fetcher from "utils/fetch";
+import {redirectToLogin} from "../../../utils/redirectToLogin";
+import {getSession} from "next-auth/client";
 
-/*
-References
-https://codepen.io/niklasramo/pen/RJmBVV
-https://github.com/haltu/muuri/blob/gh-pages/js/demo-kanban.js
-https://github.com/haltu/muuri/blob/gh-pages/css/demo-kanban.css
- */
 
-export default function Editor({ data: initialData }) {
-    /* Data fetch */
+export default function EditorPage({ data: initialData }) {
     const router = useRouter();
     const { id } = router.query;
+    const editable = !('preview' in router.query);
+
+    const [sidebar, setSidebar] = useState(false);
 
     const { data, error, mutate } = useSWR(`/api/boards/${id}`, fetcher, { refreshInterval: 1000, initialData });
-    /* end data fetch */
-
-    /* State setup */
-    const [sidebar, setSidebar] = useState(false);
 
     const setData = async (partial) => {
         return mutate(await fetcher(`/api/boards/${id}`, {
@@ -42,28 +36,33 @@ export default function Editor({ data: initialData }) {
             body: JSON.stringify(partial)
         }), false);
     };
-    /* end state setup */
-
-    const editable = !('preview' in router.query);
 
     // TODO(future) figure out spinner/lazy-loading
-    return (<div style={{
-        backgroundImage: `url(${data.backgroundImage || '/images/fun-background.png'})`
-    }}>
-        <Header/>
-        <Container className={styles.board}>
-            <CheerBanner id={id} data={data} editable={editable} setData={setData} setSidebar={setSidebar}/>
-            <CheerBody id={id} data={data} editable={editable} />
-        </Container>
-        <Sidebar show={sidebar} setSidebar={setSidebar}/>
-        <Footer/>
-    </div>);
+
+    return (
+        <div style={{
+            backgroundImage: `url(${data.backgroundImage || '/images/fun-background.png'})`
+        }}>
+            <Header/>
+            <Container className={styles.board}>
+                <CheerBanner id={id} data={data} editable={editable} setData={setData} setSidebar={setSidebar}/>
+                <CheerBody id={id} data={data} editable={editable} />
+            </Container>
+            <Sidebar show={sidebar} setSidebar={setSidebar}/>
+            <Footer/>
+        </div>
+    );
 }
 
 export async function getServerSideProps(context) {
     const { id } = context.params;
-    await dbConnect();
+    const session = await getSession(context);
 
+    if (!session) {
+        redirectToLogin(`/cheer/${id}`, context.res);
+    }
+
+    await dbConnect();
     const [ board ] = await Board.index({ _id: id});
     const pins = await Pin.find({ boardId: board.id });
 

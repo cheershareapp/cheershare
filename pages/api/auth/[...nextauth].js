@@ -60,6 +60,11 @@ const options = {
             // Add id property to session
             session.user.id = user.id;
             return Promise.resolve(session)
+        },
+        redirect: async (url, baseUrl) => {
+            // TODO(post-mvp) check that the url is on a allowlist or is otherwise secure
+            // https://github.com/nextauthjs/next-auth/issues/591#issuecomment-699906051
+            return Promise.resolve(url)
         }
     }
 };
