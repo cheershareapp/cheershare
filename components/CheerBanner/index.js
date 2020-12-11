@@ -18,13 +18,12 @@ function CheerBanner({id, editable, data, setData}) {
         : {};
 
     return (<>
-        <Row className="justify-content-md-center my-5"
+        <Row className="justify-content-md-center my-5 text-center"
              style={{height: "6rem"}}>
-            <h1 {...titleConfig}>{ data.title }</h1>
+            <h1 {...titleConfig} className="w-100">{ data.title }</h1>
         </Row>
         {editable && <Row className="m-2">
             <Col>
-
                 <Link href={`${id}/add`}>
                     <Button variant="primary" size="lg">
                         Add a cheer!

@@ -3,7 +3,7 @@
 }
 .boardColumn {
   /* background: #f0f0f0; */
-  /* TODO - make the height 100% of the screenwidth */
+  min-height: 100vh;
 }
 .boardColumnContent {
   position: relative;
