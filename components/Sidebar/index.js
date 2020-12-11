@@ -32,7 +32,8 @@ const backgrounds = [
     "confetti",
     "dots",
     "fabric",
-    "feathers"
+    "feathers",
+    "fun"
 ];
 export default function Sidebar ({ show, setSidebar }) {
     const handleClose = () => setSidebar(false);
