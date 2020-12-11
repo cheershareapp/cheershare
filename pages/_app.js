@@ -1,3 +1,4 @@
+import React from 'react';
 import { Provider } from 'next-auth/client'
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';

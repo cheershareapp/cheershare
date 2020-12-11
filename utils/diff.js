@@ -1,7 +1,14 @@
-export default function pinComparer(otherArray){
-  return function(current){
-    return otherArray.filter(function(other){
-      return other.rowIndex == current.rowIndex && other.columnIndex == current.columnIndex;
-    }).length == 0;
+/*
+ * Looking at the rowIndex, columnIndex or id attributes, are there differences
+ *  in the source and current arrays.
+ */
+
+export default function pinComparer(otherArray) {
+  return (current) => {
+    return otherArray.filter(
+        (other) => other.rowIndex === current.rowIndex
+            && other.columnIndex === current.columnIndex
+            && other.id === current.id
+    ).length === 0;
   }
 }
