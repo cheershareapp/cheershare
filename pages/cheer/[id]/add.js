@@ -67,14 +67,18 @@ function renderPage(page, setMediaUrl) {
 }
 
 export default function Add({ data: board }) {
-    const [ page, setPage ] = useState('');
+    const [ page, _setPage ] = useState('');
     const [ mediaUrl, setMediaUrl ] = useState('');
     const router = useRouter();
     const { id: boardId } = router.query;
 
+    const setPage = (newPage) => {
+        _setPage(newPage === page ? '' : newPage)
+    };
+
     const handleSelectImage = (url) => {
         setMediaUrl(url);
-        setPage('');
+        _setPage('');
     };
 
     const handleFormSubmit = async (e) => {
@@ -116,7 +120,7 @@ export default function Add({ data: board }) {
                 <Tab eventKey="image" title="Add Unsplash Image">
                     <ContentSearch vendor="unsplash" setMediaUrl={handleSelectImage}/>
                 </Tab>
-                <Tab eventKey="video" title="Add Giphy Video">
+                <Tab eventKey="video" title="Add Giphy GIF">
                     <ContentSearch vendor="giphy" setMediaUrl={handleSelectImage}/>
                 </Tab>
             </Tabs>
@@ -139,7 +143,7 @@ export async function getServerSideProps(context) {
     const session = await getSession(context);
 
     if (!session) {
-        return redirectToLogin('/cheer', context.res);
+        return redirectToLogin(`/cheer/${id}`, context.res);
     }
     await dbConnect();
     const data = await Board.index({_id: id}, { nestPins: true });
