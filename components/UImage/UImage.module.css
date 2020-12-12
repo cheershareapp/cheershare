@@ -21,3 +21,8 @@
   margin: 5px;
   float: right;
 }
+
+.thumb {
+  width: 1em;
+  height: 1em;
+}
