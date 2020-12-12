@@ -59,22 +59,22 @@ export default function Home() {
                 <div className="row row-cols-1 row-cols-sm-4 row-cols-md-4">
                     <div className="col">
                         <img className="bd-placeholder-img rounded"
-                             src={`https://placeimg.com/200/200/tech/sepia/1`} width="100%"/>
+                             src="/images/Create.svg" width="80%"/>
                         <p>Choose a recipient to celebrate with the group greeting card.</p>
                     </div>
                     <div className="col">
                         <img className="bd-placeholder-img rounded"
-                             src={`https://placeimg.com/200/200/tech/sepia//2`} width="100%"/>
+                             src="/images/Add.svg" width="80%"/>
                         <p>Get creative. Attach messages, photos, GIFs or videos to the recipient's board.</p>
                     </div>
                     <div className="col">
                         <img className="bd-placeholder-img rounded"
-                             src={`https://placeimg.com/200/200/tech/sepia//3`} width="100%"/>
+                             src="/images/Invite.svg" width="80%"/>
                         <p>Invite others to add their contributions and watch the virtual group card grow.</p>
                     </div>
                     <div className="col">
                         <img className="bd-placeholder-img rounded"
-                             src={`https://placeimg.com/200/200/tech/sepia//4`} width="100%"/>
+                             src="/images/Deliver.svg" width="80%"/>
                         <p>Deliver it online, print it out as a poster, or play it as a slideshow!</p>
                     </div>
                 </div>
@@ -86,12 +86,16 @@ export default function Home() {
                 <p className="lead">Get inspired with these sample Cheers:</p>
 
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    {['Birthday', 'Farewell', 'Work Anniversary', 'Get Well Soon', 'Retirement', 'Promotion'].map((caption, i) =>
+                    {[['Birthday', 'balloons'], ['Farewell', 'dots'], ['Work Anniversary', 'confetti'],
+                        ['Get Well Soon', 'circles'], ['Retirement', 'feathers'], ['Promotion', 'fun']].map(([caption, imageName], i) =>
                         <div className="col" key={i}>
                             <Figure>
                                 <Figure.Image
-                                    alt="171x180"
-                                    src={`https://placeimg.com/300/150/${i}`}
+                                    alt={caption}
+                                    src={`images/${imageName}-background.png`}
+                                    width={300} height={150}
+                                    // className="img-thumbnail"
+                                    style={{objectFit: 'cover'}}
                                 />
                                 <Figure.Caption>
                                     {caption}
