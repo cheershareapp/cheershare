@@ -64,7 +64,7 @@ export async function getServerSideProps(context) {
     const session = await getSession(context);
 
     if (!session) {
-        redirectToLogin('/cheer', context.res);
+        return redirectToLogin('/cheer', context.res);
     }
     await dbConnect();
     const boards = await Board.index({ $or: [

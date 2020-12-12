@@ -59,7 +59,7 @@ export async function getServerSideProps(context) {
     const session = await getSession(context);
 
     if (!session) {
-        redirectToLogin(`/cheer/${id}`, context.res);
+        return redirectToLogin(`/cheer/${id}`, context.res);
     }
 
     await dbConnect();
