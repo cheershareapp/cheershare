@@ -38,8 +38,8 @@ export default async function handler(req, res) {
             }
             break;
 
-        case 'PUT' /* Edit a model by its ID */:
-        case 'PATCH' /* Edit list of model by its ID */:
+        case 'PUT':
+        case 'PATCH' /* Bulk edit the position of a pin or list of pins */:
             try {
                 const body = Array.isArray(req.body) ? req.body : [req.body];
                 const pinsUpdatedPromises = body.map(i => Pin.findByIdAndUpdate(i.id, i, {
@@ -57,18 +57,6 @@ export default async function handler(req, res) {
             } catch (error) {
                 console.error(error, 'PUT /api/boards/:id/pins');
                 res.status(400).json({ success: false });
-            }
-            break;
-
-        case 'DELETE':
-            try {
-                const deletedPin = await Pin.deleteOne({ _id: id, /* Delete only Pins you own? */ });
-                if (!deletedPin) {
-                    return res.status(400).json({ success: false })
-                }
-                res.status(200).json({ success: true, data: {} })
-            } catch (error) {
-                res.status(400).json({ success: false })
             }
             break;
 

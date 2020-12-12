@@ -17,6 +17,8 @@ This is a [Next.js](https://nextjs.org/) project to share cheer.
 - [x] Figure out Domain name https://vercel.com/docs/custom-domains
 - [ ] Sign in modal, when the user creates a board without authentication https://next-auth.js.org/configuration/pages
 - [ ] on logout navigate to homepage
+- [ ] compute and store aspect ratio hint from unsplash/giphy
+- [ ] secure edit and delete of pins, right now anyone can update anyones. MVP, check that you can edit that board.
 
 
 ## Data Structures
