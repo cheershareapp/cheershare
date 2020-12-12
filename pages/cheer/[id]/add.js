@@ -1,27 +1,21 @@
 import React, {useState} from "react";
-import {getSession, useSession} from "next-auth/client";
-import Image from 'next/image';
+import {getSession} from "next-auth/client";
+import {useRouter} from "next/router";
 import { mutate } from "swr"
 
 import Header from "components/header";
 import Footer from "components/footer";
+import ContentSearch from "components/ContentSearch";
 
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Nav from "react-bootstrap/Nav";
-import InputGroup from 'react-bootstrap/InputGroup'
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
-import Alert from "react-bootstrap/Alert";
-import {useRouter} from "next/router";
+import { Container, Button, Form, Nav, Tab, Tabs, Alert } from "react-bootstrap";
+
+import {redirectToLogin} from "utils/redirectToLogin";
 import fetcher from "utils/fetch";
 import dbConnect from "utils/db";
-import Board from "models/Board";
-import Gallery from "components/Gallery";
-import {redirectToLogin} from "utils/redirectToLogin";
 
-// TODO break up each of these pages as components, shrink this file
+import Board from "models/Board";
+
+
 // maybe use React Portal?
 const ImagePage = ({ onSelect }) => <Nav defaultActiveKey="" onSelect={onSelect}>
     <Nav.Item>
@@ -44,39 +38,6 @@ const VideoPage = ({ onSelect }) => <Nav defaultActiveKey="" onSelect={onSelect}
     </Nav.Item>
 </Nav>;
 
-const SearchPage = ({ vendor, setMediaUrl }) => {
-    const [ query, setQuery ] = useState('');
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const { target: form } = e;
-        const { elements } = form;
-        setQuery(elements.query.value);
-    };
-
-    return <><Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formSearch">
-            <InputGroup>
-                <Form.Control
-                    placeholder="Search for..."
-                    aria-label="Search for..."
-                    aria-describedby="basic-addon2"
-                    name="query"
-                />
-                <InputGroup.Append>
-                    <Button variant="outline-secondary" type="submit">Search</Button>
-                </InputGroup.Append>
-            </InputGroup>
-
-            <Form.Text className="text-muted text-right">
-                Powered by {vendor}
-            </Form.Text>
-        </Form.Group>
-        </Form>
-        <Alert className="overflow-auto text-center" style={{maxHeight: "30vh"}} variant="info">
-            <Gallery q={query} vendor={vendor} onImageSelect={setMediaUrl}/>
-        </Alert>
-    </>
-}
 
 const UploadPage = ({ filetype }) => <Form className="min-vh-20">
     Add an {filetype} from your computer or phone
@@ -109,7 +70,6 @@ export default function Add({ data: board }) {
     const [ page, setPage ] = useState('');
     const [ mediaUrl, setMediaUrl ] = useState('');
     const router = useRouter();
-    const [ session, loading ] = useSession();
     const { id: boardId } = router.query;
 
     const handleSelectImage = (url) => {
@@ -145,28 +105,27 @@ export default function Add({ data: board }) {
         <Header/>
 
         <Container className="min-vh-100">
-            <div className="py-5">
-                <h1>Add a Post</h1>
+            <div className="py-3">
+                <h1>Add a Post
+                    <Button variant="link" onClick={() => router.back()} className="float-right">
+                        Back to board
+                    </Button>
+                </h1>
             </div>
-            <Tabs defaultActiveKey="" variant="pills" onSelect={setPage}>
-                <Tab eventKey="image" title="Add Image">
-                    <ImagePage onSelect={setPage}/>
+            <Tabs activeKey={page} variant="pills" className="pb-2" onSelect={setPage}>
+                <Tab eventKey="image" title="Add Unsplash Image">
+                    <ContentSearch vendor="unsplash" setMediaUrl={handleSelectImage}/>
                 </Tab>
-                <Tab eventKey="video" title="Add Video">
-                    <VideoPage onSelect={setPage}/>
+                <Tab eventKey="video" title="Add Giphy Video">
+                    <ContentSearch vendor="giphy" setMediaUrl={handleSelectImage}/>
                 </Tab>
             </Tabs>
-            { renderPage(page, handleSelectImage) }
-            { mediaUrl &&
-            <img src={mediaUrl} className="py-2"/>}
-            <Form onSubmit={handleFormSubmit} className="pb-5">
-                <Form.Control as="textarea" rows={10} name="message"/>
+            { mediaUrl && <img src={mediaUrl} className="py-2"/> }
+            <Form onSubmit={handleFormSubmit} className="py-2">
+                <Form.Control as="textarea" rows={10} name="message" placeholder="Message..."/>
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className="mb-5">
                     Post
-                </Button>
-                <Button variant="link" onClick={() => router.back()}>
-                    Discard Post
                 </Button>
             </Form>
         </Container>
