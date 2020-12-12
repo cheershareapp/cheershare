@@ -49,6 +49,11 @@ const options = {
 
     // Testing Only
     // session: { jwt: true },
+
+    // May not need this?
+    // pages: {
+    //     newUser: '/cheer'
+    // },
     callbacks: {
         /**
          * @param  {object} session      Session object
@@ -61,10 +66,15 @@ const options = {
             session.user.id = user.id;
             return Promise.resolve(session)
         },
+        /**
+         * @param  {string} url      URL provided as callback URL by the client
+         * @param  {string} baseUrl  Default base URL of site (can be used as fallback)
+         * @return {string}          URL the client will be redirect to
+         */
         // redirect: async (url, baseUrl) => {
-        //     // TODO(post-mvp) check that the url is on a allowlist or is otherwise secure
-        //     // https://github.com/nextauthjs/next-auth/issues/591#issuecomment-699906051
-        //     return Promise.resolve(url)
+        //     return url.startsWith(baseUrl)
+        //         ? Promise.resolve(url)
+        //         : Promise.resolve(baseUrl);
         // }
     }
 };

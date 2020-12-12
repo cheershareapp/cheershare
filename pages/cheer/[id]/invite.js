@@ -48,7 +48,7 @@ export default function Invite({fullUrl}) {
                     </Button>
                 </Form>
             </main>
-            <Footer fixed/>
+            <Footer />
         </>
     );
 }
