@@ -158,7 +158,7 @@ export default function Add({ data: board }) {
             </Tabs>
             { renderPage(page, handleSelectImage) }
             { mediaUrl &&
-                <Image src={mediaUrl} width="400%" height="400%" layout="intrinsic" className="py-2"/>}
+            <img src={mediaUrl} className="py-2"/>}
             <Form onSubmit={handleFormSubmit} className="pb-5">
                 <Form.Control as="textarea" rows={10} name="message"/>
 

@@ -13,7 +13,7 @@ export default function CheerPin ({mediaUrl, id, editable, ownerName, message, i
               {...provided.dragHandleProps}
         >
             { mediaUrl &&
-            <Image src={mediaUrl} className="card-img bd-placeholder-img card-img-top" width="100%" height="100%" layout="responsive"/>}
+            <Card.Img src={mediaUrl}/>}
             <Card.Body className={styles.boardItemContent}>
                 <Card.Text> {message} </Card.Text>
                 <div className="d-flex justify-content-between align-items-center">
