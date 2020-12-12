@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image"
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import styles from './Sidebar.module.css';
+import {Button, Modal} from "react-bootstrap";
+import BetaNotice from "components/beta-notice";
 /*
 TODO implement directory lookup for all backgrounds
 https://medium.com/@boris.poehland.business/next-js-api-routes-how-to-read-files-from-directory-compatible-with-vercel-5fb5837694b9
@@ -46,6 +46,7 @@ export default function Sidebar ({ show, setSidebar }) {
                 <Modal.Title>Change background</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <BetaNotice />
                 {backgrounds.map((name, i) =>
                     <Image src={`/images/${name}-background.png`} width="120" height="120" className="m-3" key={i}/>
                 )}
@@ -97,7 +98,6 @@ export default function Sidebar ({ show, setSidebar }) {
 /*
 export async function getStaticProps(context) {
     const backgrounds = fs.readdirSync('./public/images').filter(file => file.includes('background'));
-    console.log(backgrounds, 'sidebar');
 
     return {
         props: { backgrounds }, // will be passed to the page component as props

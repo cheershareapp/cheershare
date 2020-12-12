@@ -3,6 +3,7 @@ import Header from "components/header";
 import React from "react";
 import { useRouter } from 'next/router'
 import { Button, Form } from "react-bootstrap";
+import BetaNotice from "../../../components/beta-notice";
 
 export default function Invite({fullUrl}) {
     const router = useRouter();
@@ -27,16 +28,18 @@ export default function Invite({fullUrl}) {
                 <Form.Control type="text" placeholder="URL" value={shareableLink}/>
 
                 <h3 className="mt-5">Facebook</h3>
+                <BetaNotice />
                 <p className="lead">
                     Send the invite through a Facebook message.
                 </p>
                 <Button>Go to Facebook</Button>
 
                 <h3 className="mt-5">Email</h3>
+                <BetaNotice />
                 <p className="lead">
                     Send the invite through an Email message.
                 </p>
-                <Form>
+                <Form className="pb-5">
                     <Form.Label>Email addresses</Form.Label>
                     <Form.Control as="textarea" rows={3} placeholder="alice@yahoo.com, bob@gmail.com, clarie@msn.com"/>
                     <Form.Text className="text-muted">
