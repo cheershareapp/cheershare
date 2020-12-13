@@ -14,7 +14,6 @@ class MyDocument extends Document {
     render() {
         return (<Html lang="en">
             <Head>
-                {/*<title>Welcome to Cheershare</title>*/}
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <body>

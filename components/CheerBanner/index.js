@@ -31,8 +31,7 @@ function CheerBanner({id, editable, data, setData, setSidebar}) {
                 </Link>
             </Col>
             <Col className="text-right align-text-bottom">
-                <ButtonGroup aria-label="Basic example">
-
+                <ButtonGroup className="d-sm-flex flex-wrap">
                     <Link href={`${id}?preview`}>
                         <Button variant="secondary">Preview</Button>
                     </Link>

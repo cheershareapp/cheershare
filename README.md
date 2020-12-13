@@ -19,6 +19,7 @@ This is a [Next.js](https://nextjs.org/) project to share cheer.
 - [ ] on logout navigate to homepage
 - [ ] compute and store aspect ratio hint from unsplash/giphy
 - [ ] secure edit and delete of pins, right now anyone can update anyones. MVP, check that you can edit that board.
+- [ ] figure out which font we want to use, https://fonts.google.com/specimen/Vollkorn
 
 
 ## Data Structures
