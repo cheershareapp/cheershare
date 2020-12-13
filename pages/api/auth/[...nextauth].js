@@ -50,10 +50,12 @@ const options = {
     // Testing Only
     // session: { jwt: true },
 
-    // May not need this?
-    // pages: {
-    //     newUser: '/cheer'
-    // },
+    pages: {
+        signIn: '/auth/signin',
+
+        // Should not need this as we use callbackUrls
+        // newUser: '/cheer'
+    },
     callbacks: {
         /**
          * @param  {object} session      Session object
