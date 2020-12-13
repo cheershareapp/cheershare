@@ -2,10 +2,10 @@ import Footer from "components/footer";
 import Header from "components/header";
 import React from "react";
 import { useRouter } from 'next/router'
-import { Button, Form } from "react-bootstrap";
-import BetaNotice from "../../../components/beta-notice";
+import {Button, Container, Form} from "react-bootstrap";
+import BetaNotice from "components/beta-notice";
 
-export default function Invite({fullUrl}) {
+export default function Invite() {
     const router = useRouter();
 
     // Slice out '/invite' from the end of the path
@@ -14,7 +14,7 @@ export default function Invite({fullUrl}) {
     return (
         <>
             <Header />
-            <main className="container">
+            <Container className="min-vh-100">
                 <h1 className="mt-3">
                     Invite Contributors
                     {/*<small className="text-muted">Everyone can add their cheer</small>*/}
@@ -22,7 +22,7 @@ export default function Invite({fullUrl}) {
                 </h1>
 
                 <h3 className="mt-5">Link</h3>
-                <p class="lead">
+                <p className="lead">
                     Copy/paste the URL below. It will take folks directly to the CheerShare to contribute.
                 </p>
                 <Form.Control type="text" placeholder="URL" value={shareableLink}/>
@@ -50,7 +50,7 @@ export default function Invite({fullUrl}) {
                         Send invites
                     </Button>
                 </Form>
-            </main>
+            </Container>
             <Footer />
         </>
     );
