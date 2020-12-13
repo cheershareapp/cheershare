@@ -15,10 +15,10 @@ export default function Invite() {
         <>
             <Header />
             <Container className="min-vh-100">
+                <Button className="float-right" variant="link" onClick={() => router.push(shareableLink)}>Back to board</Button>
                 <h1 className="mt-3">
                     Invite Contributors
                     {/*<small className="text-muted">Everyone can add their cheer</small>*/}
-                    <Button className="float-right" variant="link" onClick={() => router.back()}>Back to board</Button>
                 </h1>
 
                 <h3 className="mt-5">Link</h3>

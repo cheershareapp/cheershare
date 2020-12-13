@@ -110,11 +110,10 @@ export default function Add({ data: board }) {
 
         <Container className="min-vh-100">
             <div className="py-3">
-                <h1>Add a Post
-                    <Button variant="link" onClick={() => router.back()} className="float-right">
-                        Back to board
-                    </Button>
-                </h1>
+                <Button variant="link" onClick={() => router.back()} className="float-right">
+                    Back to board
+                </Button>
+                <h1>Add a Post</h1>
             </div>
             <Tabs activeKey={page} variant="pills" className="pb-2" onSelect={setPage}>
                 <Tab eventKey="image" title="Add Unsplash Image">

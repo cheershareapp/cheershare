@@ -10,91 +10,91 @@ export default function Home() {
             <title>Welcome to Cheershare</title>
         </Head>
         <Header/>
-        <main className="px-md-5">
+        <main className="">
+            <section className="fdb-block fdb-viewport" style={ {backgroundImage: "url(/images/HeroBackground.svg)"}}>
+                <div className="container align-items-end justify-content-center d-flex">
+                    <div className="row align-items-top text-left">
+                        <div className="col-12 col-md-6 col-lg-5">
+                            <h1 className="mb-3 pt-5">The Perfect Group Card for Special Occasions</h1>
+                            <span className="lead">Celebrate someone with an online group card filled with
+                                messages, GIFs, photos, & videos!</span>
+                            <p className="my-4">
+                                <Link href="/cheer/"><a className="btn btn-primary btn-lg">Create Cheerboard</a></Link>
+                            </p>
 
-            <div className="row my-md-3 bg-light">
-                <div className="col-md-5 p-lg-5 mx-auto my-5">
-                    <h1 className="display-4 font-weight-normal">The Perfect Group Card for Special Occasions</h1>
-                    <p className="lead font-weight-normal">Celebrate someone with an online group card filled with
-                        messages, GIFs, photos, & videos!</p>
-                    <Link href="/cheer/"><a className="btn btn-outline-secondary">Create Cheerboard</a></Link>
-                </div>
-                <div className="col-md-7"
-                     style={{
-                         backgroundImage: 'url(https://net.hr/wp-content/uploads/2017/11/6117861789_80c0a34801_z.jpg?quality=100&strip=all)',
-                         backgroundSize: 'cover'}}>
-                </div>
-            </div>
+                        </div>
 
-            {/*
-            <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-                <div className="col-md-5 p-lg-5 mx-auto my-5">
-                    <h1 className="display-4 font-weight-normal">The Perfect Group Card for Special Occasions</h1>
-                    <p className="lead font-weight-normal">Celebrate someone with an online group card filled with
-                        messages, GIFs, photos, & videos!</p>
-                    <Link href="/cheer/"><a className="btn btn-outline-secondary">Create Cheerboard</a></Link>
+                        <div className="col-12 col-sm-4 col-md-6 col-lg-4">
+                            <img alt="image" className="rounded" src="/images/HeroOrig.jpg"/>
+                        </div>
+                    </div>
                 </div>
-                <div className="product-device shadow-sm d-none d-md-block">Want an ongoing plan for your company?</div>
-                <div className="product-device product-device-2 shadow-sm d-none d-md-block">Try Kudoboard for Business</div>
-            </div>*/}
+            </section>
 
-            <div className="text-center my-4 bg-light p-lg-5 mx-auto my-5">
-                <h1 className="display-8 font-weight-normal">How Our Group Cards Work</h1>
-                <p className="lead">Start a digital group card for a colleague, friend, or family member. Share the link with anyone,
-                    anywhere so they can post. Deliver when you're ready!</p>
-                <div className="row">
-                    <div className="col-sm">
-                        <h4><span className="badge badge-light">1</span> Create a Cheershare</h4>
+            <section className="fdb-block">
+                <div className="container bg-light">
+                    <div className="row justify-content-center">
+                        <div className="col-12 col-md-8 text-center py-md-3">
+                            <h1 className="display-8 font-weight-normal">How Our Group Cards Work</h1>
+                            <p className="lead">Start a digital group card for a colleague, friend, or family member. Share the link with anyone,
+                                anywhere so they can post. Deliver when you're ready!</p>
+                        </div>
                     </div>
-                    <div className="col-sm">
-                        <h4><span className="badge badge-light">2</span> Add Your Content</h4>
-                    </div>
-                    <div className="col-sm">
-                        <h4><span className="badge badge-light">3</span> Invite your friends</h4>
-                    </div>
-                    <div className="col-sm">
-                        <h4><span className="badge badge-light">4</span> Deliver Appreciation</h4>
-                    </div>
-                </div>
-                <div className="row row-cols-1 row-cols-sm-4 row-cols-md-4">
-                    <div className="col">
-                        <img className="bd-placeholder-img rounded"
-                             src="/images/Create.svg" width="80%"/>
-                        <p>Choose a recipient to celebrate with the group greeting card.</p>
-                    </div>
-                    <div className="col">
-                        <img className="bd-placeholder-img rounded"
-                             src="/images/Add.svg" width="80%"/>
-                        <p>Get creative. Attach messages, photos, GIFs or videos to the recipient's board.</p>
-                    </div>
-                    <div className="col">
-                        <img className="bd-placeholder-img rounded"
-                             src="/images/Invite.svg" width="80%"/>
-                        <p>Invite others to add their contributions and watch the virtual group card grow.</p>
-                    </div>
-                    <div className="col">
-                        <img className="bd-placeholder-img rounded"
-                             src="/images/Deliver.svg" width="80%"/>
-                        <p>Deliver it online, print it out as a poster, or play it as a slideshow!</p>
-                    </div>
-                </div>
 
-                <Link href="/cheer/"><a className="btn btn-secondary my-4">Create Cheerboard</a></Link>
-            </div>
-            <div className="text-center py-5">
+                    <div className="row text-center justify-content-center pt-5">
+                        <div className="col-12 col-sm-6 col-lg-3">
+                            <img alt="image" width="60%" src="/images/Create.svg" />
+                                <h3><strong>Create a Cheershare</strong></h3>
+
+                                <p>Choose a recipient to celebrate with the group greeting card.</p>
+                        </div>
+                        <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-sm-0">
+                            <img alt="image" width="60%" src="/images/Add.svg" />
+
+                                <h3><strong>Add Your Content</strong></h3>
+
+                                <p>Separated they live in Bookmarksgrove right at the coast</p>
+                        </div>
+
+                        <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0">
+                            <img alt="image" width="60%" src="/images/Invite.svg" />
+
+                                <h3><strong>Invite your friends</strong></h3>
+
+                                <p>A small river named Duden flows by their place and supplies it</p>
+                        </div>
+
+                        <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0">
+                            <img alt="image" width="60%" src="/images/Deliver.svg" />
+
+                                <h3><strong>Deliver Appreciation</strong></h3>
+
+                                <p>Far far away, behind the word mountains, far from the countries</p>
+                        </div>
+                    </div>
+                    <div className="row justify-content-center">
+                        <div className="col">
+                            <p className="mt-4 text-center"><Link href="/cheer/"><a className="btn btn-secondary my-4">Create Cheerboard</a></Link></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <div className="fdb-block text-center py-1">
                 <h1 className="display-8 font-weight-normal">Group Cards for Birthdays, Holidays, & Other Occasions</h1>
                 <p className="lead">Get inspired with these sample Cheers:</p>
 
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3">
                     {[['Birthday', 'balloons'], ['Farewell', 'dots'], ['Work Anniversary', 'confetti'],
                         ['Get Well Soon', 'circles'], ['Retirement', 'feathers'], ['Promotion', 'fun']].map(([caption, imageName], i) =>
                         <div className="col" key={i}>
                             <Figure>
-                                <Figure.Image
+                                <img
                                     alt={caption}
                                     src={`images/${imageName}-background.png`}
                                     width={300} height={150}
-                                    // className="img-thumbnail"
+                                    className="figure-img"
                                     style={{objectFit: 'cover'}}
                                 />
                                 <Figure.Caption>
@@ -120,167 +120,156 @@ export default function Home() {
                     `}</style>
                 </div>
             </div>
+
+            <section className="fdb-block">
+                <div className="container">
+                    <div className="row text-center">
+                        <div className="col">
+                            <h1>Pricing</h1>
+                            <p className="lead">Choose the option that's right for you. From single group cards to ongoing plans,
+                                for personal use or for the office. Every Cheershare offers:</p>
+                        </div>
+                    </div>
+
+                    <div className="row text-center justify-content-sm-center no-gutters pt-0 pt-md-3">
+                        <div className="col-12 col-sm-8 col-md-3 m-auto">
+                            <p>✅ Add text, pics, GIFs, videos</p>
+                        </div>
+
+                        <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
+                            <p>✅ Accessible forever</p>
+                        </div>
+
+                        <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
+                            <p>✅ Deliver online or print as poster</p>
+                        </div>
+                    </div>
+
+                    <div className="row text-center justify-content-md-center pt-0 pt-md-3">
+                        <div className="col-12 col-sm-8 col-md-3 m-auto">
+                            <p>✅ Easily invite others with a link</p>
+                        </div>
+
+                        <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
+                            <p>✅ Desktop & mobile friendly</p>
+                        </div>
+
+                        <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
+                            <p>✅ No ads / no selling your data</p>
+                        </div>
+                    </div>
+
+                    <div className="row mt-5 align-items-top">
+                        <div className="col-12 col-sm-10 col-md-6 col-lg-5 m-auto col-xl-3 text-left">
+                            <div className="bg-gray p-3 text-center rounded sl-1">
+                                <h2 className="font-weight-light">Mini</h2>
+                                <p className="h2">FREE</p>
+                                <p>Great for a small group of contributors, 1-to-1 boards, or to test the Cheershare system.</p>
+                                <p className="text-center">
+                                    <Link href="/cheer/">
+                                        <a className="btn btn-outline-secondary">Start for free</a>
+                                    </Link>
+                                    </p>
+
+                                <hr className="mt-5 mb-5" />
+
+                                    <p>Up to 10 posts</p>
+                                    <p>Email support</p>
+                                    <p>Upgrade anytime</p>
+                            </div>
+                        </div>
+
+                        <div className="col-12 col-sm-10 col-md-6 col-lg-5 m-auto col-xl-3 text-left pt-5 pt-md-0">
+                            <div className="bg-gray p-3 text-center rounded sl-1">
+                                <h2 className="font-weight-light">Premium</h2>
+                                <p className="h2">$5.99 <small className="text-muted">/ board</small></p>
+                                <p>Best for a larger group of contributors on a birthday, work anniversary, or special occasion.</p>
+                                <p className="text-center">
+                                    <Link href="/cheer/">
+                                        <a className="btn btn-secondary">Create Cheerboard</a>
+                                    </Link>
+                                </p>
+
+                                <hr className="mt-5 mb-5" />
+
+                                    <p>Up to 100 posts</p>
+                                    <p>Priority email support</p>
+                                    <p>Upgrade anytime</p>
+                            </div>
+                        </div>
+
+                        <div className="col-12 col-sm-10 col-md-6 col-lg-5 m-auto col-xl-3 text-left pt-5 pt-xl-0">
+                            <div className="bg-gray p-3 text-center rounded sl-1">
+                                <h2 className="font-weight-light">Milestone</h2>
+                                <p className="h2">$19.99 <small className="text-muted">/ board</small></p>
+                                <p>Perfect for extra large groups or milestones that you will celebrate in-person.</p>
+                                <p className="text-center">
+                                    <Link href="/cheer/">
+                                        <a className="btn btn-outline-secondary">Create Cheerboard</a>
+                                    </Link>
+                                    </p>
+
+                                <hr className="mt-5 mb-5" />
+
+                                    <p>3000 users included</p>
+                                    <p>Help center access</p>
+                            </div>
+                        </div>
+
+                        <div className="col-12 col-sm-10 col-md-6 col-lg-5 m-auto col-xl-3 text-left pt-5 pt-xl-0">
+                            <div className="bg-gray p-3 text-center rounded sl-1">
+                                <h2 className="font-weight-light">Enterprise</h2>
+                                <p className="h2">Call Us</p>
+                                <p>Want unlimited boards, multiple creators, & more? Check out our Business and Enterprise plans for all your organization's needs.</p>
+                                <p className="text-center">
+                                    <Link href="/cheer/">
+                                        <a className="btn btn-outline-secondary">Contact</a>
+                                    </Link>
+                                </p>
+
+                                <hr className="mt-5 mb-5" />
+
+                                    <p>Enterprise SSO</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer className="fdb-block footer-small">
+                <div className="container">
+                    <div className="row align-items-center text-center">
+                        <div className="col-12 col-lg-4 text-lg-left">
+                            © 2018-2020 CheerShare
+                        </div>
+
+                        <div className="col-12 col-lg-4 mt-4 mt-lg-0">
+                            <img alt="image" src="/favicon-32x32.png" height="40" />
+                        </div>
+
+                        <div className="col-12 col-lg-4 text-lg-right mt-4 mt-lg-0">
+                            <ul className="nav justify-content-lg-end justify-content-center">
+                                <li className="nav-item">
+                                    <Link href="/privacy"><a className="nav-link">Privacy</a></Link>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link">Terms</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link">About</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
             {/*
-            <hr className="featurette-divider"/>
-
-            <div className="row featurette">
-                <div className="col-md-7 order-md-2">
-                    <h2 className="featurette-heading">Oh yeah, it’s that good. <span
-                        className="text-muted">See for yourself.</span></h2>
-                    <p className="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id
-                        ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-                </div>
-                <div className="col-md-5 order-md-1">
-                    <svg
-                        className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-                        width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img"
-                        aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice"
-                        focusable="false"><title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#eee"/>
-                        <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                    </svg>
-
-                </div>
-            </div>
-
-            <hr className="featurette-divider"/>
-
-            <div className="row featurette">
-                <div className="col-md-7">
-                    <h2 className="featurette-heading">And lastly, this one. <span
-                        className="text-muted">Checkmate.</span></h2>
-                    <p className="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum
-                        id ligula porta felis euismod semper. Praesent commodo cursus magna, vel
-                        scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-                </div>
-                <div className="col-md-5">
-                    <svg
-                        className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-                        width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img"
-                        aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice"
-                        focusable="false"><title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#eee"/>
-                        <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-                    </svg>
-
-                </div>
-            </div>
-
-            <hr className="featurette-divider"/>
-            */}
-
-            <div className='container'>
-            <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-                <h1 className="display-4">Pricing</h1>
-                <p className="lead">Choose the option that's right for you. From single group cards to ongoing plans,
-                    for personal use or for the office. Every Cheershare offers:</p>
-                <div className="container my-3">
-                    <div className="row">
-                        <div className="col">
-                            ✅ Add text, pics, GIFs, videos
-                        </div>
-                        <div className="col">
-                            ✅ Easily invite others with a link
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col">
-                            ✅ Accessible forever
-                        </div>
-                        <div className="col">
-                            ✅ Desktop & mobile friendly
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col">
-                            ✅ Deliver online or print as poster
-                        </div>
-                        <div className="col">
-                            ✅ No ads / no selling your data
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="row mb-3">
-                <div className="col">
-                    <div className="card mb-4 shadow-sm">
-                        <div className="card-header text-center">
-                            <h4 className="my-0 font-weight-normal">MINI BOARD</h4>
-                            <h1 className="card-title pricing-card-title">Free</h1>
-                        </div>
-                        <div className="card-body">
-                            <p>Great for a small group of contributors, 1-to-1 boards, or to test the Cheershare system.</p>
-                            <hr/>
-                            <ul className="list-unstyled mt-3 mb-4">
-                                <li>Up to 15 posts</li>
-                                <li>Email support</li>
-                                <li>Upgrade anytime</li>
-                            </ul>
-                            <button type="button" className="btn btn-lg btn-block btn-outline-primary">Start for
-                                free
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div className="col">
-                    <div className="card mb-4 shadow-sm">
-                        <div className="card-header text-center">
-                            <h4 className="my-0 font-weight-normal">Premium Board</h4>
-                            <h1 className="card-title pricing-card-title">$5.99<br/><small className="text-muted">/
-                                Per Board</small></h1>
-                        </div>
-                        <div className="card-body">
-                            <p>Best for a larger group of contributors on a birthday, work anniversary, or special occasion.</p>
-                            <hr/>
-                            <ul className="list-unstyled mt-3 mb-4">
-                                <li>Up to 100 posts</li>
-                                <li>Priority email support</li>
-                                <li>Upgrade anytime</li>
-                            </ul>
-                            <button type="button" className="btn btn-lg btn-block btn-outline-primary">Create Cheerboard</button>
-                        </div>
-                    </div>
-                </div>
-                <div className="col">
-                    <div className="card mb-4 shadow-sm">
-                        <div className="card-header text-center">
-                            <h4 className="my-0 font-weight-normal">Milestone Board</h4>
-                            <h1 className="card-title pricing-card-title">$19.99<br/><small className="text-muted">/
-                                Per Board</small></h1>
-                        </div>
-                        <div className="card-body">
-                            <p>Perfect for extra large groups or milestones that you will celebrate in-person.</p>
-                            <hr/>
-                            <ul className="list-unstyled mt-3 mb-4">
-                                <li>3000 users included</li>
-                                <li>Help center access</li>
-                            </ul>
-                            <button type="button" className="btn btn-lg btn-block btn-outline-primary">Create Cheerboard</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="card mb-4 shadow-sm">
-                        <div className="card-header text-center">
-                            <h4 className="my-3 font-weight-normal">Want unlimited boards, multiple creators, & more?</h4>
-                            <h6 className="card-title my-5">Check out our Business and Enterprise plans for all your organization's needs.</h6>
-
-                            <button type="button" className="btn btn-lg btn-block btn-primary">See Business Plan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-
             <footer className="pt-4 my-md-5 pt-md-5 border-top">
                 <div className="row">
                     <div className="col-12 col-md">
                         <img className="mb-2" src="favicon-32x32.png" alt=""/>
-                            <small className="d-block mb-3 text-muted">&copy; 2017-2020</small>
+                        <small className="d-block mb-3 text-muted">&copy; 2017-2020</small>
                     </div>
                     <div className="col-6 col-md">
                         <h5>Features</h5>
@@ -313,6 +302,7 @@ export default function Home() {
                     </div>
                 </div>
             </footer>
+            */}
         </main>
     </>);
 }

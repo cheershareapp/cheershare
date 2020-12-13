@@ -12,9 +12,9 @@ export default function Deliver() {
         <>
             <Header />
             <Container className="min-vh-100">
+                <Button className="float-right" variant="link" onClick={() => router.back()}>Back to board</Button>
                 <h1 className="mt-3">
                     Deliver
-                    <Button className="float-right" variant="link" onClick={() => router.back()}>Back to board</Button>
                 </h1>
 
                 <h3 className="mt-5">Email</h3>
