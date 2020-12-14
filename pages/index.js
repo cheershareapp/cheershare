@@ -74,7 +74,7 @@ export default function Home() {
                     </div>
                     <div className="row justify-content-center">
                         <div className="col">
-                            <p className="mt-4 text-center"><Link href="/cheer/"><a className="btn btn-secondary my-4">Create Cheerboard</a></Link></p>
+                            <p className="mt-4 text-center"><Link href="/cheer/"><a className="btn btn-success my-4">Create Cheerboard</a></Link></p>
                         </div>
                     </div>
                 </div>
@@ -133,29 +133,29 @@ export default function Home() {
 
                     <div className="row text-center justify-content-sm-center no-gutters pt-0 pt-md-3">
                         <div className="col-12 col-sm-8 col-md-3 m-auto">
-                            <p>✅ Add text, pics, GIFs, videos</p>
+                            <p>· Add text, pics, GIFs, videos</p>
                         </div>
 
                         <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
-                            <p>✅ Accessible forever</p>
+                            <p>· Accessible forever</p>
                         </div>
 
                         <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
-                            <p>✅ Deliver online or print as poster</p>
+                            <p>· Deliver online or print as poster</p>
                         </div>
                     </div>
 
                     <div className="row text-center justify-content-md-center pt-0 pt-md-3">
                         <div className="col-12 col-sm-8 col-md-3 m-auto">
-                            <p>✅ Easily invite others with a link</p>
+                            <p>· Easily invite others with a link</p>
                         </div>
 
                         <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
-                            <p>✅ Desktop & mobile friendly</p>
+                            <p>· Desktop & mobile friendly</p>
                         </div>
 
                         <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
-                            <p>✅ No ads / no selling your data</p>
+                            <p>· No ads / no selling your data</p>
                         </div>
                     </div>
 
@@ -163,11 +163,11 @@ export default function Home() {
                         <div className="col-12 col-sm-10 col-md-6 col-lg-5 m-auto col-xl-3 text-left">
                             <div className="bg-gray p-3 text-center rounded sl-1">
                                 <h2 className="font-weight-light">Mini</h2>
-                                <p className="h2">FREE</p>
+                                <p className="h3 pb-2">Free</p>
                                 <p>Great for a small group of contributors, 1-to-1 boards, or to test the Cheershare system.</p>
                                 <p className="text-center">
                                     <Link href="/cheer/">
-                                        <a className="btn btn-outline-secondary">Start for free</a>
+                                        <a className="btn btn-outline-success">Start for free</a>
                                     </Link>
                                     </p>
 
@@ -182,11 +182,11 @@ export default function Home() {
                         <div className="col-12 col-sm-10 col-md-6 col-lg-5 m-auto col-xl-3 text-left pt-5 pt-md-0">
                             <div className="bg-gray p-3 text-center rounded sl-1">
                                 <h2 className="font-weight-light">Premium</h2>
-                                <p className="h2">$5.99 <small className="text-muted">/ board</small></p>
+                                <p className="h3 pb-2">$5.99 <small className="text-muted">/ board</small></p>
                                 <p>Best for a larger group of contributors on a birthday, work anniversary, or special occasion.</p>
                                 <p className="text-center">
                                     <Link href="/cheer/">
-                                        <a className="btn btn-secondary">Create Cheerboard</a>
+                                        <a className="btn btn-success">Create Cheerboard</a>
                                     </Link>
                                 </p>
 
@@ -201,11 +201,11 @@ export default function Home() {
                         <div className="col-12 col-sm-10 col-md-6 col-lg-5 m-auto col-xl-3 text-left pt-5 pt-xl-0">
                             <div className="bg-gray p-3 text-center rounded sl-1">
                                 <h2 className="font-weight-light">Milestone</h2>
-                                <p className="h2">$19.99 <small className="text-muted">/ board</small></p>
+                                <p className="h3 pb-2">$19.99 <small className="text-muted">/ board</small></p>
                                 <p>Perfect for extra large groups or milestones that you will celebrate in-person.</p>
                                 <p className="text-center">
                                     <Link href="/cheer/">
-                                        <a className="btn btn-outline-secondary">Create Cheerboard</a>
+                                        <a className="btn btn-outline-success">Create Cheerboard</a>
                                     </Link>
                                     </p>
 
@@ -219,11 +219,11 @@ export default function Home() {
                         <div className="col-12 col-sm-10 col-md-6 col-lg-5 m-auto col-xl-3 text-left pt-5 pt-xl-0">
                             <div className="bg-gray p-3 text-center rounded sl-1">
                                 <h2 className="font-weight-light">Enterprise</h2>
-                                <p className="h2">Call Us</p>
+                                <p className="h3 pb-2">Call Us</p>
                                 <p>Want unlimited boards, multiple creators, & more? Check out our Business and Enterprise plans for all your organization's needs.</p>
                                 <p className="text-center">
                                     <Link href="/cheer/">
-                                        <a className="btn btn-outline-secondary">Contact</a>
+                                        <a className="btn btn-outline-success">Contact</a>
                                     </Link>
                                 </p>
 
@@ -236,7 +236,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <footer className="fdb-block footer-small">
+            <footer className="mb-4 footer-small">
                 <div className="container">
                     <div className="row align-items-center text-center">
                         <div className="col-12 col-lg-4 text-lg-left">

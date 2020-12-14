@@ -74,3 +74,8 @@
 .fdb-block .row-70 {
   height: 4.375rem;
   width: 100%; }
+
+.bg-gray {
+  background-color: #f4f7fe;
+  color: #444;
+}
