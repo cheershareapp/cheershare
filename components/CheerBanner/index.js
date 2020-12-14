@@ -42,7 +42,6 @@ function CheerBanner({id, editable, data, setData, setSidebar}) {
                         <Button variant="secondary">Deliver</Button>
                     </Link>
                     <Button variant="secondary" onClick={() => setSidebar(true)}>Background</Button>
-                    <Button variant="secondary" onClick={() => setSidebar(true)}>Settings</Button>
                 </ButtonGroup>
             </Col>
         </Row> }
