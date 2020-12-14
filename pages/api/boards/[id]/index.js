@@ -30,16 +30,18 @@ export default async function handler(req, res) {
 
         case 'PUT' /* Edit board by its ID */:
             try {
-                const board = await Board.findByIdAndUpdate(id, req.body, {
+                const board = await Board.findOneAndUpdate({
+                    _id: id,
+                    ownerId: session.user.id
+                }, req.body, {
                     new: true,
                     runValidators: true,
                 });
+
                 if (!board) {
                     return res.status(400).json({ success: false })
                 }
-                if (board.ownerId !== session.user.id) {
-                    return res.status(401).json({ success: false })
-                }
+
                 const pins = await Pin.find({ boardId: board.id });
 
                 res.status(200).json({
