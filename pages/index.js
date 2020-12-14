@@ -11,7 +11,8 @@ export default function Home() {
         </Head>
         <Header/>
         <main className="">
-            <section className="fdb-block fdb-viewport" style={ {backgroundImage: "url(/images/HeroBackground.svg)"}}>
+            <section className="fdb-block fdb-viewport">
+                <img src="/images/HeroBackground2.svg" style={{position: "absolute", top: 0}}/>
                 <div className="container align-items-end justify-content-center d-flex">
                     <div className="row align-items-top text-left">
                         <div className="col-12 col-md-6 col-lg-5">
@@ -21,11 +22,12 @@ export default function Home() {
                             <p className="mt-5">
                                 <Link href="/cheer/"><a className="btn btn-primary btn-lg">Create Cheerboard</a></Link>
                             </p>
-
                         </div>
-
-                        <div className="col-12 col-sm-4 col-md-6 col-lg-4">
-                            <img alt="image" className="rounded" src="/images/HeroOrig.jpg"/>
+                        <div className="col-12 col-md text-right">
+                            <img alt="Couple unpacking gifts"
+                                 className="rounded img-fluid h-100"
+                                 src="/images/HeroOrig.jpg"
+                                 style={{objectFit: "cover"}}/>
                         </div>
                     </div>
                 </div>
