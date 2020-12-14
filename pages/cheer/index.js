@@ -5,7 +5,7 @@ import {useSession, getSession} from "next-auth/client";
 import Header from "components/header";
 import Footer from "components/footer";
 import BoardSummary from "components/board-summary";
-import CreateBoardModal from "components/create-board";
+import CreateBoardModal from "components/CreateBoard";
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';

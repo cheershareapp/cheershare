@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {signIn, signOut, useSession} from "next-auth/client";
 import {Container, Navbar, Nav, Dropdown, DropdownButton, Button, Image} from "react-bootstrap";
-import CreateBoardModal from "./create-board";
+import CreateBoardModal from "./CreateBoard";
 import Link from "next/link";
 
 export default function Header(props) {
