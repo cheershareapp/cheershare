@@ -87,7 +87,7 @@ export default async function handler(req, res) {
                     board,
                     baseUrl,
                     identifier: recipientEmail,
-                    url: `${baseUrl}/cheer/${id}`,
+                    url: `${baseUrl}/cheer/${id}?preview`,
                     provider: {
                         server: process.env.EMAIL_SERVER,
                         from: process.env.EMAIL_FROM,
