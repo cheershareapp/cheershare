@@ -1,9 +1,12 @@
-import React from 'react'
-import { providers, signIn, csrfToken } from 'next-auth/client'
+import React from 'react';
+import Head from 'next/head';
+import {useRouter} from "next/router";
+import { providers, csrfToken } from 'next-auth/client';
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
-import {useRouter} from "next/router";
+
 
 export default function SignIn({ providers, csrfToken, callbackUrl }) {
     const router = useRouter();
@@ -32,7 +35,10 @@ export default function SignIn({ providers, csrfToken, callbackUrl }) {
         }
     }
 
-    return (
+    return <>
+        <Head>
+            <title>Log In to Cheershare</title>
+        </Head>
         <section className="m-auto p-5 w-100">
             <div className="container">
                 <div className="row justify-content-center">
@@ -40,7 +46,7 @@ export default function SignIn({ providers, csrfToken, callbackUrl }) {
                         <div className="row">
                             <div className="col text-center">
                                 <h1>Welcome to Cheershare</h1>
-                                <p className="lead">Complete the signup to add Cheer! { false && "to Chirag\'s Cheershare."}</p>
+                                <p className="lead">Complete the signup to add Cheer!</p>
                             </div>
                         </div>
 
@@ -82,7 +88,7 @@ export default function SignIn({ providers, csrfToken, callbackUrl }) {
                 </div>
             </div>
         </section>
-    )
+    </>
 }
 
 export async function getServerSideProps(context) {
