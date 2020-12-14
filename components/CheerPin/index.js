@@ -57,6 +57,10 @@ export default function CheerPin({mediaUrl, id, editable, ownerName, message, in
               {...provided.draggableProps}
               {...provided.dragHandleProps}
         >
+            { editable && <div className="img-thumbnail"
+                style={{ position: "absolute", right: "1em", top: "1em", opacity: 0.5, zIndex: 1 }}>
+                <img src="/images/Drag.svg" width="32"/>
+            </div> }
             { mediaUrl &&
             <Card.Img src={mediaUrl}/>}
             <Card.Body className={styles.boardItemContent}>
