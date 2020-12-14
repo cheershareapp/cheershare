@@ -17,7 +17,7 @@ export default function Home() {
                     <div className="row align-items-top text-left">
                         <div className="col-12 col-md-6 col-lg-5">
                             <h1 className="mb-3 pt-5">The Perfect Group Card for Special Occasions</h1>
-                            <span className="lead pt-5">Celebrate someone with an online group card filled with
+                            <span className="lead pt-5 font-weight-normal">Celebrate someone with an online group card filled with
                                 messages, GIFs, photos, & videos!</span>
                             <p className="mt-5">
                                 <Link href="/cheer/"><a className="btn btn-primary btn-lg">Create Cheerboard</a></Link>
@@ -55,7 +55,7 @@ export default function Home() {
 
                                 <h3><strong>Add Your Content</strong></h3>
 
-                                <p>Separated they live in Bookmarksgrove right at the coast</p>
+                                <p>Get creative. Attach messages, photos, GIFs or videos to the recipient's board.</p>
                         </div>
 
                         <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0">
@@ -63,7 +63,7 @@ export default function Home() {
 
                                 <h3><strong>Invite your friends</strong></h3>
 
-                                <p>A small river named Duden flows by their place and supplies it</p>
+                                <p>Invite others to add their contributions and watch the virtual group card grow.</p>
                         </div>
 
                         <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0">
@@ -71,7 +71,7 @@ export default function Home() {
 
                                 <h3><strong>Deliver Appreciation</strong></h3>
 
-                                <p>Far far away, behind the word mountains, far from the countries</p>
+                                <p>Deliver it online, print it out as a poster, or play it as a slideshow!</p>
                         </div>
                     </div>
                     <div className="row justify-content-center">
@@ -85,7 +85,7 @@ export default function Home() {
 
             <div className="fdb-block text-center py-1">
                 <h1 className="display-8 font-weight-normal">Group Cards for Birthdays, Holidays, & Other Occasions</h1>
-                <p className="lead">Get inspired with these sample Cheers:</p>
+                <p className="lead">Get inspired with these sample Cheers</p>
 
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3">
                     {[['Birthday', 'balloons'], ['Farewell', 'dots'], ['Work Anniversary', 'confetti'],
