@@ -9,7 +9,7 @@ export default function Home() {
         <Head>
             <title>Welcome to Cheershare</title>
         </Head>
-        <Header/>
+        <Header className="py-3"/>
         <main className="">
             <section className="fdb-block fdb-viewport">
                 <img src="/images/HeroBackground2.svg" style={{position: "absolute", top: 0}}/>

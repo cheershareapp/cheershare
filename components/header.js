@@ -12,7 +12,7 @@ export default function Header(props) {
     const signInRedirect = () => signIn(null, { callbackUrl });
     return (
         <header>
-            <Navbar bg="light" className="shadow-sm">
+            <Navbar className={`shadow-sm ${props.className}`}>
                 <Container>
                     <Navbar.Brand><Link href="/">CheerShare</Link></Navbar.Brand>
                     <Navbar.Toggle />
