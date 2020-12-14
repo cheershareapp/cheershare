@@ -16,9 +16,9 @@ export default function CreateBoardModal({ setModal, showModal }) {
         // TODO(future) lazy create board.  const alias = +Date.now();
 
         const newBoardProps = {
-            title: elements.title.value,
-            recipientFirstName: elements.recipientFirstName.value,
-            recipientLastName: elements.recipientLastName.value,
+            title: elements.title.value.trim(),
+            recipientFirstName: elements.recipientFirstName.value.trim(),
+            recipientLastName: elements.recipientLastName.value.trim(),
         };
 
         const newBoard = await fetcher('/api/boards', {

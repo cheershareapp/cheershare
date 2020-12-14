@@ -7,6 +7,7 @@ import BetaNotice from "../../../components/beta-notice";
 
 export default function Deliver() {
     const router = useRouter();
+    const { id } = router.query;
 
     return (
         <>
@@ -22,9 +23,9 @@ export default function Deliver() {
                 <p className="lead">
                     Share your cheer through an Email message.
                 </p>
-                <Form className="pb-5">
+                <Form className="pb-5" action={`/api/boards/${id}`} method="post">
                     <Form.Label>Email addresses</Form.Label>
-                    <Form.Control type="email" placeholder="alice@yahoo.com"/>
+                    <Form.Control type="email" placeholder="alice@yahoo.com" name="recipientEmail"/>
                     <Form.Text className="text-muted">
                         We'll never share this email with anyone.
                     </Form.Text>

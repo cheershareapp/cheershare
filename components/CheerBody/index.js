@@ -37,7 +37,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 };
 
 function CheerBody({id, editable, data}) {
-    const onDragEnd = (result) => {
+    const onDragEnd = async (result) => {
         const { source, destination } = result;
         if (!destination) return;
 
@@ -67,10 +67,10 @@ function CheerBody({id, editable, data}) {
             ...(lookup[p.id] || {})
         }));
 
-        mutate(`/api/boards/${id}`, async (board) => ({
+        await mutate(`/api/boards/${id}`, async (board) => ({
             ...board,
             pins: newPins,
-        }));
+        }), false);
 
         return fetcher(`/api/boards/${id}/pins`, {
             method: 'PATCH',

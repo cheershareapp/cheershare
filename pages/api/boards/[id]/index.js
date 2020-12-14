@@ -2,6 +2,7 @@ import { getSession } from 'next-auth/client'
 import dbConnect from 'utils/db'
 import Board from 'models/Board'
 import Pin from "models/Pin";
+import sendDelivery from "utils/email";
 
 export default async function handler(req, res) {
     const {
@@ -60,6 +61,41 @@ export default async function handler(req, res) {
                 res.status(200).json({ success: true, data: {} })
             } catch (error) {
                 res.status(400).json({ success: false })
+            }
+            break;
+
+        case 'POST' /* Send a board with given ID to a recipient */:
+            try {
+                const { recipientEmail } = req.body;
+                const baseUrl = process.env.NEXTAUTH_URL;
+
+                const board = await Board.findByIdAndUpdate(id, {
+                    recipientEmail,
+                    deliveryStatus: true
+                }, {
+                    new: true,
+                    runValidators: true,
+                });
+
+                if (!board) {
+                    return res.status(400).json({ success: false })
+                }
+
+                await sendDelivery({
+                    board,
+                    baseUrl,
+                    identifier: recipientEmail,
+                    url: `${baseUrl}/cheer/${id}`,
+                    provider: {
+                        server: process.env.EMAIL_SERVER,
+                        from: process.env.EMAIL_FROM,
+                    }
+                });
+
+                res.status(200).json({ success: true, data: {} })
+            } catch (error) {
+                console.error(error, 'POST /api/board/:id');
+                res.status(400).json({ success: false, error })
             }
             break;
 
