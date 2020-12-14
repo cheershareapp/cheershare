@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {getSession} from "next-auth/client";
+import {useSession} from "next-auth/client";
 import {useRouter} from "next/router";
 import { mutate } from "swr"
 
@@ -67,6 +67,12 @@ function renderPage(page, setMediaUrl) {
 }
 
 export default function Add({ data: board }) {
+    const [session, loading] = useSession();
+
+    if (!session && !loading) {
+        redirectToLogin(`/cheer/${board.id}`);
+    }
+
     const [ page, _setPage ] = useState('');
     const [ mediaUrl, setMediaUrl ] = useState('');
     const router = useRouter();
@@ -139,11 +145,7 @@ export default function Add({ data: board }) {
 
 export async function getServerSideProps(context) {
     const { id } = context.params;
-    const session = await getSession(context);
 
-    if (!session) {
-        return redirectToLogin(`/cheer/${id}`, context.res);
-    }
     await dbConnect();
     const data = await Board.index({_id: id}, { nestPins: true });
     return {
