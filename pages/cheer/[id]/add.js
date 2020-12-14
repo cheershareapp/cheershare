@@ -66,17 +66,24 @@ function renderPage(page, setMediaUrl) {
     }
 }
 
+function unique(array) {
+    return [...new Set(array)];
+}
+
+function argMin(array) {
+    return array.map((x, i) => [x, i]).reduce((r, a) => (a[0] < r[0] ? a : r))[1];
+}
+
 export default function Add({ data: board }) {
+    const router = useRouter();
     const [session, loading] = useSession();
+
+    const [ page, _setPage ] = useState('');
+    const [ mediaUrl, setMediaUrl ] = useState('');
 
     if (!session && !loading) {
         redirectToLogin(`/cheer/${board.id}`);
     }
-
-    const [ page, _setPage ] = useState('');
-    const [ mediaUrl, setMediaUrl ] = useState('');
-    const router = useRouter();
-    const { id: boardId } = router.query;
 
     const setPage = (newPage) => {
         _setPage(newPage === page ? '' : newPage)
@@ -92,19 +99,31 @@ export default function Add({ data: board }) {
         const { target: formEl } = e;
         const { elements } = formEl;
 
+        const columnSizes = board.pins.map(p => p.columnIndex)
+            /* Sum each column size */
+            .reduce((acc, colIndex) => {
+                acc[colIndex] = acc[colIndex]
+                    ? acc[colIndex] + 1
+                    : 1;
+                return acc;
+            }, Array(3).fill(0));
+
+        const leastUsedColumn = argMin(columnSizes.slice(0, 3));
+
         const newPin = {
             message: elements.message.value,
-            boardId,
+            boardId: board.id,
             mediaUrl,
+            columnIndex: leastUsedColumn
         };
 
         const { pins, ...rest } = board;
-        const newPinBody = await fetcher(`/api/boards/${boardId}/pins`, {
+        const newPinBody = await fetcher(`/api/boards/${board.id}/pins`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newPin)
         });
-        await mutate(`/api/boards/${boardId}`, {
+        await mutate(`/api/boards/${board.id}`, {
             pins: [...pins, newPinBody],
             ...rest,
         }, true);
