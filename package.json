@@ -15,7 +15,6 @@
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.11.0",
     "bootstrap": "^4.5.3",
-    "froala-design-blocks": "^2.0.1",
     "isomorphic-unfetch": "^3.1.0",
     "mongoose": "^5.11.6",
     "next": "^10.0.3",
