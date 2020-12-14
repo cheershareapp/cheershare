@@ -89,7 +89,7 @@ export default function EditorPage({ data: initialData }) {
                 {data.coverImage && <meta property="og:image" content={data.coverImage} />}
             </Head>
             <Header/>
-            {!session && !loading && <AccountRequiredAlert id={id}/> }
+            {editable && !session && !loading && <AccountRequiredAlert id={id}/>}
             {errorMessage.length > 0 && <PermissionAlert data={data} message={errorMessage} id={id}/>}
             <Container className={styles.board}>
                 <CheerBanner id={id} data={data} editable={editable} setData={setData} setSidebar={setSidebar}/>
