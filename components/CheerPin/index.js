@@ -4,7 +4,7 @@ import styles from "styles/Editor.module.css"
 import {Draggable} from "react-beautiful-dnd";
 import fetcher from "../../utils/fetch";
 
-export default function CheerPin ({mediaUrl, id, editable, ownerName, message, index}) {
+export default function CheerPin({mediaUrl, id, editable, ownerName, message, index}) {
     const pinMessageEl = useRef(null);
     const [editPinMessage, setEditPinMessage] = useState(false);
 
@@ -50,7 +50,7 @@ export default function CheerPin ({mediaUrl, id, editable, ownerName, message, i
         ? { contentEditable: true, onKeyDown: setMessage, suppressContentEditableWarning: true, className: 'bg-warning'}
         : {};
 
-    return (<Draggable draggableId={id} index={index}>
+    return (<Draggable draggableId={id} index={index} isDragDisabled={!editable}>
         {(provided, snapshot) => (
         <Card className="shadow-sm my-2"
               ref={provided.innerRef}

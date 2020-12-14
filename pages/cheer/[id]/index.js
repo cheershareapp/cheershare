@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {useRouter} from 'next/router'
+import Head from 'next/head'
 
 import Header from "components/header";
 import Footer from "components/footer";
@@ -8,7 +9,7 @@ import CheerBody from "components/CheerBody";
 import Sidebar from "components/Sidebar";
 
 import styles from "styles/Editor.module.css"
-import { Container} from "react-bootstrap";
+import { Container, Alert } from "react-bootstrap";
 
 import Board from "models/Board";
 import Pin from "models/Pin";
@@ -16,15 +17,30 @@ import useSWR, { mutate } from "swr";
 
 import dbConnect from "utils/db";
 import fetcher from "utils/fetch";
-import {redirectToLogin} from "../../../utils/redirectToLogin";
-import {getSession} from "next-auth/client";
+import {redirectToLogin} from "utils/redirectToLogin";
+import {useSession} from "next-auth/client";
 
+
+function AccountRequiredAlert({id}) {
+    const [show, setShow] = useState(true);
+
+    if (!show) return <></>;
+
+    return (
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible
+               onClick={() => redirectToLogin(`/cheer/${id}`)}>
+            <Alert.Heading>You need an account!</Alert.Heading>
+            <p>Click here to create an account or login to add your Cheer!</p>
+        </Alert>
+    );
+}
 
 export default function EditorPage({ data: initialData }) {
     const router = useRouter();
     const { id } = router.query;
     const editable = !('preview' in router.query);
 
+    const [session, loading] = useSession();
     const [sidebar, setSidebar] = useState(false);
 
     const { data, error, mutate } = useSWR(`/api/boards/${id}`, fetcher, { refreshInterval: 1000, initialData });
@@ -43,10 +59,18 @@ export default function EditorPage({ data: initialData }) {
         <div style={{
             backgroundImage: `url(${data.backgroundImage || '/images/fun-background.png'})`
         }}>
+            <Head>
+                <title>Editing {data.title}</title>
+                <meta property="og:title" content={`Celebrate ${data.recipientFirstName}, add your cheer here!`} />
+                <meta property="og:type" content="website" />
+                <meta property="og:description" content={`We're celebrating ${data.recipientFirstName}, add your cheer for their ${data.title} board`} />
+                {data.coverImage && <meta property="og:image" content={data.coverImage} />}
+            </Head>
             <Header/>
+            {!session && !loading && <AccountRequiredAlert id={id}/> }
             <Container className={styles.board}>
                 <CheerBanner id={id} data={data} editable={editable} setData={setData} setSidebar={setSidebar}/>
-                <CheerBody id={id} data={data} editable={editable} />
+                <CheerBody id={id} data={data} editable={editable && session} />
             </Container>
             <Sidebar show={sidebar} setSidebar={setSidebar}/>
             <Footer/>
@@ -56,11 +80,6 @@ export default function EditorPage({ data: initialData }) {
 
 export async function getServerSideProps(context) {
     const { id } = context.params;
-    const session = await getSession(context);
-
-    if (!session) {
-        return redirectToLogin(`/cheer/${id}`, context.res);
-    }
 
     await dbConnect();
     const [ board ] = await Board.index({ _id: id});
