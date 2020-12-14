@@ -63,7 +63,7 @@ export default function EditorPage({ data: initialData }) {
                 <title>Editing {data.title}</title>
                 <meta property="og:title" content={`Celebrate ${data.recipientFirstName}, add your cheer here!`} />
                 <meta property="og:type" content="website" />
-                <meta property="og:description" content={`We're celebrating ${data.recipientFirstName}, add your cheer for their ${data.title} board`} />
+                <meta property="og:description" content={`We're celebrating ${data.recipientFirstName}. Add your cheer for the "${data.title}" board.`} />
                 {data.coverImage && <meta property="og:image" content={data.coverImage} />}
             </Head>
             <Header/>
