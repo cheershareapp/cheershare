@@ -105,20 +105,15 @@ export default function Home() {
                             </Figure>
                         </div>)}
                     <style jsx global>{`
-                    .figure-img {
-                        -webkit-filter: grayscale(100%);
+                    .figure-caption {
+                        font-weight: 400;     
+                        position: absolute;
+                        padding: 1.5em 0; 
+                        top: calc(50% - 3em); 
+                        width: calc(300px - 4em);
+                        margin: 0 2em;
+                        background: white;
                     }
-                    .figure-img :hover {
-                        -webkit-filter: none;
-                    }
-                    /*
-                      // https://stackoverflow.com/a/31144138
-                      position: absolute;
-                      top: 50%;
-                      width: 100%;
-                      text-align: center;
-                      font-size: 18px;
-                    */
                     `}</style>
                 </div>
             </div>
