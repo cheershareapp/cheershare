@@ -11,12 +11,12 @@ This is a [Next.js](https://nextjs.org/) project to share cheer.
 - [x] Use `<Link>` instead of `<a>`
 - [x] Use `<Image>` instead of `<img>`
 - [x] Use session and authentication to filter access
-- [ ] Buy and integrate a special splash page
+- [x] Buy and integrate a special splash page
 - [ ] Company logo background #209CEE https://fonts.google.com/specimen/Leckerli+One?query=leck
 - [x] Figure out email server
 - [x] Figure out Domain name https://vercel.com/docs/custom-domains
 - [ ] Sign in modal, when the user creates a board without authentication https://next-auth.js.org/configuration/pages
-- [ ] on logout navigate to homepage
+- [x] on logout navigate to homepage
 - [ ] compute and store aspect ratio hint from unsplash/giphy
 - [ ] secure edit and delete of pins, right now anyone can update anyones. MVP, check that you can edit that board.
 - [ ] figure out which font we want to use, https://fonts.google.com/specimen/Vollkorn

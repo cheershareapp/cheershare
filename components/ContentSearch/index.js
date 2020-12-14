@@ -29,9 +29,11 @@ export default function SearchPage({ vendor, setMediaUrl }) {
                     </InputGroup.Append>
                 </InputGroup>
 
-                <Form.Text className="text-muted text-right">
-                    Powered by {vendor}
+                <Form.Text className="text-right">
+                    { vendor === 'unsplash' && <p>Powered by Unsplash</p> }
+                    { vendor === 'giphy' && <img src='/images/powered-by-giphy.png' height="15"/>}
                 </Form.Text>
+
             </Form.Group>
         </Form>
         <Gallery q={query} vendor={vendor} onImageSelect={setMediaUrl}/>

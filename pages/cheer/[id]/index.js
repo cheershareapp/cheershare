@@ -13,7 +13,7 @@ import { Container, Alert } from "react-bootstrap";
 
 import Board from "models/Board";
 import Pin from "models/Pin";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 
 import dbConnect from "utils/db";
 import fetcher from "utils/fetch";
@@ -35,6 +35,21 @@ function AccountRequiredAlert({id}) {
     );
 }
 
+function PermissionAlert({message, data, id}) {
+    const [show, setShow] = useState(true);
+
+    if (!show) return <></>;
+
+    return (
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible
+               onClick={() => redirectToLogin(`/cheer/${id}`)}>
+            <Alert.Heading>Please contact {data.ownerName}</Alert.Heading>
+            <p>{message}</p>
+            <Alert.Link href={`/cheer/${id}`}>Refresh page</Alert.Link>
+        </Alert>
+    );
+}
+
 export default function EditorPage({ data: initialData }) {
     const router = useRouter();
     const { id } = router.query;
@@ -42,15 +57,22 @@ export default function EditorPage({ data: initialData }) {
 
     const [session, loading] = useSession();
     const [sidebar, setSidebar] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const { data, error, mutate } = useSWR(`/api/boards/${id}`, fetcher, { refreshInterval: 1000, initialData });
 
     const setData = async (partial) => {
-        return mutate(await fetcher(`/api/boards/${id}`, {
+        const newBoard = await fetcher(`/api/boards/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(partial)
-        }), false);
+        });
+
+        if (newBoard.success === false) {
+            return setErrorMessage('You don\'t have the correct permissions');
+        }
+
+        return mutate(newBoard, false);
     };
 
     // TODO(future) figure out spinner/lazy-loading
@@ -68,6 +90,7 @@ export default function EditorPage({ data: initialData }) {
             </Head>
             <Header/>
             {!session && !loading && <AccountRequiredAlert id={id}/> }
+            {errorMessage.length > 0 && <PermissionAlert data={data} message={errorMessage} id={id}/>}
             <Container className={styles.board}>
                 <CheerBanner id={id} data={data} editable={editable} setData={setData} setSidebar={setSidebar}/>
                 <CheerBody id={id} data={data} editable={editable && session} />
