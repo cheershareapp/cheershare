@@ -14,7 +14,7 @@ function CheerBanner({id, editable, data, setData, setSidebar}) {
     };
 
     const titleConfig = editable
-        ? { contentEditable: true, onKeyDown: setTitle, suppressContentEditableWarning: true}
+        ? { contentEditable: true, onKeyDown: setTitle, suppressContentEditableWarning: true }
         : {};
 
     return (<>

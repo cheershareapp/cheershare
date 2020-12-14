@@ -24,9 +24,9 @@ export default function Deliver() {
                 </p>
                 <Form className="pb-5">
                     <Form.Label>Email addresses</Form.Label>
-                    <Form.Control as="text" placeholder="alice@yahoo.com"/>
+                    <Form.Control type="email" placeholder="alice@yahoo.com"/>
                     <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
+                        We'll never share this email with anyone.
                     </Form.Text>
 
                     <Button variant="primary" type="submit" className="mt-3">

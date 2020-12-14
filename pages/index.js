@@ -16,9 +16,9 @@ export default function Home() {
                     <div className="row align-items-top text-left">
                         <div className="col-12 col-md-6 col-lg-5">
                             <h1 className="mb-3 pt-5">The Perfect Group Card for Special Occasions</h1>
-                            <span className="lead">Celebrate someone with an online group card filled with
+                            <span className="lead pt-5">Celebrate someone with an online group card filled with
                                 messages, GIFs, photos, & videos!</span>
-                            <p className="my-4">
+                            <p className="mt-5">
                                 <Link href="/cheer/"><a className="btn btn-primary btn-lg">Create Cheerboard</a></Link>
                             </p>
 

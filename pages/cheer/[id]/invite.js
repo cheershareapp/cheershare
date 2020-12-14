@@ -25,7 +25,7 @@ export default function Invite() {
                 <p className="lead">
                     Copy/paste the URL below. It will take folks directly to the CheerShare to contribute.
                 </p>
-                <Form.Control type="text" placeholder="URL" value={shareableLink}/>
+                <Form.Control type="text" placeholder="URL" value={shareableLink} readOnly/>
 
                 <h3 className="mt-5">Facebook</h3>
                 <BetaNotice />
