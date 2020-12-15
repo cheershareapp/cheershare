@@ -4,7 +4,7 @@ import styles from './Sidebar.module.css';
 import {Button, Modal} from "react-bootstrap";
 import BetaNotice from "components/beta-notice";
 /*
-TODO implement directory lookup for all backgrounds
+TODO(future) implement directory lookup for all backgrounds
 https://medium.com/@boris.poehland.business/next-js-api-routes-how-to-read-files-from-directory-compatible-with-vercel-5fb5837694b9
 import fs from 'fs'
 import path from 'path'
