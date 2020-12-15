@@ -129,6 +129,7 @@ export default function Home() {
                     </div>
 
                     <div className="row text-center justify-content-sm-center no-gutters pt-0 pt-md-3">
+                        <div className="col"></div>
                         <div className="col-12 col-sm-8 col-md-3 m-auto">
                             <p>· Add text, pics, GIFs, videos</p>
                         </div>
@@ -140,9 +141,11 @@ export default function Home() {
                         <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
                             <p>· Deliver online or print as poster</p>
                         </div>
+                        <div className="col"></div>
                     </div>
 
                     <div className="row text-center justify-content-md-center pt-0 pt-md-3">
+                        <div className="col"></div>
                         <div className="col-12 col-sm-8 col-md-3 m-auto">
                             <p>· Easily invite others with a link</p>
                         </div>
@@ -154,6 +157,7 @@ export default function Home() {
                         <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
                             <p>· No ads / no selling your data</p>
                         </div>
+                        <div className="col"></div>
                     </div>
 
                     <div className="row mt-5 align-items-top">
