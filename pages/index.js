@@ -15,7 +15,7 @@ export default function Home() {
         <Header className="py-3"/>
         <main className="">
             <section className="fdb-block fdb-viewport">
-                <img src="/images/HeroBackground2.svg" style={{position: "absolute", top: 0}}/>
+                <img src="/images/HeroBackground2.svg" alt="Welcome to Cheershare" style={{position: "absolute", top: 0}}/>
                 <div className="container align-items-end justify-content-center d-flex">
                     <div className="row align-items-top text-left">
                         <div className="col-12 col-md-6 col-lg-5">
@@ -248,7 +248,7 @@ export default function Home() {
                         </div>
 
                         <div className="col-12 col-lg-4 mt-4 mt-lg-0">
-                            <img alt="image" src="/favicon-32x32.png" height="40" />
+                            <img alt="company logo" src="/favicon-32x32.png" height="40" />
                         </div>
 
                         <div className="col-12 col-lg-4 text-lg-right mt-4 mt-lg-0">
