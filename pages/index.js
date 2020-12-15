@@ -8,6 +8,9 @@ export default function Home() {
     return (<>
         <Head>
             <title>Welcome to Cheershare</title>
+            <meta property="og:title" content="Celebrate your friends and loved ones!" />
+            <meta property="og:type" content="website" />
+            <meta property="og:description" content="Share your cheer with our sharable poster board. Create your Cheerboard today!" />
         </Head>
         <Header className="py-3"/>
         <main className="">
