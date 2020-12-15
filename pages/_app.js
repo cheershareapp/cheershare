@@ -5,7 +5,7 @@ import {loadStripe} from '@stripe/stripe-js';
 
 // import 'froala-design-blocks/dist/css/froala_blocks.css'
 // import 'bootstrap/dist/css/bootstrap.css'
-import 'styles/bootstrap.min.css'
+import 'styles/bootstrap.css'
 import 'styles/globals.css'
 
 

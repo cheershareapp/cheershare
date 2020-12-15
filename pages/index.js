@@ -9,23 +9,25 @@ export default function Home() {
         <Head>
             <title>Welcome to Cheershare</title>
         </Head>
-        <Header/>
+        <Header className="py-3"/>
         <main className="">
-            <section className="fdb-block fdb-viewport" style={ {backgroundImage: "url(/images/HeroBackground.svg)"}}>
+            <section className="fdb-block fdb-viewport">
+                <img src="/images/HeroBackground2.svg" style={{position: "absolute", top: 0}}/>
                 <div className="container align-items-end justify-content-center d-flex">
                     <div className="row align-items-top text-left">
                         <div className="col-12 col-md-6 col-lg-5">
                             <h1 className="mb-3 pt-5">The Perfect Group Card for Special Occasions</h1>
-                            <span className="lead pt-5">Celebrate someone with an online group card filled with
+                            <span className="lead pt-5 font-weight-normal">Celebrate someone with an online group card filled with
                                 messages, GIFs, photos, & videos!</span>
                             <p className="mt-5">
                                 <Link href="/cheer/"><a className="btn btn-primary btn-lg">Create Cheerboard</a></Link>
                             </p>
-
                         </div>
-
-                        <div className="col-12 col-sm-4 col-md-6 col-lg-4">
-                            <img alt="image" className="rounded" src="/images/HeroOrig.jpg"/>
+                        <div className="col-12 col-md text-right">
+                            <img alt="Couple unpacking gifts"
+                                 className="rounded img-fluid h-100"
+                                 src="/images/HeroOrig.jpg"
+                                 style={{objectFit: "cover"}}/>
                         </div>
                     </div>
                 </div>
@@ -53,7 +55,7 @@ export default function Home() {
 
                                 <h3><strong>Add Your Content</strong></h3>
 
-                                <p>Separated they live in Bookmarksgrove right at the coast</p>
+                                <p>Get creative. Attach messages, photos, GIFs or videos to the recipient's board.</p>
                         </div>
 
                         <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0">
@@ -61,7 +63,7 @@ export default function Home() {
 
                                 <h3><strong>Invite your friends</strong></h3>
 
-                                <p>A small river named Duden flows by their place and supplies it</p>
+                                <p>Invite others to add their contributions and watch the virtual group card grow.</p>
                         </div>
 
                         <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0">
@@ -69,7 +71,7 @@ export default function Home() {
 
                                 <h3><strong>Deliver Appreciation</strong></h3>
 
-                                <p>Far far away, behind the word mountains, far from the countries</p>
+                                <p>Deliver it online, print it out as a poster, or play it as a slideshow!</p>
                         </div>
                     </div>
                     <div className="row justify-content-center">
@@ -83,7 +85,7 @@ export default function Home() {
 
             <div className="fdb-block text-center py-1">
                 <h1 className="display-8 font-weight-normal">Group Cards for Birthdays, Holidays, & Other Occasions</h1>
-                <p className="lead">Get inspired with these sample Cheers:</p>
+                <p className="lead">Get inspired with these sample Cheers</p>
 
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3">
                     {[['Birthday', 'balloons'], ['Farewell', 'dots'], ['Work Anniversary', 'confetti'],
@@ -103,20 +105,15 @@ export default function Home() {
                             </Figure>
                         </div>)}
                     <style jsx global>{`
-                    .figure-img {
-                        -webkit-filter: grayscale(100%);
+                    .figure-caption {
+                        font-weight: 400;     
+                        position: absolute;
+                        padding: 1.5em 0; 
+                        top: calc(50% - 3em); 
+                        width: calc(300px - 4em);
+                        margin: 0 2em;
+                        background: white;
                     }
-                    .figure-img :hover {
-                        -webkit-filter: none;
-                    }
-                    /*
-                      // https://stackoverflow.com/a/31144138
-                      position: absolute;
-                      top: 50%;
-                      width: 100%;
-                      text-align: center;
-                      font-size: 18px;
-                    */
                     `}</style>
                 </div>
             </div>
@@ -132,6 +129,7 @@ export default function Home() {
                     </div>
 
                     <div className="row text-center justify-content-sm-center no-gutters pt-0 pt-md-3">
+                        <div className="col"></div>
                         <div className="col-12 col-sm-8 col-md-3 m-auto">
                             <p>· Add text, pics, GIFs, videos</p>
                         </div>
@@ -143,9 +141,11 @@ export default function Home() {
                         <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
                             <p>· Deliver online or print as poster</p>
                         </div>
+                        <div className="col"></div>
                     </div>
 
                     <div className="row text-center justify-content-md-center pt-0 pt-md-3">
+                        <div className="col"></div>
                         <div className="col-12 col-sm-8 col-md-3 m-auto">
                             <p>· Easily invite others with a link</p>
                         </div>
@@ -157,6 +157,7 @@ export default function Home() {
                         <div className="col-12 col-sm-8 col-md-3 m-auto pt-1 pt-md-0">
                             <p>· No ads / no selling your data</p>
                         </div>
+                        <div className="col"></div>
                     </div>
 
                     <div className="row mt-5 align-items-top">
