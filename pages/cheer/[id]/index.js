@@ -88,7 +88,7 @@ export default function EditorPage({ data: initialData }) {
                 <meta property="og:description" content={`We're celebrating ${data.recipientFirstName}. Add your cheer for the "${data.title}" board.`} />
                 {data.coverImage && <meta property="og:image" content={data.coverImage} />}
             </Head>
-            <Header/>
+            <Header className="bg-light"/>
             {editable && !session && !loading && <AccountRequiredAlert id={id}/>}
             {errorMessage.length > 0 && <PermissionAlert data={data} message={errorMessage} id={id}/>}
             <Container className={styles.board}>
