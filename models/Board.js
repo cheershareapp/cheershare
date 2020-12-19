@@ -61,6 +61,11 @@ const BoardSchema = new mongoose.Schema({
 
     type: String,
   },
+  tier: {
+    /* Paid tier for a board (should default to 'mini') */
+
+    type: String,
+  },
 }, {
   toJSON: {
     transform: function(doc, ret) {

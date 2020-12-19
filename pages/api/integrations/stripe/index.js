@@ -1,5 +1,7 @@
 import Stripe from 'stripe'
 import {getSession} from "next-auth/client";
+import Board from "models/Board";
+import dbConnect from "utils/db";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     // https://github.com/stripe/stripe-node#configuration
     apiVersion: '2020-03-02',
@@ -10,13 +12,18 @@ export default async function handler(req, res) {
         res.setHeader('Allow', 'POST');
         return res.status(405).end('Method Not Allowed')
     }
-    const session = await getSession({ req });
-    const {amount, selection, cancelUrl, coverImageUrl, title} = req.body;
+
+    const session = await getSession({req});
+    const {amount, selection, id} = req.body;
+
+    // Validate the amount that was passed from the client.
+    if (!selection) {
+        return res.status(400).end('Check request inputs')
+    }
+
     try {
-        // Validate the amount that was passed from the client.
-        if (!amount) {
-            throw new Error('Invalid amount.')
-        }
+        await dbConnect();
+        const board = await Board.findById(id);
 
         // Create Checkout Sessions from body params.
         const checkoutSession = await stripe.checkout.sessions.create({
@@ -25,16 +32,19 @@ export default async function handler(req, res) {
             payment_method_types: ['card'],
             line_items: [
                 {
-                    name: selection,
+                    name: `${selection} Cheershare Board`,
                     amount: 599, // formatAmountForStripe(amount, CURRENCY),
                     currency: 'usd',
                     quantity: 1,
-                    description: "More unified modeling for Checkout items—instead of plans, SKUs, and inline line items, every item is now a price.",
-                    images: ['https://getcheershare.com/_next/image?url=https%3A%2F%2Fmedia4.giphy.com%2Fmedia%2F3oEjHNCWpx4iQYytAA%2Fgiphy.gif%3Fcid%3Deef24604flkw8ap0qo82nxkm3fz1aljip0n7zels6hwvpnfz%26rid%3Dgiphy.gif&q=75&w=640'] //[],
+                    description: `More posts and access for your friends and family. \"${board.title}\"`,
+                    images: [board.coverImage],
+
+                    // price: 'price_1I08FWGdqkLOoYFZ2vFdhyZa',
                 },
             ],
-            success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: cancelUrl || `${req.headers.origin}/`,
+            mode: 'payment',
+            success_url: `${req.headers.origin}/api/integrations/stripe/${id}?sessionId={CHECKOUT_SESSION_ID}&selection=${selection}`,
+            cancel_url: `${req.headers.origin}/cheer/${id}/upgrade`,
         });
 
         res.status(200).json(checkoutSession)

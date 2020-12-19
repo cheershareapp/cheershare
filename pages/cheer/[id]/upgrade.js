@@ -9,21 +9,22 @@ import {useStripe} from "@stripe/react-stripe-js";
 
 export default function Upgrade() {
     const router = useRouter();
+    const { id } = router.query;
+
     const stripe = useStripe();
     const [loading, setLoading] = useState(false);
 
     const handleSelection = async (selection) => {
-        setLoading(true);
+        setLoading(selection);
         // Create a Checkout Session.
         const response = await fetcher('/api/integrations/stripe/',  {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                amount: 5.99,
                 selection,
                 // coverImageUrl
                 // title
-                // id
+                id
             })
         });
 
@@ -66,9 +67,7 @@ export default function Upgrade() {
                         <p>Great for a small group of contributors, 1-to-1 boards, or to test the Cheershare
                             system.</p>
                         <p className="text-center">
-                            <Link href="/cheer/">
-                                <a className="btn btn-outline-success disabled">Enabled</a>
-                            </Link>
+                            <a className="btn btn-outline-success disabled">Enabled</a>
                         </p>
 
                         <hr className="mt-5 mb-5"/>
@@ -86,7 +85,9 @@ export default function Upgrade() {
                         <p>Best for a larger group of contributors on a birthday, work anniversary, or special
                             occasion.</p>
                         <p className="text-center">
-                            <a className="btn btn-success" onClick={() => handleSelection('premium')}>Upgrade</a>
+                            <a className="btn btn-success" onClick={() => handleSelection('premium')}>
+                                {'premium' === loading && <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>} Upgrade
+                            </a>
                         </p>
 
                         <hr className="mt-5 mb-5"/>
@@ -103,7 +104,9 @@ export default function Upgrade() {
                         <p className="h3 pb-2">$19.99 <small className="text-muted">/ board</small></p>
                         <p>Perfect for extra large groups or milestones that you will celebrate in-person.</p>
                         <p className="text-center">
-                            <a className="btn btn-success" onClick={() => handleSelection('milestone')}>Upgrade</a>
+                            <a className="btn btn-success" onClick={() => handleSelection('milestone')}>
+                                {'milestone' === loading && <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>} Upgrade
+                            </a>
                         </p>
 
                         <hr className="mt-5 mb-5"/>
@@ -113,7 +116,7 @@ export default function Upgrade() {
                     </div>
                 </div>
             </div>
-            <div className="row mt-5">
+            <div className="row my-5">
                 <div className="col m-auto text-left pt-5 pt-xl-0">
                     <div className="bg-gray p-3 text-center rounded sl-1">
                         <h2 className="font-weight-light">Enterprise</h2>
