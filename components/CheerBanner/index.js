@@ -38,6 +38,9 @@ function CheerBanner({id, editable, data, setData, setSidebar}) {
                     <Link href={`${id}/invite`}>
                         <Button variant="secondary">Invite</Button>
                     </Link>
+                    <Link href={`${id}/upgrade`}>
+                        <Button variant="secondary">Upgrade</Button>
+                    </Link>
                     <Link href={`${id}/deliver`}>
                         <Button variant="secondary">Deliver</Button>
                     </Link>
