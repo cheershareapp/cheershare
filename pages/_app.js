@@ -9,7 +9,7 @@ import 'styles/bootstrap.css'
 import 'styles/globals.css'
 
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY || 'pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG');
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 function MyApp({ Component, pageProps }) {
   return <Provider session={pageProps.session} >
