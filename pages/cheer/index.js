@@ -15,6 +15,7 @@ import dbConnect from "utils/db";
 import fetcher from "utils/fetch";
 import {redirectToLogin} from "utils/redirectToLogin";
 
+
 export default function ListBoards({ data: initialData }) {
     const [filter, setFilter] = useState('given');
     const [session, loading] = useSession();
