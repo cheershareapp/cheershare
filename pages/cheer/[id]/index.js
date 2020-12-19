@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useSession} from "next-auth/client";
 import {useRouter} from 'next/router'
 import Head from 'next/head'
 
@@ -18,7 +19,7 @@ import useSWR from "swr";
 import dbConnect from "utils/db";
 import fetcher from "utils/fetch";
 import {redirectToLogin} from "utils/redirectToLogin";
-import {useSession} from "next-auth/client";
+import {tiers} from "utils/stripeHelper";
 
 
 function AccountRequiredAlert({id}) {
@@ -89,7 +90,7 @@ export default function EditorPage({ data: initialData }) {
         return mutate(newBoard, false);
     };
 
-    // TODO(future) figure out spinner/lazy-loading
+    const MAX_POSTS = tiers[data.tier || 'mini'].postLimit;
 
     return (
         <div style={{
@@ -105,6 +106,7 @@ export default function EditorPage({ data: initialData }) {
             <Header className="bg-light"/>
             {editable && !session && !loading && <AccountRequiredAlert id={id}/>}
             {errorMessage.length > 0 && <PermissionAlert data={data} message={errorMessage} id={id}/>}
+            {data.pins.length >= MAX_POSTS && <QuotaAlert data={data} id={id}/>}
             <Container className={styles.board}>
                 <CheerBanner id={id} data={data} editable={editable} setData={setData} setSidebar={setSidebar}/>
                 <CheerBody id={id} data={data} editable={editable && session} />

@@ -2,9 +2,10 @@ import {Row, Col, Media, Button, ButtonGroup, ListGroup, Form, Container} from "
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import {tiers} from "utils/stripeHelper";
 
 const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-const DAY = 24 * 60 * 60 * 60 * 1000;
+const DAY = 24 * 60 * 60 * 60 * 10;
 
 export default function BoardSummary({
  id,
@@ -15,7 +16,8 @@ export default function BoardSummary({
  updatedAt,
  createdAt,
  ownerName,
- coverImage
+ coverImage,
+ tier
 }) {
     const elapsed = +new Date() - updatedAt;
     const timeAgo = rtf.format(Math.round(elapsed/DAY), 'day');
@@ -30,6 +32,7 @@ export default function BoardSummary({
             <text x="30%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
         </svg>);
 
+    const tierInfo = tiers[tier || 'mini'];
     return (<Media>
         <Link href={`/cheer/${id}`}>
             <div className="bd-placeholder-img mr-3">{ coverImageEl }</div>
@@ -50,8 +53,10 @@ export default function BoardSummary({
                         <p>POSTS (Max of 10) </p>
                     </Form.Label>
                     <Col>
-                        <Form.Control plaintext readOnly defaultValue={`${pinCount} of 10`}/>
-                        <Link href={`/cheer/${id}/upgrade`}>Upgrade MINI BOARD</Link>
+                        <Form.Control plaintext readOnly defaultValue={`${pinCount} of ${tierInfo.postLimit}`}/>
+                        <Link href={`/cheer/${id}/upgrade`}>
+                            {`Upgrade ${tierInfo.prettyName} Board`}
+                        </Link>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="formPlaintextPassword">
@@ -75,6 +80,9 @@ export default function BoardSummary({
                 <ButtonGroup>
                     <Link href={`/cheer/${id}/invite`}>
                         <Button variant="outline-secondary" size="sm">Invite</Button>
+                    </Link>
+                    <Link href={`/cheer/${id}/upgrade`}>
+                        <Button variant="outline-secondary" size="sm">Upgrade</Button>
                     </Link>
                     <Link href={`/cheer/${id}`}>
                         <Button variant="outline-secondary" size="sm">Edit</Button>
