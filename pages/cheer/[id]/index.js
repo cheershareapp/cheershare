@@ -50,6 +50,20 @@ function PermissionAlert({message, data, id}) {
     );
 }
 
+function QuotaAlert({data, id}) {
+    const [show, setShow] = useState(true);
+
+    if (!show) return <></>;
+
+    return (
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+            <Alert.Heading>Please upgrade the board to add more posts!</Alert.Heading>
+            <p>You've hit the limit of posts for this board. Please contact {data.ownerName} or upgrade.</p>
+            <Alert.Link href={`/cheer/${id}/upgrade`}>Upgrade</Alert.Link>
+        </Alert>
+    );
+}
+
 export default function EditorPage({ data: initialData }) {
     const router = useRouter();
     const { id } = router.query;
