@@ -1,9 +1,13 @@
 import Stripe from 'stripe'
 import {getSession} from "next-auth/client";
+
 import Board from "models/Board";
+
 import dbConnect from "utils/db";
+import {tiers} from "utils/stripeHelper";
+
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    // https://github.com/stripe/stripe-node#configuration
     apiVersion: '2020-03-02',
 });
 
@@ -14,10 +18,11 @@ export default async function handler(req, res) {
     }
 
     const session = await getSession({req});
-    const {amount, selection, id} = req.body;
+    const {selection, id} = req.body;
+    const selectionInfo = tiers[selection];
 
     // Validate the amount that was passed from the client.
-    if (!selection) {
+    if (!selection || !selectionInfo) {
         return res.status(400).end('Check request inputs')
     }
 
@@ -32,14 +37,12 @@ export default async function handler(req, res) {
             payment_method_types: ['card'],
             line_items: [
                 {
-                    name: `${selection} Cheershare Board`,
-                    amount: 599, // formatAmountForStripe(amount, CURRENCY),
+                    name: `${selectionInfo.prettyName} Cheershare Board`,
+                    amount: selectionInfo.amount,
                     currency: 'usd',
                     quantity: 1,
-                    description: `More posts and access for your friends and family. \"${board.title}\"`,
+                    description: `Share \"${board.title}\" to more friends and family.`,
                     images: [board.coverImage],
-
-                    // price: 'price_1I08FWGdqkLOoYFZ2vFdhyZa',
                 },
             ],
             mode: 'payment',
