@@ -5,25 +5,23 @@ import Footer from "components/footer";
 import {Button} from "react-bootstrap";
 import { useRouter } from 'next/router'
 import fetcher from "utils/fetch";
-import {useStripe} from "@stripe/react-stripe-js";
+import getStripe from "utils/stripeHelper";
 
 export default function Upgrade() {
     const router = useRouter();
     const { id } = router.query;
 
-    const stripe = useStripe();
     const [loading, setLoading] = useState(false);
 
     const handleSelection = async (selection) => {
         setLoading(selection);
+
         // Create a Checkout Session.
         const response = await fetcher('/api/integrations/stripe/',  {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 selection,
-                // coverImageUrl
-                // title
                 id
             })
         });
@@ -34,17 +32,20 @@ export default function Upgrade() {
         }
 
         // Redirect to Checkout.
+        const stripe = await getStripe();
         const { error } = await stripe.redirectToCheckout({
             // Make the id field from the Checkout Session creation API response
             // available to this file, so you can provide it as parameter here
             // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
             sessionId: response.id,
         });
+
         // If `redirectToCheckout` fails due to a browser or network
         // error, display the localized error message to your customer
         // using `error.message`.
-        console.warn(error.message);
-        setLoading(false)
+        // setError(error.message);
+
+        setLoading(false);
     };
 
     return (<>
@@ -121,7 +122,7 @@ export default function Upgrade() {
                     <div className="bg-gray p-3 text-center rounded sl-1">
                         <h2 className="font-weight-light">Enterprise</h2>
                         <p className="h3 pb-2">Call Us</p>
-                        <p>Want unlimited boards, multiple creators, & Enterprise SSO? Check out our Business and
+                        <p>Want unlimited boards, multiple creators & Enterprise SSO? Check out our Business and
                             Enterprise plans for all your organization's needs.</p>
                         <p className="text-center">
                             <Link href="/cheer/">
