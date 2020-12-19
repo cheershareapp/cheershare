@@ -35,9 +35,16 @@ const backgrounds = [
     "feathers",
     "fun"
 ];
-export default function Sidebar ({ show, setSidebar }) {
+export default function Sidebar ({ show, setSidebar, setData }) {
     const handleClose = () => setSidebar(false);
     const handleShow = () => setSidebar(true);
+
+    const setBackground = async (imageUrl) => {
+        await setData({
+            backgroundImage: imageUrl
+        });
+        handleClose();
+    };
 
     return (<>
         <Modal show={show} onHide={handleClose} animation={false} size="sm"
@@ -48,7 +55,11 @@ export default function Sidebar ({ show, setSidebar }) {
             <Modal.Body>
                 <BetaNotice />
                 {backgrounds.map((name, i) =>
-                    <Image src={`/images/${name}-background.png`} width="120" height="120" className="m-3" key={i}/>
+                    <Image
+                        src={`/images/${name}-background.png`}
+                        onClick={() => setBackground(`/images/${name}-background.png`)}
+                        width="120" height="120" className="m-3"
+                        key={i} />
                 )}
             </Modal.Body>
             <Modal.Footer>

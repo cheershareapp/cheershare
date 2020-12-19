@@ -95,7 +95,7 @@ export default function EditorPage({ data: initialData }) {
                 <CheerBanner id={id} data={data} editable={editable} setData={setData} setSidebar={setSidebar}/>
                 <CheerBody id={id} data={data} editable={editable && session} />
             </Container>
-            <Sidebar show={sidebar} setSidebar={setSidebar}/>
+            <Sidebar show={sidebar} setSidebar={setSidebar} setData={setData}/>
             <Footer/>
         </div>
     );
