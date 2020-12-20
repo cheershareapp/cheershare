@@ -66,7 +66,7 @@ export default function CheerPin({mediaUrl, id, editable, ownerName, message, in
             <Card.Body className={styles.boardItemContent}>
                 <Card.Text ref={pinMessageEl} {...textProps}>{message}</Card.Text>
                 <div className="d-flex justify-content-between align-items-center">
-                    {editable && <ButtonGroup>
+                    {editable && <ButtonGroup size="sm">
                         <Button variant="outline-secondary" onClick={deletePin}>Delete</Button>
                         { !editPinMessage
                             ? <Button variant="outline-secondary" onClick={editMessage}>Edit</Button>
