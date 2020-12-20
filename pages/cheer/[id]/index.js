@@ -42,11 +42,11 @@ function PermissionAlert({message, data, id}) {
     if (!show) return <></>;
 
     return (
-        <Alert variant="danger" onClose={() => setShow(false)} dismissible
-               onClick={() => redirectToLogin(`/cheer/${id}`)}>
-            <Alert.Heading>Please contact {data.ownerName}</Alert.Heading>
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+            <Alert.Heading>Please contact {data.ownerName || 'Board owner'} to make this change</Alert.Heading>
             <p>{message}</p>
-            <Alert.Link href={`/cheer/${id}`}>Refresh page</Alert.Link>
+            <Alert.Link href={`/cheer/${id}`} className="mr-2">Refresh page</Alert.Link>
+            {/*<Alert.Link onClick={() => redirectToLogin(`/cheer/${id}`)}>Switch Users</Alert.Link>*/}
         </Alert>
     );
 }
