@@ -19,12 +19,12 @@ export const tiers = {
         amount: 0,
     },
     'premium': {
-        postLimit: 10,
+        postLimit: 100,
         prettyName: 'Premium',
         amount: 599,
     },
     'mega': {
-        postLimit: 10,
+        postLimit: 1000,
         prettyName: 'Mega',
         amount: 1999,
     },
