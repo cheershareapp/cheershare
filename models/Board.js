@@ -53,13 +53,18 @@ const BoardSchema = new mongoose.Schema({
   backgroundImage: {
     /* Url to the background image */
 
-    // required: [true, 'Please provide an image url for the board\'s background.'],
     type: String,
   },
   coverImage: {
     /* Url for the cover photo */
 
     type: String,
+  },
+  tier: {
+    /* Paid tier for a board (should default to 'mini') */
+
+    type: String,
+    default: 'mini'
   },
 }, {
   toJSON: {
