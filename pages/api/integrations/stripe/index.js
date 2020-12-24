@@ -4,8 +4,7 @@ import {getSession} from "next-auth/client";
 import Board from "models/Board";
 
 import dbConnect from "utils/db";
-import {tiers} from "utils/stripeHelper";
-
+import {Tiers} from "utils/stripeHelper";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: '2020-03-02',
@@ -19,7 +18,7 @@ export default async function handler(req, res) {
 
     const session = await getSession({req});
     const {selection, id} = req.body;
-    const selectionInfo = tiers[selection];
+    const selectionInfo = Tiers[selection];
 
     // Validate the amount that was passed from the client.
     if (!selection || !selectionInfo) {

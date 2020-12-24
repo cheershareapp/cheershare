@@ -19,7 +19,7 @@ import useSWR from "swr";
 import dbConnect from "utils/db";
 import fetcher from "utils/fetch";
 import {redirectToLogin} from "utils/redirectToLogin";
-import {tiers} from "utils/stripeHelper";
+import {Tiers} from "utils/stripeHelper";
 
 
 function AccountRequiredAlert({id}) {
@@ -65,10 +65,32 @@ function QuotaAlert({data, id}) {
     );
 }
 
+function SuccessAlert({message, id}) {
+    const [show, setShow] = useState(true);
+
+    const dismiss = () => {
+        history.replaceState(null, '', `/cheer/${id}`);
+        setShow(false)
+    };
+
+    if (!show) return <></>;
+
+    return (
+        <Alert variant="success" onClose={dismiss} dismissible>
+            <Alert.Heading>Success!</Alert.Heading>
+            { message === 'upgraded' && <p>Thank you! Your board has been upgraded.</p> }
+            { message === 'delivered' && <p>Your board has been delivered!</p> }
+            <Alert.Link onClick={dismiss}>Dismiss</Alert.Link>
+        </Alert>
+    );
+}
+
 export default function EditorPage({ data: initialData }) {
     const router = useRouter();
     const { id } = router.query;
     const editable = !('preview' in router.query);
+    const successStatus = 'upgraded' in router.query ? 'upgraded'
+        : 'delivered' in router.query ? 'delivered' : '';
 
     const [session, loading] = useSession();
     const [sidebar, setSidebar] = useState(false);
@@ -90,7 +112,7 @@ export default function EditorPage({ data: initialData }) {
         return mutate(newBoard, false);
     };
 
-    const MAX_POSTS = tiers[data.tier || 'mini'].postLimit;
+    const { postLimit } = Tiers[data.tier || 'mini'];
 
     return (
         <div style={{
@@ -106,8 +128,9 @@ export default function EditorPage({ data: initialData }) {
             <Header className="bg-light"/>
             {editable && !session && !loading && <AccountRequiredAlert id={id}/>}
             {errorMessage.length > 0 && <PermissionAlert data={data} message={errorMessage} id={id}/>}
-            {data.pins.length >= MAX_POSTS && <QuotaAlert data={data} id={id}/>}
-            <Container className={styles.board}>
+            {data.pins.length >= postLimit && <QuotaAlert data={data} id={id}/>}
+            {successStatus.length > 0 && <SuccessAlert message={successStatus} id={id}/>}
+            <Container className={`${styles.board} px-4`} fluid>
                 <CheerBanner id={id} data={data} editable={editable} setData={setData} setSidebar={setSidebar}/>
                 <CheerBody id={id} data={data} editable={editable && session} />
             </Container>

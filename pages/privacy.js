@@ -19,6 +19,8 @@ export default function PrivacyPage() {
                 <p>This policy is effective as of 11 December 2020.</p>
                 <p><a href="https://getterms.io" title="Generate a free privacy policy">Privacy Policy created with GetTerms.</a></p>
             </section>
+
+            "Circus 24" is used under CC BY / Cropped from original
         </Container>
         <Footer/>
     </>);

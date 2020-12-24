@@ -12,9 +12,9 @@ const getStripe = () => {
 };
 
 /* Lookup table, for a given selection provide some information */
-export const tiers = {
+export const Tiers = {
     'mini': {
-        postLimit: 10,
+        postLimit: 50,
         prettyName: 'Mini',
         amount: 0,
     },
