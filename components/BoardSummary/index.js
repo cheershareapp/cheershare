@@ -2,7 +2,7 @@ import {Row, Col, Media, Button, ButtonGroup, ListGroup, Form, Container} from "
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {tiers} from "utils/stripeHelper";
+import {Tiers} from "utils/stripeHelper";
 
 const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
 const DAY = 24 * 60 * 60 * 60 * 10;
@@ -32,7 +32,7 @@ export default function BoardSummary({
             <text x="30%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
         </svg>);
 
-    const tierInfo = tiers[tier || 'mini'];
+    const tierInfo = Tiers[tier || 'mini'];
     return (<Media>
         <Link href={`/cheer/${id}`}>
             <div className="bd-placeholder-img mr-3">{ coverImageEl }</div>
@@ -41,16 +41,16 @@ export default function BoardSummary({
         <Media.Body>
             <h4>{title}</h4>
             <Form>
-                <Form.Group as={Row} controlId="formPlaintextEmail">
+                <Form.Group as={Row}>
                     <Form.Label column="true" sm="2">
                         FOR
                     </Form.Label>
                     <Col sm="2">
-                        <Form.Control plaintext readOnly defaultValue={`${firstName} ${lastName}`} />
+                        <Form.Control plaintext readOnly defaultValue={`${firstName} ${lastName}`} className="w-auto"/>
                     </Col>
 
                     <Form.Label column="true" sm="3" className="text-right">
-                        <p>POSTS (Max of 10) </p>
+                        <p>POSTS</p>
                     </Form.Label>
                     <Col>
                         <Form.Control plaintext readOnly defaultValue={`${pinCount} of ${tierInfo.postLimit}`}/>
@@ -59,12 +59,12 @@ export default function BoardSummary({
                         </Link>
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} controlId="formPlaintextPassword">
+                <Form.Group as={Row}>
                     <Form.Label column="true" sm="2">
                         CREATOR
                     </Form.Label>
                     <Col sm="2">
-                        <Form.Control plaintext readOnly defaultValue={ownerName} />
+                        <Form.Control plaintext readOnly defaultValue={ownerName} className="w-auto"/>
                     </Col>
 
                     <Form.Label column="true" sm="3" className="text-right">

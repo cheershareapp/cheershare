@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, ButtonGroup, Navbar, Row} from "react-bootstrap";
 import Link from "next/link";
-import {tiers} from "../../utils/stripeHelper";
+import {Tiers} from "../../utils/stripeHelper";
 
 function CheerBanner({id, editable, data, setData, setSidebar}) {
     const setTitle = (e) => {
@@ -17,7 +17,7 @@ function CheerBanner({id, editable, data, setData, setSidebar}) {
     const titleConfig = editable
         ? { contentEditable: true, onKeyDown: setTitle, suppressContentEditableWarning: true }
         : {};
-    const MAX_POSTS = tiers[data.tier || 'mini'].postLimit;
+    const MAX_POSTS = Tiers[data.tier || 'mini'].postLimit;
 
     return (<>
         <Row className="justify-content-md-center my-5 text-center"

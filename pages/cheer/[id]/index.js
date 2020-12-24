@@ -19,7 +19,7 @@ import useSWR from "swr";
 import dbConnect from "utils/db";
 import fetcher from "utils/fetch";
 import {redirectToLogin} from "utils/redirectToLogin";
-import {tiers} from "utils/stripeHelper";
+import {Tiers} from "utils/stripeHelper";
 
 
 function AccountRequiredAlert({id}) {
@@ -90,7 +90,7 @@ export default function EditorPage({ data: initialData }) {
         return mutate(newBoard, false);
     };
 
-    const MAX_POSTS = tiers[data.tier || 'mini'].postLimit;
+    const MAX_POSTS = Tiers[data.tier || 'mini'].postLimit;
 
     return (
         <div style={{
