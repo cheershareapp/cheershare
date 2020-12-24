@@ -1,9 +1,9 @@
 .board {
   position: relative;
+  min-height: 100vh;
 }
 .boardColumn {
   /* background: #f0f0f0; */
-  min-height: 100vh;
 }
 .boardColumnContent {
   position: relative;
@@ -28,9 +28,6 @@
 @media (max-width: 600px) {
   .boardItemContent {
     text-align: center;
-  }
-  .boardItemContent span {
-    display: none;
   }
 }
 
