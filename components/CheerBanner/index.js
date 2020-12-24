@@ -17,7 +17,7 @@ function CheerBanner({id, editable, data, setData, setSidebar}) {
     const titleConfig = editable
         ? { contentEditable: true, onKeyDown: setTitle, suppressContentEditableWarning: true }
         : {};
-    const MAX_POSTS = Tiers[data.tier || 'mini'].postLimit;
+    const { postLimit } = Tiers[data.tier || 'mini'];
 
     return (<>
         <Row className="justify-content-md-center my-5 text-center"
@@ -26,7 +26,7 @@ function CheerBanner({id, editable, data, setData, setSidebar}) {
         </Row>
         {editable && <Navbar expand="md" className="m-2">
                 <Link href={`${id}/add`}>
-                    <Button variant="primary" size="lg" disabled={data.pins.length >= MAX_POSTS}>
+                    <Button variant="primary" size="lg" disabled={data.pins.length >= postLimit}>
                         Add a cheer!
                     </Button>
                 </Link>

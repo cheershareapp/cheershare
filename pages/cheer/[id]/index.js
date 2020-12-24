@@ -90,7 +90,7 @@ export default function EditorPage({ data: initialData }) {
         return mutate(newBoard, false);
     };
 
-    const MAX_POSTS = Tiers[data.tier || 'mini'].postLimit;
+    const { postLimit } = Tiers[data.tier || 'mini'];
 
     return (
         <div style={{
@@ -106,8 +106,8 @@ export default function EditorPage({ data: initialData }) {
             <Header className="bg-light"/>
             {editable && !session && !loading && <AccountRequiredAlert id={id}/>}
             {errorMessage.length > 0 && <PermissionAlert data={data} message={errorMessage} id={id}/>}
-            {data.pins.length >= MAX_POSTS && <QuotaAlert data={data} id={id}/>}
-            <Container className={styles.board}>
+            {data.pins.length >= postLimit && <QuotaAlert data={data} id={id}/>}
+            <Container className={`${styles.board} px-4`} fluid>
                 <CheerBanner id={id} data={data} editable={editable} setData={setData} setSidebar={setSidebar}/>
                 <CheerBody id={id} data={data} editable={editable && session} />
             </Container>
