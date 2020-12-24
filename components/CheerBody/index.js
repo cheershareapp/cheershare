@@ -103,7 +103,7 @@ function CheerBody({id, editable, data}) {
         {cols.map((col, index) =>
             <Droppable droppableId={index.toString()} className={styles.boardColumn} key={index} isDropDisabled={!editable}>
                 {provided => (
-                    <Col className={styles.boardColumn} ref={provided.innerRef} {...provided.droppableProps}>
+                    <Col className={`${styles.boardColumn} col-12 col-md`} ref={provided.innerRef} {...provided.droppableProps}>
                         <CheerList data={col} editable={editable}>
                             {provided.placeholder}
                         </CheerList>
