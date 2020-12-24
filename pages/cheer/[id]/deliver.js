@@ -7,8 +7,8 @@ import Footer from "components/footer";
 import Header from "components/header";
 import BetaNotice from "components/beta-notice";
 
-const ErrorNotice = ({message}) => <Alert variant="info">
-    <p className="mt-2"><strong>Delivery Failed</strong></p>
+const ErrorNotice = ({message}) => <Alert variant="danger">
+    <p className="mt-2"><strong>Grr! Delivery Failed</strong></p>
     <p className="fw-normal">{message}</p>
 </Alert>;
 
@@ -33,7 +33,7 @@ export default function Deliver() {
         });
 
         if (resp.success) {
-            return router.push(`/cheer/${id}?delivery=success`)
+            return router.push(`/cheer/${id}?delivered`)
         }
         if (error in resp) {
             setError(resp.error);
