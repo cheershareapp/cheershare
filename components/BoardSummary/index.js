@@ -5,7 +5,7 @@ import Image from "next/image";
 import {Tiers} from "utils/stripeHelper";
 
 const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-const DAY = 24 * 60 * 60 * 60 * 10;
+const DAY = 24 * 60 * 60 * 1000; // ms in a day
 
 export default function BoardSummary({
  id,
@@ -20,7 +20,7 @@ export default function BoardSummary({
  tier
 }) {
     const elapsed = +new Date() - updatedAt;
-    const timeAgo = rtf.format(Math.round(elapsed/DAY), 'day');
+    const timeAgo = rtf.format(-Math.round(elapsed/DAY), 'day');
     const createdAtDate = new Date(createdAt);
     const coverImageEl = coverImage
         ? <Image src={coverImage} width="200" height="200" />
