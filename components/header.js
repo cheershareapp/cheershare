@@ -4,17 +4,24 @@ import {Container, Navbar, Nav, Dropdown, DropdownButton, Button, Image} from "r
 import CreateBoardModal from "./CreateBoard";
 import Link from "next/link";
 
-export default function Header(props) {
+export default function Header({ showModal: _showModal, className, index }) {
     const [ session, loading ] = useSession();
-    const [showModal, setModal] = useState(props.showModal || false);
+    const [showModal, setModal] = useState(_showModal || false);
     const callbackUrl = `https://getcheershare.com/cheer`;
 
     const signInRedirect = () => signIn(null, { callbackUrl });
     return (
         <header>
-            <Navbar className={`shadow-sm ${props.className}`}>
+            <Navbar className={`shadow-sm ${className}`}>
                 <Container>
                     <Navbar.Brand><Link href="/">CheerShare</Link></Navbar.Brand>
+
+                    { index && <Nav className="mr-auto">
+                        <Nav.Link href="/#how-it-works">How it works</Nav.Link>
+                        <Nav.Link href="/pricing">Pricing</Nav.Link>
+                        <Nav.Link href={`${callbackUrl}/5fd1a8b788449c70ecccda24`}>Try a demo</Nav.Link>
+                    </Nav>}
+
                     <Navbar.Toggle />
                     { !loading && <Navbar.Collapse className="justify-content-end">
                         {!session && <>

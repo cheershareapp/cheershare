@@ -12,7 +12,7 @@ export default function Home() {
             <meta property="og:type" content="website" />
             <meta property="og:description" content="Share your cheer with our sharable poster board. Create your Cheerboard today!" />
         </Head>
-        <Header className="py-3"/>
+        <Header className="py-3" index/>
         <main className="">
             <section className="fdb-block fdb-viewport">
                 <img src="/images/HeroBackground2.svg" alt="Welcome to Cheershare" style={{position: "absolute", top: 0}}/>
@@ -85,8 +85,7 @@ export default function Home() {
                 </div>
             </section>
 
-
-            <div className="fdb-block text-center py-1">
+            <div className="fdb-block text-center py-1" id="features">
                 <h1 className="display-8 font-weight-normal">Group Cards for Birthdays, Holidays, & Other Occasions</h1>
                 <p className="lead">Get inspired with these sample Cheers</p>
 
@@ -121,7 +120,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <section className="fdb-block">
+            <section className="fdb-block" id="pricing">
                 <div className="container">
                     <div className="row text-center">
                         <div className="col">
