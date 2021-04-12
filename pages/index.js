@@ -2,6 +2,7 @@ import React from "react";
 import Head from 'next/head'
 import Link from "next/link";
 import {Figure} from "react-bootstrap";
+import Typical from 'react-typical';
 import Header from "components/header";
 
 export default function Home() {
@@ -15,12 +16,25 @@ export default function Home() {
         <Header className="py-3" index/>
         <main className="">
             <section className="fdb-block fdb-viewport">
-                <img src="/images/HeroBackground2.svg" alt="Welcome to Cheershare" style={{position: "absolute", top: 0}}/>
+                {/*<img src="/images/HeroBackground2.svg" alt="Welcome to Cheershare" style={{position: "absolute", top: 0}}/>*/}
                 <div className="container align-items-end justify-content-center d-flex">
                     <div className="row align-items-top text-left">
                         <div className="col-12 col-md-6 col-lg-5">
-                            <h1 className="mb-3 pt-5">The Perfect Group Card for Special Occasions</h1>
-                            <span className="lead pt-5 font-weight-normal">Celebrate someone with an online group card filled with
+                            <h1 className="mb-3 pt-5">Group card for
+                                <Typical
+                                    steps={[
+                                        'birthdays.', 1000,
+                                        'thank you.', 1000,
+                                        'retirement.', 1000,
+                                        'promotion.', 1000,
+                                        'farewell.', 1000,
+                                        'work anniversary.', 1000,
+                                        'special occasions.', 1000,
+                                    ]}
+                                    loop={Infinity}
+                                />
+                                </h1>
+                            <span className="lead pt-5 font-weight-normal">Celebrate with an online group card filled with
                                 messages, GIFs, photos, & videos!</span>
                             <p className="mt-5">
                                 <Link href="/cheer/"><a className="btn btn-primary btn-lg">Create Cheerboard</a></Link>
@@ -35,9 +49,28 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-
+            <section className="fdb-block bg-dark py-5">
+                <div className="container">
+                    <div className="row justify-content-center text-center">
+                        <div className="col">
+                            <img alt="image" height="40" className="ml-3 mr-3 mb-2 mt-2"
+                                 src="images/customers/adobe.svg"/>
+                            <img alt="image" height="40" className="ml-3 mr-3 mb-2 mt-2"
+                                 src="images/customers/amazon.svg"/>
+                            <img alt="image" height="40" className="ml-3 mr-3 mb-2 mt-2"
+                                 src="images/customers/ebay.svg"/>
+                            <img alt="image" height="40" className="ml-3 mr-3 mb-2 mt-2"
+                                 src="images/customers/samsung.svg"/>
+                            <img alt="image" height="40" className="ml-3 mr-3 mb-2 mt-2"
+                                 src="images/customers/orange.svg"/>
+                            <img alt="image" height="40" className="ml-3 mr-3 mb-2 mt-2"
+                                 src="images/customers/salesforce.svg"/>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <section className="fdb-block">
-                <div className="container bg-light">
+                <div className="px-5" id="how-it-works">
                     <div className="row justify-content-center">
                         <div className="col-12 col-md-8 text-center py-md-3">
                             <h1 className="display-8 font-weight-normal">How Our Group Cards Work</h1>
@@ -49,32 +82,32 @@ export default function Home() {
                     <div className="row text-center justify-content-center pt-5">
                         <div className="col-12 col-sm-6 col-lg-3">
                             <img alt="image" width="60%" src="/images/Create.svg" />
-                                <h3><strong>Create a Cheershare</strong></h3>
+                            <h3><strong>Create a Cheershare</strong></h3>
 
-                                <p>Choose a recipient to celebrate with the group greeting card.</p>
+                            <p>Choose a recipient to celebrate with the group greeting card.</p>
                         </div>
-                        <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-sm-0">
+                        <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-sm-0 bg-light">
                             <img alt="image" width="60%" src="/images/Add.svg" />
 
-                                <h3><strong>Add Your Content</strong></h3>
+                            <h3><strong>Add Your Content</strong></h3>
 
-                                <p>Get creative. Attach messages, photos, GIFs or videos to the recipient's board.</p>
+                            <p>Get creative. Attach messages, photos, GIFs or videos to the recipient's board.</p>
                         </div>
 
                         <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0">
                             <img alt="image" width="60%" src="/images/Invite.svg" />
 
-                                <h3><strong>Invite your friends</strong></h3>
+                            <h3><strong>Invite your friends</strong></h3>
 
-                                <p>Invite others to add their contributions and watch the virtual group card grow.</p>
+                            <p>Invite others to add their contributions and watch the virtual group card grow.</p>
                         </div>
 
-                        <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0">
+                        <div className="col-12 col-sm-6 col-lg-3 pt-4 pt-lg-0 bg-light">
                             <img alt="image" width="60%" src="/images/Deliver.svg" />
 
-                                <h3><strong>Deliver Appreciation</strong></h3>
+                            <h3><strong>Deliver Appreciation</strong></h3>
 
-                                <p>Deliver it online, print it out as a poster, or play it as a slideshow!</p>
+                            <p>Deliver it online, print it out as a poster, or play it as a slideshow!</p>
                         </div>
                     </div>
                     <div className="row justify-content-center">
@@ -85,7 +118,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <div className="fdb-block text-center py-1" id="features">
+            <div className="fdb-block text-center pt-1">
                 <h1 className="display-8 font-weight-normal">Group Cards for Birthdays, Holidays, & Other Occasions</h1>
                 <p className="lead">Get inspired with these sample Cheers</p>
 
@@ -106,20 +139,9 @@ export default function Home() {
                                 </Figure.Caption>
                             </Figure>
                         </div>)}
-                    <style jsx global>{`
-                    .figure-caption {
-                        font-weight: 400;     
-                        position: absolute;
-                        padding: 1.5em 0; 
-                        top: calc(50% - 3em); 
-                        width: calc(300px - 4em);
-                        margin: 0 2em;
-                        background: white;
-                    }
-                    `}</style>
                 </div>
             </div>
-
+            {/*
             <section className="fdb-block" id="pricing">
                 <div className="container">
                     <div className="row text-center">
@@ -238,7 +260,41 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+            */}
+            <section className="fdb-block">
+                <div className="container">
+                    <div className="row align-items-center justify-content-center">
+                        <div className="col-12 col-md-10 col-lg-8">
+                            <p className="lead">
+                                "We've had a office birthday with our entire team with Cheershare and the experience has been phenomenal!
+                                Cheershare has made gathering names, passing a card and getting it back non-existant.
+                                My day is much simpler while also improving the quality of service. Would use again!"
+                            </p>
 
+                            <p className="lead"><strong>Darla Dillinger</strong> <em className="ml-4">HR Lead at
+                                AlohaMD</em></p>
+                        </div>
+                        <div className="col-8 col-sm-6 col-md-2 col-lg-3 col-xl-2 mt-4 mt-md-0 ml-auto mr-auto mr-md-0">
+                            <img alt="image" className="img-fluid rounded-circle" src="https://placeimg.com/300/300/people" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="fdb-block">
+                <div className="container">
+                    <div className="row justify-content-center">
+                        <div className="col-12 col-md-8 text-center">
+                            <h1>Employee appreciation starts here.</h1>
+                            <p className="mt-5">
+                                <Link href="/cheer/">
+                                    <a className="btn btn-secondary">Start for free</a>
+                                </Link>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <footer className="mb-4 footer-small">
                 <div className="container">
                     <div className="row align-items-center text-center">
