@@ -8,4 +8,7 @@ module.exports = {
     path: '/_next/image',
     loader: 'default',
   },
+  future: {
+    webpack5: true,
+  },
 }
