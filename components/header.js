@@ -12,18 +12,20 @@ export default function Header({ showModal: _showModal, className, index }) {
     const signInRedirect = () => signIn(null, { callbackUrl });
     return (
         <header>
-            <Navbar className={`shadow-sm ${className}`}>
+            <Navbar className={`shadow-sm ${className}`} expand="md">
                 <Container>
                     <Navbar.Brand><Link href="/"><img src="/Logo.png" height="32"/></Link></Navbar.Brand>
 
+                    <Navbar.Toggle />
+
+                    <Navbar.Collapse className="justify-content-end">
                     { index && <Nav className="mr-auto">
                         <Nav.Link href="/#how-it-works">How it works</Nav.Link>
                         <Nav.Link href="/pricing">Pricing</Nav.Link>
                         <Nav.Link href={`${callbackUrl}/5fd1a8b788449c70ecccda24`}>Try a demo</Nav.Link>
                     </Nav>}
 
-                    <Navbar.Toggle />
-                    { !loading && <Navbar.Collapse className="justify-content-end">
+                    { !loading && <>
                         {!session && <>
                             <Nav.Link onClick={signInRedirect}>Register</Nav.Link>
                             <Button onClick={signInRedirect}>Sign In</Button>
@@ -58,7 +60,8 @@ export default function Header({ showModal: _showModal, className, index }) {
                                 <Dropdown.Item onClick={() => signOut({ callbackUrl: '/' })}>Logout</Dropdown.Item>
                             </DropdownButton>
                         </>}
-                    </Navbar.Collapse>}
+                    </>}
+                    </Navbar.Collapse>
                 </Container>
             </Navbar>
             <CreateBoardModal showModal={showModal} setModal={setModal}/>
