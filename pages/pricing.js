@@ -48,7 +48,8 @@ export default function Home() {
                         <div className="col-12 col-sm-10 col-md-6 col-lg-5 m-auto col-xl-3 text-left pt-5 pt-md-0">
                             <div className="bg-gray p-3 text-center rounded sl-1">
                                 <h2 className="font-weight-light">Premium</h2>
-                                <p className="h3 pb-2"><del>$5.99</del><br/>$3.99 <small className="text-muted">/ board</small></p>
+                                <p className="h3 pb-2"><del>$5.99</del> SALE!
+                                    <br/>$3.99 <small className="text-muted">/ board</small></p>
                                 <p>Best for a larger group of contributors on a birthday, work anniversary, or special occasion.</p>
                                 <p className="text-center">
                                     <Link href="/cheer/">
@@ -67,7 +68,8 @@ export default function Home() {
                         <div className="col-12 col-sm-10 col-md-6 col-lg-5 m-auto col-xl-3 text-left pt-5 pt-xl-0">
                             <div className="bg-gray p-3 text-center rounded sl-1">
                                 <h2 className="font-weight-light">Milestone</h2>
-                                <p className="h3 pb-2"><del>$19.99</del><br/>$12.99 <small className="text-muted">/ board</small></p>
+                                <p className="h3 pb-2"><del>$19.99</del> Limited time only!
+                                    <br/>$12.99 <small className="text-muted">/ board</small></p>
                                 <p>Perfect for extra large groups or milestones that you will celebrate in-person.</p>
                                 <p className="text-center">
                                     <Link href="/cheer/">
