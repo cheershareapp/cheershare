@@ -14,20 +14,22 @@ const getStripe = () => {
 /* Lookup table, for a given selection provide some information */
 export const Tiers = {
     'mini': {
-        postLimit: 50,
+        postLimit: 10,
         prettyName: 'Mini',
         amount: 0,
     },
     'premium': {
         postLimit: 100,
         prettyName: 'Premium',
-        amount: 599,
+        amount: 399,
     },
     'mega': {
         postLimit: 1000,
         prettyName: 'Mega',
-        amount: 1999,
+        amount: 1299,
     },
 };
+
+export const TierOrder = ['mini', 'premium', 'mega'];
 
 export default getStripe

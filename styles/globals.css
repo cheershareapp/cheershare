@@ -79,3 +79,13 @@
   background-color: #f4f7fe;
   color: #444;
 }
+
+.figure-caption {
+  font-weight: 400;
+  position: absolute;
+  padding: 1.5em 0;
+  top: calc(50% - 3em);
+  width: calc(300px - 4em);
+  margin: 0 2em;
+  background: white;
+}

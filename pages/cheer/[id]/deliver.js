@@ -50,7 +50,6 @@ export default function Deliver() {
 
             <h3 className="mt-5">Email</h3>
             { error.length > 0 && <ErrorNotice message={error} />}
-            <BetaNotice />
             <p className="lead">
                 Share your cheer through an Email message.
             </p>
