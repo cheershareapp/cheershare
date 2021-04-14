@@ -14,7 +14,7 @@ export default function Header({ showModal: _showModal, className, index }) {
         <header>
             <Navbar className={`shadow-sm ${className}`}>
                 <Container>
-                    <Navbar.Brand><Link href="/">CheerShare</Link></Navbar.Brand>
+                    <Navbar.Brand><Link href="/"><img src="Logo.png" height="32"/></Link></Navbar.Brand>
 
                     { index && <Nav className="mr-auto">
                         <Nav.Link href="/#how-it-works">How it works</Nav.Link>
