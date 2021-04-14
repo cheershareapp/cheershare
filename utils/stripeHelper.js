@@ -21,13 +21,15 @@ export const Tiers = {
     'premium': {
         postLimit: 100,
         prettyName: 'Premium',
-        amount: 599,
+        amount: 399,
     },
     'mega': {
         postLimit: 1000,
         prettyName: 'Mega',
-        amount: 1999,
+        amount: 1299,
     },
 };
+
+export const TierOrder = ['mini', 'premium', 'mega'];
 
 export default getStripe
