@@ -153,11 +153,11 @@ export default function Home() {
                                 My day is much simpler while also improving the quality of service. Would use again!"
                             </p>
 
-                            <p className="lead"><strong>Darla Dillinger</strong> <em className="ml-4">HR Lead at
+                            <p className="lead"><strong>Darla Bowman</strong> <em className="ml-4">HR Lead at
                                 AlohaMD</em></p>
                         </div>
                         <div className="col-8 col-sm-6 col-md-2 col-lg-3 col-xl-2 mt-4 mt-md-0 ml-auto mr-auto mr-md-0">
-                            <img alt="image" className="img-fluid rounded-circle" src="https://placeimg.com/300/300/people" />
+                            <img alt="Customer Picture" className="img-fluid rounded-circle" src="images/TestimonialProfile.png" />
                         </div>
                     </div>
                 </div>
