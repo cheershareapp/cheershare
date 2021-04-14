@@ -14,7 +14,7 @@ export default function Header({ showModal: _showModal, className, index }) {
         <header>
             <Navbar className={`shadow-sm ${className}`}>
                 <Container>
-                    <Navbar.Brand><Link href="/"><img src="Logo.png" height="32"/></Link></Navbar.Brand>
+                    <Navbar.Brand><Link href="/"><img src="/Logo.png" height="32"/></Link></Navbar.Brand>
 
                     { index && <Nav className="mr-auto">
                         <Nav.Link href="/#how-it-works">How it works</Nav.Link>
@@ -53,7 +53,7 @@ export default function Header({ showModal: _showModal, className, index }) {
                                 <Dropdown.Header>{session.user.email || 'Email'}</Dropdown.Header>
                                 <Dropdown.Item href="/profile/"><Link href="/profile/">Account</Link></Dropdown.Item>
                                 <Dropdown.Item eventKey="2">History</Dropdown.Item>
-                                <Dropdown.Item eventKey="3">Invite Friend</Dropdown.Item>
+                                <Dropdown.Item href="/cheer/5fd1a8b788449c70ecccda24/invite">Invite Friend</Dropdown.Item>
                                 <Dropdown.Divider />
                                 <Dropdown.Item onClick={() => signOut({ callbackUrl: '/' })}>Logout</Dropdown.Item>
                             </DropdownButton>
