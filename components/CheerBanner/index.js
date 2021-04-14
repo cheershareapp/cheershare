@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, ButtonGroup, Navbar, Row} from "react-bootstrap";
 import Link from "next/link";
-import {Tiers} from "../../utils/stripeHelper";
+import {Tiers} from "utils/stripeHelper";
 
 function CheerBanner({id, editable, data, setData, setSidebar}) {
     const setTitle = (e) => {
@@ -25,6 +25,7 @@ function CheerBanner({id, editable, data, setData, setSidebar}) {
             <h1 {...titleConfig} className="w-100">{ data.title }</h1>
         </Row>
         {editable && <Navbar expand="md" className="m-2">
+            {/* Extra: justify-content-start align-items-end*/}
                 <Link href={`${id}/add`}>
                     <Button variant="primary" size="lg" disabled={data.pins.length >= postLimit}>
                         Add a cheer!
@@ -32,6 +33,8 @@ function CheerBanner({id, editable, data, setData, setSidebar}) {
                 </Link>
             <Navbar.Toggle aria-controls="editor-toolbar"/>
             <Navbar.Collapse id="editor-toolbar" className="justify-content-end text-right mt-2">
+                {/* TODO use icons to save space on smaller screens
+                https://getbootstrap.com/docs/4.4/utilities/display/#hiding-elements*/}
                 <ButtonGroup>
                     <Link href={`${id}?preview`}>
                         <Button variant="secondary">Preview</Button>

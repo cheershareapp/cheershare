@@ -1,7 +1,7 @@
 import useSWR from 'swr'
-import fetcher from '../../utils/fetch'
-import styles from './Gallery.module.css'
-import UImage from '../UImage'
+import fetcher from 'utils/fetch'
+import styles from 'Gallery.module.css'
+import UImage from 'components/UImage'
 
 const Gallery = ({ q, vendor, onImageSelect }) => {
   const { data, error } = useSWR(

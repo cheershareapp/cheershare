@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react';
 import {Card, Button, ButtonGroup} from "react-bootstrap";
 import styles from "styles/Editor.module.css"
 import {Draggable} from "react-beautiful-dnd";
-import fetcher from "../../utils/fetch";
+import fetcher from "utils/fetch";
 
 export default function CheerPin({mediaUrl, id, editable, ownerName, message, index}) {
     const pinMessageEl = useRef(null);
