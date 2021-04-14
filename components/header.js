@@ -21,8 +21,12 @@ export default function Header({ showModal: _showModal, className, index }) {
                     <Navbar.Collapse className="justify-content-end">
                     { index && <Nav className="mr-auto">
                         <Nav.Link href="/#how-it-works">How it works</Nav.Link>
-                        <Nav.Link href="/pricing">Pricing</Nav.Link>
-                        <Nav.Link href={`${callbackUrl}/5fd1a8b788449c70ecccda24`}>Try a demo</Nav.Link>
+                        <Link href="/pricing">
+                            <Nav.Link href="/">Pricing</Nav.Link>
+                        </Link>
+                        <Link href={`/cheer/5fd1a8b788449c70ecccda24`}>
+                            <Nav.Link href="/">Try a demo</Nav.Link>
+                        </Link>
                     </Nav>}
 
                     { !loading && <>
@@ -32,7 +36,9 @@ export default function Header({ showModal: _showModal, className, index }) {
                         </>}
 
                         {session && <>
-                            <Nav.Link href="/cheer" as={Link}>Dashboard</Nav.Link>
+                            <Link href="/cheer">
+                                <Nav.Link href="/">Dashboard</Nav.Link>
+                            </Link>
                             <Nav.Link onClick={() => setModal(true)}>New Board</Nav.Link>
 
                             { 'image' in session.user ?
