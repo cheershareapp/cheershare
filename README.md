@@ -22,7 +22,8 @@ This is a [Next.js](https://nextjs.org/) project to share cheer.
 - [ ] figure out which font we want to use, https://fonts.google.com/specimen/Vollkorn
 - [x] Rename tiers lookup table
 - [x] Column breaks for editor page
-- [ ] Prettier board summary layout
+- [x] Prettier board summary layout
+- [ ] p95 Add spinner to board viewer
 
 ## Data Structures
 

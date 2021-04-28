@@ -1,5 +1,5 @@
-import dbConnect from '../../../utils/db'
-import Board from '../../../models/Board'
+import dbConnect from 'utils/db'
+import Board from 'models/Board'
 import { getSession } from 'next-auth/client'
 
 export default async function handler(req, res) {
