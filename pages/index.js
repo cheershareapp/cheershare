@@ -37,7 +37,8 @@ export default function Home() {
                             <span className="lead pt-5 font-weight-normal">Celebrate with an online group card filled with
                                 messages, GIFs, photos, & videos!</span>
                             <p className="mt-5">
-                                <Link href="/cheer/"><a className="btn btn-primary btn-lg">Create Cheerboard</a></Link>
+                                <Link href="/cheer/"><a className="btn btn-primary btn-lg mr-3">Create Cheerboard</a></Link>
+                                <Link href="/cheer/5fd1a8b788449c70ecccda24"><a className="btn btn-link btn-lg">See a demo</a></Link>
                             </p>
                         </div>
                         <div className="col-12 col-md text-right">
@@ -163,11 +164,91 @@ export default function Home() {
                 </div>
             </section>
 
+            {/*
+            <section className="fdb-block">
+                <div className="container">
+                    <div className="row align-items-top text-center">
+                        <div className="col-12 col-sm-6 col-lg-3 text-sm-left">
+                            // <h3><strong>Group 1</strong></h3>
+                            <nav className="nav flex-column">
+                                <a className="nav-link">Birthday Cards</a>
+                                <a className="nav-link">Birthday Cards for Boss</a>
+                                <a className="nav-link">Birthday Cards for Boyfriend</a>
+                                <a className="nav-link">Birthday Cards for Brother</a>
+                                <a className="nav-link">Birthday Cards for Coworkers</a>
+                                <a className="nav-link">Birthday Cards for Dad</a>
+                                <a className="nav-link">Birthday Cards for Daughter</a>
+                                <a className="nav-link">Birthday Cards for Girlfriend</a>
+                                <a className="nav-link">Birthday Cards for Grandma</a>
+                                <a className="nav-link">Birthday Cards for Grandpa</a>
+                                <a className="nav-link">Birthday Cards for Her</a>
+                                <a className="nav-link">Birthday Cards for Him</a>
+                                <a className="nav-link">Birthday Cards for Husband</a>
+                            </nav>
+                        </div>
+
+                        <div className="col-12 col-sm-6 col-lg-3 text-sm-left">
+                            <nav className="nav flex-column">
+                            <a className="nav-link">Birthday Cards for Mom</a>
+                            <a className="nav-link">Birthday Cards for Sister</a>
+                            <a className="nav-link">Birthday Cards for Son</a>
+                            <a className="nav-link">Birthday Cards for Wife</a>
+                            <a className="nav-link">21st Birthday Cards</a>
+                            <a className="nav-link">30th Birthday Cards</a>
+                            <a className="nav-link">40th Birthday Cards</a>
+                            <a className="nav-link">50th Birthday Cards</a>
+                            <a className="nav-link">60th Birthday Cards</a>
+                            <a className="nav-link">70th Birthday Cards</a>
+                            <a className="nav-link">80th Birthday Cards</a>
+                            <a className="nav-link">90th Birthday Cards</a>
+                            <a className="nav-link">100th Birthday Cards</a>
+                            </nav>
+                        </div>
+
+                        <div className="col-12 col-sm-6 col-lg-3 mt-5 mt-sm-0 text-sm-left">
+                            // <h3><strong>Special Occasions</strong></h3>
+                            <nav className="nav flex-column">
+                                <a className="nav-link">Anniversary Cards</a>
+                                <a className="nav-link">Administrative Professionals Day Cards</a>
+                                <a className="nav-link">Baby Cards</a>
+                                <a className="nav-link">Boss's Day Cards</a>
+                                <a className="nav-link">Christmas Cards</a>
+                                <a className="nav-link">Congratulations Cards</a>
+                                <a className="nav-link">Engagement Cards</a>
+                                <a className="nav-link">Farewell Cards</a>
+                                <a className="nav-link">Father's Day Cards</a>
+                                <a className="nav-link">Get Well Soon Cards</a>
+                                <a className="nav-link">Good Luck Cards</a>
+                                <a className="nav-link">Graduation Cards</a>
+                            </nav>
+                        </div>
+
+                        <div className="col-12 col-sm-6 col-lg-3 mt-5 mt-sm-0 text-sm-left">
+                            <nav className="nav flex-column">
+                            <a className="nav-link">Just Because Cards</a>
+                            <a className="nav-link">Love Cards</a>
+                            <a className="nav-link">Mother's Day Cards</a>
+                            <a className="nav-link">Online Memorial</a>
+                            <a className="nav-link">Retirement Cards</a>
+                            <a className="nav-link">Sympathy Cards</a>
+                            <a className="nav-link">Teacher Appreciation Cards</a>
+                            <a className="nav-link">Thank You Cards</a>
+                            <a className="nav-link">Thanksgiving Cards</a>
+                            <a className="nav-link">Valentine's Day Cards</a>
+                            <a className="nav-link">Wedding Cards</a>
+                            <a className="nav-link">Work Anniversary Cards</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            */}
+
             <section className="fdb-block">
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-12 col-md-8 text-center">
-                            <h1>Employee appreciation starts here.</h1>
+                            <h1>Appreciation starts here.</h1>
                             <p className="mt-5">
                                 <Link href="/cheer/">
                                     <a className="btn btn-secondary">Start for free</a>
@@ -204,46 +285,6 @@ export default function Home() {
                     </div>
                 </div>
             </footer>
-
-            {/*
-            <footer className="pt-4 my-md-5 pt-md-5 border-top">
-                <div className="row">
-                    <div className="col-12 col-md">
-                        <img className="mb-2" src="favicon-32x32.png" alt=""/>
-                        <small className="d-block mb-3 text-muted">&copy; 2017-2020</small>
-                    </div>
-                    <div className="col-6 col-md">
-                        <h5>Features</h5>
-                        <ul className="list-unstyled text-small">
-                            <li><a className="link-secondary" href="#">Cool stuff</a></li>
-                            <li><a className="link-secondary" href="#">Random feature</a></li>
-                            <li><a className="link-secondary" href="#">Team feature</a></li>
-                            <li><a className="link-secondary" href="#">Stuff for developers</a></li>
-                            <li><a className="link-secondary" href="#">Another one</a></li>
-                            <li><a className="link-secondary" href="#">Last time</a></li>
-                        </ul>
-                    </div>
-                    <div className="col-6 col-md">
-                        <h5>Resources</h5>
-                        <ul className="list-unstyled text-small">
-                            <li><a className="link-secondary" href="#">Resource</a></li>
-                            <li><a className="link-secondary" href="#">Resource name</a></li>
-                            <li><a className="link-secondary" href="#">Another resource</a></li>
-                            <li><a className="link-secondary" href="#">Final resource</a></li>
-                        </ul>
-                    </div>
-                    <div className="col-6 col-md">
-                        <h5>About</h5>
-                        <ul className="list-unstyled text-small">
-                            <li><a className="link-secondary" href="#">Team</a></li>
-                            <li><a className="link-secondary" href="#">Locations</a></li>
-                            <li><a className="link-secondary" href="#">Privacy</a></li>
-                            <li><a className="link-secondary" href="#">Terms</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </footer>
-            */}
         </main>
     </>);
 }
