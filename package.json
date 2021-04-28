@@ -26,7 +26,7 @@
     "react-typical": "^0.1.3",
     "stripe": "^8.143.0",
     "swr": "^0.5.5",
-    "unsplash-js": "^7.0.10"
+    "unsplash-js": "^6.3.0"
   },
   "peerOptionalDependencies": {
     "mongodb": "^3.6.3"
