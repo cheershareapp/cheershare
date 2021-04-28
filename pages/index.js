@@ -126,10 +126,14 @@ export default function Home() {
                 <p className="lead">Get inspired with these sample Cheers</p>
 
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-                    {[['Birthday', 'balloons'], ['Farewell', 'dots'], ['Work Anniversary', 'confetti'],
-                        ['Get Well Soon', 'circles'], ['Retirement', 'feathers'], ['Promotion', 'fun']].map(([caption, imageName], i) =>
-                        <div className="col" key={i}>
-                            <Figure>
+                    {[['Birthday', 'balloons', '5fd1312f4923215c67f5dd39'],
+                        ['Launches', 'dots', '5fd6d64e686a860008cfaded'],
+                        ['Work Anniversary', 'confetti', '5fd1a8b788449c70ecccda24'],
+                        ['Get Well Soon', 'circles', '5fd4379818c3eb000881c8a4'],
+                        ['Retirement', 'feathers', '5fde582708d04a0008c31873'],
+                        ['Promotion', 'fun', '5fdab2b77fd2270008d0e8e1']].map(([caption, imageName, cardId], i) =>
+                        <div className="col" key={i}><Link href={`https://getcheershare.com/cheer/${cardId}`}>
+                            <Figure role="button">
                                 <img
                                     alt={caption}
                                     src={`images/${imageName}-background.png`}
@@ -141,7 +145,7 @@ export default function Home() {
                                     {caption}
                                 </Figure.Caption>
                             </Figure>
-                        </div>)}
+                        </Link></div>)}
                 </div>
             </div>
             <section className="fdb-block">
