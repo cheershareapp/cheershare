@@ -14,7 +14,9 @@ export default function Header({ showModal: _showModal, className, index }) {
         <header>
             <Navbar className={`shadow-sm ${className}`} expand="md">
                 <Container>
-                    <Navbar.Brand><Link href="/"><img src="/Logo.svg" height="24"/></Link></Navbar.Brand>
+                    <Navbar.Brand><Link href="/">
+                        <img src="/Logo.svg" height="24" alt="CheerShare Logo" style={{marginTop: -8}}/>
+                    </Link></Navbar.Brand>
 
                     <Navbar.Toggle />
 
