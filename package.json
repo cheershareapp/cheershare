@@ -16,7 +16,7 @@
     "@stripe/stripe-js": "^1.13.2",
     "isomorphic-unfetch": "^3.1.0",
     "mongoose": "^5.12.3",
-    "next": "^10.1.3",
+    "next": "^12.3.4",
     "next-auth": "^3.14.5",
     "nodemailer": "^6.5.0",
     "react": "^17.0.2",
@@ -34,5 +34,9 @@
   "devDependencies": {
     "cypress": "^7.1.0",
     "start-server-and-test": "^1.12.1"
+  },
+  "engines" : {
+    "npm" : ">=8.0.0 <9.0.0",
+    "node" : ">=18.0.0 <20.0.0"
   }
 }
