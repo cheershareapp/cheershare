@@ -12,25 +12,75 @@
 #### What is it?
 CheerShare is an open-source, collaborative platform designed to bring joy and appreciation to people's lives through digital group cards. Perfect for celebrating special occasions, expressing gratitude, or simply staying connected, CheerShare enables users to create personalized, multimedia-rich cards that can include messages, photos, videos, and GIFs. By fostering a space for collective contributions, it enhances the sense of community and connection, especially important in remote or distributed environments.
 
-[Playground](https://cheershare.app/cheer/5fd1a8b788449c70ecccda24)
+[See it Live](https://cheershare.app/cheer/5fd1a8b788449c70ecccda24)
 
 ## Sponsor
 [Buy me a coffee](https://www.buymeacoffee.com/cheershare)
 
 As an open-source project, CheerShare is free to use and relies on the support and contributions of its community. Donations are welcomed to help sustain and improve the platform, ensuring it remains a vibrant and accessible tool for personal and professional expressions of kindness and celebration. Join us in spreading cheer and appreciation, one shared card at a time.
 
-# Roll your own instance
+## Roll Your Own Instance
 
-Host your own instance on Vercel [Next.js](https://nextjs.org/)
+CheerShare is a delightful open-source project that allows you to create and share digital group cards. Here's a guide to help you set up your own instance of CheerShare. We'll be using Vercel for deployment and MongoDB for data storage, with optional integrations for enhanced functionality.
 
-## Setup Mongo
+### Instructions to Run on Vercel
 
-## Setup SendPulse (Optional)
-## Setup Giphy (Optional)
-## Setup Unsplash (Optional)
-## Facebook and Google Authentication (Optional)
+1. **Fork the Repository**: Start by forking the CheerShare repository on GitHub to your own account.
 
-## Roadmap
+2. **Set Up Vercel**: If you don’t have a Vercel account, create one at [Vercel](https://vercel.com). Then, connect your GitHub account to Vercel.
+
+3. **Deploy the Forked Repository**: In Vercel, create a new project and select the forked CheerShare repository. Vercel will automatically detect the build settings. Review and adjust if necessary, then deploy.
+
+4. **Environment Variables**: Set the necessary environment variables in Vercel for your project. This will include database URLs and API keys for any integrations you choose to use.
+
+### Setup Mongo
+
+1. **Create a MongoDB Account**: Sign up for a MongoDB account at [MongoDB](https://www.mongodb.com).
+
+2. **Create a Cluster**: Follow MongoDB’s documentation to create a new cluster.
+
+3. **Database Connection**: Obtain the connection string for your MongoDB cluster. This will be used as an environment variable in your Vercel project settings.
+
+### Setup SendPulse (Optional)
+
+1. **Register on SendPulse**: Create an account on [SendPulse](https://sendpulse.com).
+
+2. **Obtain API Credentials**: In your SendPulse dashboard, navigate to 'Settings' and then 'API' to generate your API ID and Secret.
+
+3. **Configure Environment Variables**: Add the SendPulse API ID and Secret as environment variables in your Vercel project settings.
+
+### Setup Giphy (Optional)
+
+1. **Create a Giphy Developer Account**: Register at [Giphy Developers](https://developers.giphy.com).
+
+2. **Create an App & Obtain API Key**: Follow Giphy’s documentation to create a new app and get your API key.
+
+3. **Set the API Key in Vercel**: Add the Giphy API key to your Vercel project’s environment variables.
+
+### Setup Unsplash (Optional)
+
+1. **Sign Up for Unsplash Developer Account**: Visit [Unsplash Developers](https://unsplash.com/developers) and sign up.
+
+2. **Create an Application & Get API Key**: Follow Unsplash’s guide to create an application and retrieve the Access Key.
+
+3. **Add API Key to Vercel**: Input the Unsplash Access Key into your project’s environment variables on Vercel.
+
+### Facebook and Google Authentication (Optional)
+
+1. **Set Up Facebook App**: Go to the [Facebook for Developers](https://developers.facebook.com) portal and create a new app. Get the App ID and App Secret.
+
+2. **Set Up Google Project**: Visit the [Google Developer Console](https://console.developers.google.com), create a new project, and enable the Google+ API. Obtain the Client ID and Client Secret.
+
+3. **Update Environment Variables**: Add the Facebook and Google credentials to your Vercel project’s environment variables.
+
+### Final Steps
+
+Once you have completed these steps and set up your environment variables, redeploy your project on Vercel. Your CheerShare instance should now be up and running, ready for creating and sharing heartfelt digital cards!
+
+Remember, contributions to the project are always welcome, and your feedback helps make CheerShare better for everyone. Happy sharing!
+
+
+# Roadmap
 
 - [ ] Compute and store aspect ratio hint from unsplash/giphy
 - [ ] Logo background #209CEE https://fonts.google.com/specimen/Leckerli+One?query=leck
@@ -54,6 +104,18 @@ Host your own instance on Vercel [Next.js](https://nextjs.org/)
 - [x] Column breaks for editor page
 - [x] Prettier board summary layout
 
+
+## Local Development
+
+First, run the development server:
+
+```bash
+brew services start mongodb-community
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
 ## Data Structures
 
 User schema is defined by NextAuth
@@ -67,19 +129,7 @@ Pins schema should have mediaUrl, mediaRatioHint, sortOrder, message, owner, lik
 User also has a 1 to 1 relationship with Profile
 Profile should contain personal settings (timezone, credit card, email preference, etc)
 
-
-## Local Development
-
-First, run the development server:
-
-```bash
-brew services start mongodb-community
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 ## Additional resources
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-
+- [Buy me a coffee](https://www.buymeacoffee.com/cheershare)
