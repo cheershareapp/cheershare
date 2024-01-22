@@ -12,21 +12,12 @@
 #### What is it?
 CheerShare is an open-source, collaborative platform designed to bring joy and appreciation to people's lives through digital group cards. Perfect for celebrating special occasions, expressing gratitude, or simply staying connected, CheerShare enables users to create personalized, multimedia-rich cards that can include messages, photos, videos, and GIFs. By fostering a space for collective contributions, it enhances the sense of community and connection, especially important in remote or distributed environments.
 
-<p align="center">
-  <a href="https://cheershare.app/cheer/5fd1a8b788449c70ecccda24" target="_blank">Playground</a>
-</p>
+[Playground](https://cheershare.app/cheer/5fd1a8b788449c70ecccda24)
 
 ## Sponsor
-<p>
-  <p align="center">
-    <a href="https://www.buymeacoffee.com/cheershare" target="_blank">
-    Buy me a coffee
-    </a>
-  </p>
-  <p>
-  As an open-source project, CheerShare is free to use and relies on the support and contributions of its community. Donations are welcomed to help sustain and improve the platform, ensuring it remains a vibrant and accessible tool for personal and professional expressions of kindness and celebration. Join us in spreading cheer and appreciation, one shared card at a time.
-  </p>
-</p>
+[Buy me a coffee](https://www.buymeacoffee.com/cheershare)
+
+As an open-source project, CheerShare is free to use and relies on the support and contributions of its community. Donations are welcomed to help sustain and improve the platform, ensuring it remains a vibrant and accessible tool for personal and professional expressions of kindness and celebration. Join us in spreading cheer and appreciation, one shared card at a time.
 
 # Roll your own instance
 
