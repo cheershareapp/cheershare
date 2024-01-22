@@ -2,7 +2,9 @@
   <a href="https://cheershare.app">
     <img alt="CheerShare App" src="https://cheershare.app/Logo.png"/>
   </a>
-  💝 CheerShare Group Cards - A complete group card system for work and family life!
+  <p>
+    💝 CheerShare Group Cards - A complete group card system for work and family life!
+  </p>
 </p>
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcheershareapp%2Fcheershare&env=MONGODB_URI,NEXTAUTH_URL&envDescription=API%20Keys%20needed%20for%20deployment&envLink=https%3A%2F%2Fcheershare.app%2Fdocs%2Fenv-vars&project-name=cheershare&repository-name=cheershare&redirect-url=https%3A%2F%2Fcheershare.app%2Fdocs%2Fvercel-deployed) [![build](https://circleci.com/gh/FaridSafi/react-native-gifted-chat.svg?style=shield)](https://circleci.com/gh/FaridSafi/react-native-gifted-chat) [![](https://img.shields.io/badge/license-MIT-blue.svg) ](https://github.com/cheershareapp/cheershare/blob/master/LICENSE "License")[![](https://vercelbadge.vercel.app/api/sughodke/cheershare)](#)
