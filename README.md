@@ -1,22 +1,16 @@
 <p align="center" >
   <a href="https://cheershare.app">
-    <img alt="CheerShare App" src="https://cheershare.app/Logo.png" width="260" height="510" />
+    <img alt="CheerShare App" src="https://cheershare.app/Logo.png"/>
   </a>
 </p>
 
-<h3 align="center">
-  💝 CheerShare Group Cards
-</h3>
-<p align="center">
-  A complete group card system for work and family life!
-  <br/>
-  CheerShare is an open-source, collaborative platform designed to bring joy and appreciation to people's lives through digital group cards. Perfect for celebrating special occasions, expressing gratitude, or simply staying connected, CheerShare enables users to create personalized, multimedia-rich cards that can include messages, photos, videos, and GIFs. By fostering a space for collective contributions, it enhances the sense of community and connection, especially important in remote or distributed environments.
-</p>
+💝 CheerShare Group Cards - A complete group card system for work and family life!
 
-<p align="center">
-  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcheershareapp%2Fcheershare&env=MONGODB_URI,NEXTAUTH_URL&envDescription=API%20Keys%20needed%20for%20deployment&envLink=https%3A%2F%2Fcheershare.app%2Fdocs%2Fenv-vars&project-name=cheershare&repository-name=cheershare&redirect-url=https%3A%2F%2Fcheershare.app%2Fdocs%2Fvercel-deployed)
-</p>
-<p align="center">
+#### What is it?
+CheerShare is an open-source, collaborative platform designed to bring joy and appreciation to people's lives through digital group cards. Perfect for celebrating special occasions, expressing gratitude, or simply staying connected, CheerShare enables users to create personalized, multimedia-rich cards that can include messages, photos, videos, and GIFs. By fostering a space for collective contributions, it enhances the sense of community and connection, especially important in remote or distributed environments.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcheershareapp%2Fcheershare&env=MONGODB_URI,NEXTAUTH_URL&envDescription=API%20Keys%20needed%20for%20deployment&envLink=https%3A%2F%2Fcheershare.app%2Fdocs%2Fenv-vars&project-name=cheershare&repository-name=cheershare&redirect-url=https%3A%2F%2Fcheershare.app%2Fdocs%2Fvercel-deployed)
+<p>
   <a href="https://circleci.com/gh/FaridSafi/react-native-gifted-chat"><img src="https://circleci.com/gh/FaridSafi/react-native-gifted-chat.svg?style=shield" alt="build"></a>
   <a title='License' href="https://github.com/cheershareapp/cheershare/blob/master/LICENSE" height="18">
     <img src='https://img.shields.io/badge/license-MIT-blue.svg' />
@@ -33,13 +27,13 @@
 
 ## Sponsor
 
-<p align="center">
+<p>
   <p align="center">
     <a href="https://www.buymeacoffee.com/cheershare" target="_blank">
     Buy me a coffee
     </a>
   </p>
-  <p align="center">
+  <p>
   As an open-source project, CheerShare is free to use and relies on the support and contributions of its community. Donations are welcomed to help sustain and improve the platform, ensuring it remains a vibrant and accessible tool for personal and professional expressions of kindness and celebration. Join us in spreading cheer and appreciation, one shared card at a time.
   </p>
 </p>
